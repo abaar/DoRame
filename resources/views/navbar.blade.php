@@ -1,31 +1,27 @@
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar" style="background-color: black;">
-        <a class="navbar-brand" href="#"><strong>Navbar</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
 
-        <!--Collapse Content-->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Get Started</a></li>
+        </ul>
+       <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search">
+            <button type="submit" class="btn btn-default">Cari</button>
+      </form>
 
-            <form class="form-inline">
-                <div class="md-form mt-0">
-                    <input class="form-control mr-sm-2" type="text" aria-label='Search' placeholder="Cari destinasi wisata..."
-                    name="search">
-                </div>
-                <div class="md-form mt-0">
-                    <input class="form-control mr-sm2" type="submit" name="submit" placeholder="cari">
-                </div>
-            </form>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link " href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">Get Started</a>
-                </li>
-            </ul>
-        </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
