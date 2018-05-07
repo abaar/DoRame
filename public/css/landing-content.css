@@ -1,0 +1,181 @@
+.body{
+	box-sizing: border-box;
+}
+
+.img-container{
+	background-image: url('/img/1.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+	margin:0;
+	padding: 0;
+	-webkit-transition: background-image 0.5s linear;
+}
+
+.container-div-black{
+	margin:0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.vcenter{
+	display: inline-block;
+    float: none;
+    text-align: center;
+}
+
+.row{
+	padding: 0;
+	margin:0;
+}
+
+
+.h1-primary{
+	font-size: 6em;
+	font-family: 'Raleway',sans-serif;
+	color:white;
+	margin: 0;
+}
+
+.p-primary{
+	font-family: 'Raleway',sans-serif;
+	font-size : 1.5em;
+	letter-spacing: 4px;
+	color:white;
+}
+
+.section-title{
+	margin: 50px 0;
+	text-align: center;
+}
+
+.container-div-guide{
+	/*width: 100%;
+	height: 50vh;
+	margin: 0;
+	padding: 0;
+	overflow: visible;*/
+}
+
+.container-guide{
+	height: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.guide{
+	margin: 0 1.65%;
+	background-image: url('/img/1.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 0;
+}
+
+.disabled{
+	display: none;
+	height: 25vh;
+	margin: 0;
+	padding: 0;
+}
+
+.guide-content{
+	height: 25vh;
+	padding: 5px;
+}
+
+.guide-content p{
+	float: right;
+	color:white;
+	position: absolute;
+	bottom: 0;
+	right: 5px;
+}
+
+.guide-content-hover{
+	top:50%;
+	transform : translateY(-50%);
+	position: relative;
+}
+
+.guide-content-hover p{
+ 	color: white;
+ 	text-align: center;
+}
+
+.red{
+/*background-color: red;*/
+}
+
+.use-content{
+}
+
+.use-header{
+	margin-bottom: 10px;
+	height: 12vh;
+}
+
+.use-image{
+	height: 30vh;
+}
+
+.use-description{
+	margin-top: 10px;
+	text-align: center;
+}
+
+.use-description p{
+	font-size: 1.25em;
+}
+
+.use-number{
+	width: 36px;
+	height: 36px;
+	border: 2px solid black;
+	border-radius: 50%;
+	text-align: center;
+	margin: auto;
+	line-height: 36px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.use-title{
+	text-align: center;
+	margin-top: 5%;
+	font-size: 2em;
+	font-weight: 300px;
+}
+
+.use-image{
+	background-image: url('/img/1.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: 2%;	
+}
+
+.no-padding{
+	padding: 0;
+}
+
+.btn-more-detail{
+	margin: 50px 0;
+	background-color: #2c3e50;
+	color: white;
+}
+
+.btn-more-detail:hover{
+	background-color: #34495e;
+	color: white;
+}
+
+.bordering-top{
+	height: 1px;
+	border-bottom: 1px solid #ecf0f1;
+}
