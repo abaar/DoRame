@@ -2,28 +2,27 @@
 <html>
 <head>
 	<title>@yield('title')</title>
-<!-- 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/popper.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.min.css">
-	<script type="text/javascript" src="bootstrap-material-design.js"></script> -->
+
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-
-          
-
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/daterange.css" />
 </head>
+
 <body>
  @yield('content')
 
- <!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/js/background-slide-show.js"></script>
+<script type="text/javascript" src="/js/momen.js"></script>
+<script type="text/javascript" src="/js/daterange.js"></script>
+
+@yield('script')
 </body>
 </html>
