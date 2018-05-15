@@ -22,3 +22,11 @@ Route::get('/index',function(){
 Route::get('/regist',function(){
 	return view('regist');
 });
+
+Route::get('/myprofile/edit',function(){
+    return view('profile.index');
+});
+
+Route::get('/myprofile/password',function(){
+    return view('profile.password');
+});
