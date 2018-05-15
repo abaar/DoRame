@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\KEGIATAN;
+use App\komentarDokumentasiKegiatan;
 use Illuminate\Http\Request;
 
-class KEGIATANController extends Controller
+class KomentarDokumentasiKegiatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class KEGIATANController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\KEGIATAN  $kEGIATAN
+     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(KEGIATAN $kEGIATAN)
+    public function show(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
     {
         //
     }
@@ -52,10 +52,10 @@ class KEGIATANController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\KEGIATAN  $kEGIATAN
+     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(KEGIATAN $kEGIATAN)
+    public function edit(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
     {
         //
     }
@@ -64,10 +64,10 @@ class KEGIATANController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\KEGIATAN  $kEGIATAN
+     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KEGIATAN $kEGIATAN)
+    public function update(Request $request, komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
     {
         //
     }
@@ -75,10 +75,10 @@ class KEGIATANController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\KEGIATAN  $kEGIATAN
+     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KEGIATAN $kEGIATAN)
+    public function destroy(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
     {
         //
     }

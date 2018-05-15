@@ -14,18 +14,16 @@ class CreateKomentarLokasisTable extends Migration
     public function up()
     {
         Schema::create('komentar_lokasis', function (Blueprint $table) {
-            $table->integer('lokasi_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->text('komentar');
+            $table->integer('idLokasi')->unsigned();
+            $table->integer('idUser')->unsigned();
+            $table->string('komentar');
             $table->timestamps();
         });
 
-
-         Schema::table('komentar_lokasis', function ($table){
-            $table->foreign('lokasi_id')->references('id')->on('lokasis') ->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade'); 
+        Schema::table('komentar_lokasis', function ($table){
+            $table->foreign('idUser')->references('id')->on('users') ->onDelete('cascade');
+            $table->foreign('idLokasi')->references('id')->on('lokasis') ->onDelete('cascade');
         });
-
     }
 
     /**
