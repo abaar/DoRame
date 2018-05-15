@@ -21,6 +21,7 @@ class CreateKegiatansTable extends Migration
             $table->integer('guide')->unsigned();
             $table->integer('lokasikegiatan')->unsigned();
             $table->integer('status');
+            $table->integer('budget');
             $table->datetime('mulai');
             $table->datetime('selesai');
             $table->timestamps();
