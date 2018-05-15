@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('namadepan');
             $table->string('namabelakang');
             $table->boolean('isadmin')->default(0);
-            $table->binary('foto');
+            $table->binary('foto')->nullable();
             $table->string('asalkota');
             $table->rememberToken();
             $table->timestamps();
