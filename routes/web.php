@@ -23,6 +23,10 @@ Route::get('/regist',function(){
 	return view('regist');
 });
 
+Route::get('/search',function(){
+	return view('searchpage');
+});
+
 Route::get('/myprofile/edit',function(){
     return view('profile.index');
 });
