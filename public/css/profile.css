@@ -1,0 +1,20 @@
+.input-group .form-control:last-child{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.input-group .form-control:first-child{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.form-control.textdiinput{
+    border: none;
+    box-shadow: none;
+}
+
+@media (max-width: 767px) {
+    .side-text{
+        display: none;
+    }
+}
