@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('namaBelakang');
             $table->integer('reputasiGuide')->default(0);
             $table->boolean('isAdmin')->default(0);
-            $table->binary('foto')->nullable();
+            $table->string('foto')->nullable();
             $table->string('asalkota');
             $table->rememberToken();
             $table->timestamps();

@@ -15,7 +15,7 @@ class CreateFotoDokumentasisTable extends Migration
     {
         Schema::create('foto_dokumentasis', function (Blueprint $table) {
             $table->integer('idDokumentasi')->unsigned();;
-            $table->binary('foto')->nullable();
+            $table->string('foto');
             $table->timestamps();
         });
 
