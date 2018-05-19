@@ -60,3 +60,7 @@ Route::get('/post/owner',function(){
 Route::get('/post/create',function(){
 	return view('post.postcreate');
 });
+
+Route::get('/post/edit',function(){
+	return view('post.postedit');
+});
