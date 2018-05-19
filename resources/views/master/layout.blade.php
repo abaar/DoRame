@@ -14,7 +14,7 @@
     @yield('style')
     <style>
         body{
-            padding-top: 70px;   /*fix navbar padding*/
+            padding-top: 50px;   /*fix navbar padding*/
         }
     </style>
 </head>

@@ -1,0 +1,160 @@
+.boody{
+	background-color: #ecf0f1;
+}
+
+.red{
+	background-color: red;
+}
+
+.yellow{
+	background-color: yellow;
+}
+
+.blue{
+	background-color: blue;
+}
+
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.left-img-container, .right-img-container {
+  position: absolute;
+  width: 50px;
+  top: 0;
+  bottom: 0;
+  background: white;
+  opacity: 0.5;
+}
+
+.right-img-container{
+  right: 0;
+}
+
+#img-container{
+	width: 100%; max-height: 400px; overflow: hidden;
+}
+
+.float-me-left{
+	float:left;
+}
+
+.float-me-right{
+	float:right;
+}
+
+.apply-btn{
+	margin: 0 1% 0 0;
+	font-size: 0.9em;
+}
+
+#main-info{
+	background-color: white;
+	box-shadow: 0px 0px 0.5px 0px #888888;
+	border-top : 3px solid #1b1b1b;
+	padding: 0;
+}
+
+#side-info{
+	margin-top: 5%;
+}
+
+#wisata{
+	margin-top: 7%;
+}
+
+#main-info-header{
+	padding: 2% 0 2% 1%;
+	border-bottom: 1px solid #ecf0f1;
+}
+
+#main-info-header p{
+	font-size: 1.5em;
+	font-weight: 600;
+	display: inline-block;
+}
+
+.main-info-cont{
+	margin-top: 5%;
+}
+
+.main-info-content{
+	margin: 4% 0;
+}
+
+.main-info-anchor{
+	font-size: 0.8em;
+}
+
+.what-info, .desc-info , .note-info{
+	background-color: white;
+	box-shadow: 0px 0px 0.5px 0px #888888;
+}
+
+.desc-info,.note-info{
+	margin-top: 3%;
+}
+
+.note-info{
+	background-color: #bdc3c7;
+	box-shadow: 0px 0px 0.5px 0px black;
+	margin-bottom: 3%;
+}
+
+.post-title{
+	font-weight: 600; font-size: 2.5em; color:#1b1b1b;
+	margin: 3% 0;
+}
+
+.text-center{
+	text-align: center;
+}
+
+#page-option{
+	padding: 0;
+}
+
+#page-option p{
+	padding:10px;margin: auto;
+}
+
+#anchor-container{
+	display: inline-block;
+}
+
+#page-option{
+	border-top : 2px solid #1b1b1b;
+}
+
+.choice-option{
+	background-color: white;
+	box-shadow: 0px 0px 0.5px 0px #888888;
+}
+
+.choice-option:hover{
+	cursor: pointer;
+	background-color: #ecf0f1;
+}
+
+#page-info{
+	background-color: #ecf0f1;
+}
+
+.what-info h4{
+	font-size: 1.4em;
+}
+
+.what-submain{
+	color:#7f8c8d;
+}
+
+.what-main{
+	margin-top:3%;
+	font-size: 1.2em;
+}
+
+#side-info{
+	margin-bottom: 5%;
+}
