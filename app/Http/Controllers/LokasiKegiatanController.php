@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\peserta_kegiatan_verified;
+use App\lokasiKegiatan;
 use Illuminate\Http\Request;
 
-class PesertaKegiatanVerifiedController extends Controller
+class LokasiKegiatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PesertaKegiatanVerifiedController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\peserta_kegiatan_verified  $peserta_kegiatan_verified
+     * @param  \App\lokasiKegiatan  $lokasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(peserta_kegiatan_verified $peserta_kegiatan_verified)
+    public function show(lokasiKegiatan $lokasiKegiatan)
     {
         //
     }
@@ -52,10 +52,10 @@ class PesertaKegiatanVerifiedController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\peserta_kegiatan_verified  $peserta_kegiatan_verified
+     * @param  \App\lokasiKegiatan  $lokasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(peserta_kegiatan_verified $peserta_kegiatan_verified)
+    public function edit(lokasiKegiatan $lokasiKegiatan)
     {
         //
     }
@@ -64,10 +64,10 @@ class PesertaKegiatanVerifiedController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\peserta_kegiatan_verified  $peserta_kegiatan_verified
+     * @param  \App\lokasiKegiatan  $lokasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, peserta_kegiatan_verified $peserta_kegiatan_verified)
+    public function update(Request $request, lokasiKegiatan $lokasiKegiatan)
     {
         //
     }
@@ -75,10 +75,10 @@ class PesertaKegiatanVerifiedController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\peserta_kegiatan_verified  $peserta_kegiatan_verified
+     * @param  \App\lokasiKegiatan  $lokasiKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(peserta_kegiatan_verified $peserta_kegiatan_verified)
+    public function destroy(lokasiKegiatan $lokasiKegiatan)
     {
         //
     }

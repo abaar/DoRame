@@ -18,10 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('namadepan');
-            $table->string('namabelakang');
-            $table->boolean('isadmin')->default(0);
-            $table->binary('foto')->nullable();
+            $table->string('namaDepan');
+            $table->string('namaBelakang');
+            $table->integer('reputasiGuide')->default(0);
+            $table->boolean('isAdmin')->default(0);
+            $table->string('foto')->nullable();
             $table->string('asalkota');
             $table->rememberToken();
             $table->timestamps();
