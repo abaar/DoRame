@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\pesertaKegiatan;
+use App\komentar_dokumentasi;
 use Illuminate\Http\Request;
 
-class PesertaKegiatanController extends Controller
+class KomentarDokumentasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PesertaKegiatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\pesertaKegiatan  $pesertaKegiatan
+     * @param  \App\komentar_dokumentasi  $komentar_dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function show(pesertaKegiatan $pesertaKegiatan)
+    public function show(komentar_dokumentasi $komentar_dokumentasi)
     {
         //
     }
@@ -52,10 +52,10 @@ class PesertaKegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\pesertaKegiatan  $pesertaKegiatan
+     * @param  \App\komentar_dokumentasi  $komentar_dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(pesertaKegiatan $pesertaKegiatan)
+    public function edit(komentar_dokumentasi $komentar_dokumentasi)
     {
         //
     }
@@ -64,10 +64,10 @@ class PesertaKegiatanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pesertaKegiatan  $pesertaKegiatan
+     * @param  \App\komentar_dokumentasi  $komentar_dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pesertaKegiatan $pesertaKegiatan)
+    public function update(Request $request, komentar_dokumentasi $komentar_dokumentasi)
     {
         //
     }
@@ -75,10 +75,10 @@ class PesertaKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\pesertaKegiatan  $pesertaKegiatan
+     * @param  \App\komentar_dokumentasi  $komentar_dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pesertaKegiatan $pesertaKegiatan)
+    public function destroy(komentar_dokumentasi $komentar_dokumentasi)
     {
         //
     }

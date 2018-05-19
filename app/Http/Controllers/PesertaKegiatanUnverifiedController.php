@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\fotoDokumentasi;
+use App\peserta_kegiatan_unverified;
 use Illuminate\Http\Request;
 
-class FotoDokumentasiController extends Controller
+class PesertaKegiatanUnverifiedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class FotoDokumentasiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\fotoDokumentasi  $fotoDokumentasi
+     * @param  \App\peserta_kegiatan_unverified  $peserta_kegiatan_unverified
      * @return \Illuminate\Http\Response
      */
-    public function show(fotoDokumentasi $fotoDokumentasi)
+    public function show(peserta_kegiatan_unverified $peserta_kegiatan_unverified)
     {
         //
     }
@@ -52,10 +52,10 @@ class FotoDokumentasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\fotoDokumentasi  $fotoDokumentasi
+     * @param  \App\peserta_kegiatan_unverified  $peserta_kegiatan_unverified
      * @return \Illuminate\Http\Response
      */
-    public function edit(fotoDokumentasi $fotoDokumentasi)
+    public function edit(peserta_kegiatan_unverified $peserta_kegiatan_unverified)
     {
         //
     }
@@ -64,10 +64,10 @@ class FotoDokumentasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\fotoDokumentasi  $fotoDokumentasi
+     * @param  \App\peserta_kegiatan_unverified  $peserta_kegiatan_unverified
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, fotoDokumentasi $fotoDokumentasi)
+    public function update(Request $request, peserta_kegiatan_unverified $peserta_kegiatan_unverified)
     {
         //
     }
@@ -75,10 +75,10 @@ class FotoDokumentasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\fotoDokumentasi  $fotoDokumentasi
+     * @param  \App\peserta_kegiatan_unverified  $peserta_kegiatan_unverified
      * @return \Illuminate\Http\Response
      */
-    public function destroy(fotoDokumentasi $fotoDokumentasi)
+    public function destroy(peserta_kegiatan_unverified $peserta_kegiatan_unverified)
     {
         //
     }
