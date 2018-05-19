@@ -64,3 +64,7 @@ Route::get('/post/create',function(){
 Route::get('/post/edit',function(){
 	return view('post.postedit');
 });
+
+Route::get('/location',function(){
+	return view('lokasi.location');
+});
