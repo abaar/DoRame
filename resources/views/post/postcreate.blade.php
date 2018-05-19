@@ -10,6 +10,7 @@
 
 
 @section('content')
+
 	<div class="container-fluid boody">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 form-container">
@@ -58,11 +59,11 @@
 					  		<div class="col-md-2 col-md-offset-1">
 					  			<label>Lokasi</label>
 					  		</div>
-					  		<div class="col-md-7 col-md-offset-1 input-container">
-					  			<input type="text" name="lokasi" class="form-control " id="lokasi1">
+					  		<div class="col-md-7 col-md-offset-1 input-container dynamicloc" id="lokasi1">
+					  			<input type="text" name="lokasi" class="form-control">
 					  		</div>
-					  		<div class="col-md-1">
-					  			<a href="#">X</a>
+					  		<div class="col-md-1 diactivate" id="divalokasi1">
+					  			<a id="alokasi1" onclick="removelokasi(this.id)">X</a>
 					  		</div>				  			
 				  		</div>
 				  		<div class="col-md-7 col-md-offset-4 input-container" style="text-align: center;">
@@ -97,11 +98,51 @@
 @endsection
 <script type="text/javascript">
 	var first=1;
+	var counter=1;
+	var last=1;
 	function addlokasi(){
+		++last;
+		++counter;
+		$("#lokasi-container").append("<div class='col-md-7 col-md-offset-4 input-container dynamicloc' id='lokasi"+last+"'><input type='text' name='lokasi' class='form-control'></div><div class='col-md-1' id='divalokasi"+last+"'><a id='alokasi"+last+"' onclick='removelokasi(this.id)'>X</a></div>");
 
-		$("#lokasi-container").append("<div class='col-md-7 col-md-offset-4 input-container'><input type='text' name='lokasi' class='form-control' id='lokasi2'></div><div class='col-md-1'><a href='#'>X</a></div>")
+		var myinput = document.getElementsByClassName("dynamicloc");
+		var myid='';
+
+		for (i= 6 ; i<myinput[0].id.length; ++i){
+			myid=myid+myinput[0].id[i];
+		}
+
+		$("#divalokasi"+myid).fadeIn();
 	}
 
+	function removelokasi(id){
+		var myinput = document.getElementsByClassName("dynamicloc");
+		var myid='';
+		for(i=7 ; i<id.length ; ++i){
+			myid+=id[i];
+		}
+		myid = 'lokasi'+ myid;
+
+		if(myinput[0].id==myid){
+			var make2as1 = myinput[1].id;
+			$("#"+make2as1).removeClass("col-md-offset-4");
+			$("#"+make2as1).addClass("col-md-offset-1");
+			$("#"+myid).remove();
+			$("#div"+id).remove();
+		}
+		else{
+			$("#"+myid).remove();
+			$("#div"+id).remove();
+		}
+		myinput = document.getElementsByClassName("dynamicloc");
+		if (myinput.length==1){
+			myid='';
+			for (i=6 ; i<myinput[0].id.length; ++i){
+				myid=myid+myinput[0].id[i];
+			}
+			$("#divalokasi"+myid).fadeOut();
+		}
+	}
 </script>
 
 @section('script')

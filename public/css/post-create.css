@@ -15,3 +15,7 @@
 #title-line{
 	border-bottom: 5px solid #1b1b1b;
 }
+
+.diactivate{
+	display: none;
+}
