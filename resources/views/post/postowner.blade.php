@@ -17,7 +17,13 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 
 @section('content-maincontent')
 				<div class="col-md-12 blue what-info">
-					<h4>Apa yang kamu dapatkan!</h4>
+					<h4>Apa yang kamu dapatkan!
+						<span class="float-me-right"> 
+							<a href="#">
+          					<span class="glyphicon glyphicon-cog"></span>
+        					</a>
+        				</span>
+        			</h4>
 					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
 					<p class="what-submain">Didampingi oleh Guide secara langsung</p>
 					<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
