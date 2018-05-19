@@ -24,7 +24,10 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 						</div>
 						<div class="col-md-2 choice-option choice-option-aplicant" id="guide-div-btn">
 							<p>Guide</p>
-						</div>										
+						</div>
+						<div class="col-md-2 choice-option choice-option-aplicant" id="request-div-btn">
+							<p>Pendaftar</p>
+						</div>											
 					</div>
 
 					<table class="table table-striped table-active" id="turis-user">
@@ -38,22 +41,19 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      <tr>
 					        <td>John</td>
 					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
 					        </td>
 					      </tr>
 					      <tr>
 					        <td>Mary</td>
 					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
 					        </td>
 					      </tr>
 					      <tr>
 					        <td>July</td>
 					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
 					        </td>
 					      </tr>
 					    </tbody>
@@ -70,12 +70,45 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      <tr>
 					        <td>Johnoooo</td>
 					        <td>
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>Marry me</td>
+					        <td>
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+					        </td>
+					      </tr>
+					      <tr>
+					        <td>July januari</td>
+					        <td>
+					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+					        </td>
+					      </tr>
+					    </tbody>
+					  </table>
+
+
+					<table class="table table-striped table-nonactive" id="request-user">
+					    <thead>
+					      <tr>
+					        <th class="col-md-6">Nama</th>
+					        <th class="col-md-2">Sebagai</th>
+					        <th class="col-md-4">Aksi</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr>
+					        <td>Johnoooo</td>
+					        <td>Guide</td>
+					        <td>
 					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
 					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
 					        </td>
 					      </tr>
 					      <tr>
 					        <td>Marry me</td>
+					        <td>Wisatawan</td>
 					        <td>
 					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
 					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
@@ -83,13 +116,14 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      </tr>
 					      <tr>
 					        <td>July januari</td>
+					        <td>Guide</td>
 					        <td>
 					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
 					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
 					        </td>
 					      </tr>
 					    </tbody>
-					  </table>
+					  </table>					  
 				</div>
 @endsection
 
@@ -135,16 +169,29 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 <script type="text/javascript">
 	$("#turis-div-btn").click(function(){
 		$("#guide-user").css("display","none");
+		$("#request-user").css("display","none");
 		$("#turis-user").fadeIn();
 		$(this).addClass("active");
 		$("#guide-div-btn").removeClass("active");
+		$("#request-div-btn").removeClass("active")
 	});
 
 	$("#guide-div-btn").click(function(){
 		$("#turis-user").css("display","none");
+		$("#request-user").css("display","none");
 		$("#guide-user").fadeIn();
 		$(this).addClass("active");
 		$("#turis-div-btn").removeClass("active");
+		$("#request-div-btn").removeClass("active");
 	});
+
+	$("#request-div-btn").click(function(){
+		$("#turis-user").css("display","none");
+		$("#guide-user").css("display","none");
+		$("#request-user").fadeIn();
+		$(this).addClass("active");
+		$("#turis-div-btn").removeClass("active");
+		$("#guide-div-btn").removeClass("active");
+	});	
 </script>
 @endsection
