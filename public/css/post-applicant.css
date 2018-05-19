@@ -1,0 +1,63 @@
+.applicant-section{
+	background-color:white;
+	padding: 20px;
+	padding-top: 0;
+}
+
+.choice-option{
+	margin-top: 0;
+}
+
+.choice-option-aplicant{
+	box-shadow: unset;
+	margin-top: 0;
+}
+
+#turis-div-btn p,#guide-div-btn p{
+	padding:10px;margin: auto;
+	text-align: center;
+}
+
+#turis-div-btn, #guide-div-btn{
+	padding: 0;
+	margin-bottom: 2%;
+}
+
+.active{
+	background-color:#ecf0f1;
+}
+
+.nonactive{
+	background-color: white;
+}
+
+.table-nonactive{
+	display: none;
+}
+
+.table-active{
+	display:relative;
+}
+
+#turis-div-btn:hover{
+	background-color: #ecf0f1;
+}
+
+.choie-option{
+	background-color: white;
+}
+
+#page-info{
+	background-color: white;
+}
+
+#page-info:hover{
+	background-color: #ecf0f1;
+}
+
+#regist-info{
+	background-color: #ecf0f1;
+}
+.applicant-section{
+	margin-bottom: 5%;
+}
