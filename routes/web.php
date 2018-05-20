@@ -27,6 +27,10 @@ Route::get('/myprofile/edit',function(){
     return view('profile.index');
 });
 
-Route::get('/myprofile/password',function(){
-    return view('profile.password');
+//Route::get('/myprofile/password',function(){
+//    return view('profile.password');
+//});
+
+Route::get('/myprofile/history', function (){
+   return view('profile.history');
 });

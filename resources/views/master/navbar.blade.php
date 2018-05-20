@@ -23,7 +23,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, {{--Auth::user()->namadepan--}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{url('/myprofile/edit')}}">Edit Profile</a></li>
-                        <li><a href="{{url('/myprofile/password')}}">Change Password</a></li>
+                        {{--<li><a href="{{url('/myprofile/password')}}">Change Password</a></li>--}}
                         <li><a href="{{url('/myprofile/history')}}">Trip History</a></li>
                         <li><a href="{{url('/myprofile/mytrip')}}">Active Trip</a></li>
                         <li role="separator" class="divider"></li>
