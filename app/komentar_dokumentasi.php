@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class kegiatan extends Model
+class komentar_dokumentasi extends Model
 {
     //
 }
