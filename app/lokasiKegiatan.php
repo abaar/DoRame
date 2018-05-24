@@ -14,4 +14,6 @@ class lokasiKegiatan extends Model
 	public function kegiatan(){
 		return $this->belongsTo('app\kegiatan', 'idKegiatan');
 	}
+
+	public $timestamps = false;
 }
