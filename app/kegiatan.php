@@ -12,11 +12,6 @@ class kegiatan extends Model
 		return $this->belongsTo('app\User', 'leader');
 	}
 
-	public function guide(){
-		return $this->belongsTo('app\User', 'guide');
-	}
-
-
 	public function kometarKegiatan(){
 		return $this->hasMany('App\komentarKegiatan', 'idKegiatan');
 	}
