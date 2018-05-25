@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\komentar_lokasi;
+use App\komentarlokasi;
 use Illuminate\Http\Request;
 
 class KomentarLokasiController extends Controller

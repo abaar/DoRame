@@ -15,14 +15,17 @@ class CreateDokumentasiKegiatansTable extends Migration
     {
         Schema::create('dokumentasi_kegiatans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('kegiatan_id')->unsigned();
+            $table->integer('idKegiatan')->unsigned();
+            $table->integer('idUser')->unsigned();
+            $table->string('judul');
             $table->text('deskripsi');
-            $table->binary('foto');
-            $table->integer('like');
+            $table->integer('like')->default(0);
+            $table->timestamps();
         });
 
         Schema::table('dokumentasi_kegiatans', function ($table){
-            $table->foreign('kegiatan_id')->references('id')->on('kegiatans') ->onDelete('cascade');
+            $table->foreign('idKegiatan')->references('id')->on('kegiatans') ->onDelete('cascade');
+            $table->foreign('idUser')->references('id')->on('users') ->onDelete('cascade');
         });
     }
 

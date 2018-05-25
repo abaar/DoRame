@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\dokumentasi_kegiatan;
+use App\dokumentasiKegiatan;
 use Illuminate\Http\Request;
 
 class DokumentasiKegiatanController extends Controller

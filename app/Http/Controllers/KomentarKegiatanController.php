@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\komentar_kegiatan;
+use App\komentarKegiatan;
 use Illuminate\Http\Request;
 
 class KomentarKegiatanController extends Controller
