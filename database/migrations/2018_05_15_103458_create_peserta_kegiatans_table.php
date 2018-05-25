@@ -17,6 +17,7 @@ class CreatePesertaKegiatansTable extends Migration
             $table->integer('idUser')->unsigned();
             $table->integer('idKegiatan')->unsigned();
             $table->boolean('isVerified')->default(0);
+            $table->boolean('guideApply')->default(0);
             $table->timestamps();
         });
         Schema::table('peserta_kegiatans', function ($table){
