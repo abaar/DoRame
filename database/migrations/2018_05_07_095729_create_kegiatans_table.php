@@ -21,7 +21,6 @@ class CreateKegiatansTable extends Migration
             $table->integer('guide')->unsigned();
             $table->integer('lokasikegiatan')->unsigned()->default(0);
             $table->integer('status');
-            $table->integer('budget');
             $table->datetime('mulai');
             $table->datetime('selesai');
             $table->timestamps();
@@ -30,6 +29,7 @@ class CreateKegiatansTable extends Migration
         Schema::table('kegiatans', function ($table){
             $table->foreign('leader')->references('id')->on('users') ->onDelete('cascade');
             $table->foreign('guide')->references('id')->on('users') ->onDelete('cascade');
+            $table->foreign('lokasikegiatan')->references('id')->on('lokasis');
         });
     }
 

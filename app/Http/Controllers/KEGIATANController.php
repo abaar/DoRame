@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\komentarDokumentasiKegiatan;
+use App\KEGIATAN;
 use Illuminate\Http\Request;
 
-class KomentarDokumentasiKegiatanController extends Controller
+class KEGIATANController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class KomentarDokumentasiKegiatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
+     * @param  \App\KEGIATAN  $kEGIATAN
      * @return \Illuminate\Http\Response
      */
-    public function show(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
+    public function show(KEGIATAN $kEGIATAN)
     {
         //
     }
@@ -52,10 +52,10 @@ class KomentarDokumentasiKegiatanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
+     * @param  \App\KEGIATAN  $kEGIATAN
      * @return \Illuminate\Http\Response
      */
-    public function edit(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
+    public function edit(KEGIATAN $kEGIATAN)
     {
         //
     }
@@ -64,10 +64,10 @@ class KomentarDokumentasiKegiatanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
+     * @param  \App\KEGIATAN  $kEGIATAN
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
+    public function update(Request $request, KEGIATAN $kEGIATAN)
     {
         //
     }
@@ -75,10 +75,10 @@ class KomentarDokumentasiKegiatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\komentarDokumentasiKegiatan  $komentarDokumentasiKegiatan
+     * @param  \App\KEGIATAN  $kEGIATAN
      * @return \Illuminate\Http\Response
      */
-    public function destroy(komentarDokumentasiKegiatan $komentarDokumentasiKegiatan)
+    public function destroy(KEGIATAN $kEGIATAN)
     {
         //
     }

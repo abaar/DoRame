@@ -14,15 +14,15 @@ class CreateKomentarKegiatansTable extends Migration
     public function up()
     {
         Schema::create('komentar_kegiatans', function (Blueprint $table) {
-            $table->integer('idUser')->unsigned();
-            $table->integer('idKegiatan')->unsigned();
+            $table->integer('userid')->unsigned();
+            $table->integer('kgtid')->unsigned();
             $table->text('komentar');
             $table->timestamps();
         });
-        
+
         Schema::table('komentar_kegiatans', function ($table){
-            $table->foreign('idUser')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('idKegiatan')->references('id')->on('kegiatans') ->onDelete('cascade');
+            $table->foreign('userid')->references('id')->on('users') ->onDelete('cascade');
+            $table->foreign('kgtid')->references('id')->on('kegiatans') ->onDelete('cascade');
         });
     }
 
