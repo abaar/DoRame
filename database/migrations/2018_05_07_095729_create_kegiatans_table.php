@@ -19,7 +19,7 @@ class CreateKegiatansTable extends Migration
             $table->text('deskripsi');
             $table->integer('leader')->unsigned();
             $table->integer('guide')->unsigned();
-            $table->integer('lokasi')->unsigned();
+            $table->integer('lokasikegiatan')->unsigned()->default(0);
             $table->integer('status');
             $table->datetime('mulai');
             $table->datetime('selesai');
