@@ -23,9 +23,14 @@ Route::get('/regist',function(){
 	return view('regist');
 });
 
+Route::get('/search',function(){
+	return view('searchpage');
+});
+
 Route::get('/myprofile/edit',function(){
     return view('profile.index');
 });
+
 
 //Route::get('/myprofile/password',function(){
 //    return view('profile.password');
@@ -33,4 +38,37 @@ Route::get('/myprofile/edit',function(){
 
 Route::get('/myprofile/history', function (){
    return view('profile.history');
+
+Route::get('/post/public',function(){
+	return view('post.postpublic');
+});
+
+// Route::get('/post/user',function(){
+// 	return view('post.postuser');
+// });
+//
+//THIS ONE DELETED, but u shld see postaplicant-user.blade.php
+
+Route::get('/post/discuss',function(){
+	return view('post.postdiscuss');
+});
+
+Route::get('/post/applicant',function(){
+	return view('post.postapplicant');
+});
+
+Route::get('/post/owner',function(){
+	return view('post.postowner');
+});
+
+Route::get('/post/create',function(){
+	return view('post.postcreate');
+});
+
+Route::get('/post/edit',function(){
+	return view('post.postedit');
+});
+
+Route::get('/location',function(){
+	return view('lokasi.location');
 });

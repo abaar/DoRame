@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<div class="input-group input-daterange">
-						    <input type="text" class="form-control input-lg" value="" id="startdate">
+						    <input type="textarea" class="form-control input-lg" value="" id="startdate">
 						    <div class="input-group-addon">to</div>
 						    <input type="text" class="form-control input-lg" value="" id="enddate">
 						</div>
