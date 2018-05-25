@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\kegiatan;
-use Illuminate\Http\Request;
+use App\lokasi;
+use App\lokasiKegiatan;
+use DB;
 
-class LokasiController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\View;
+class KegiatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -81,5 +86,24 @@ class LokasiController extends Controller
     public function destroy(kegiatan $kegiatan)
     {
         //
+    }
+
+    public function search(request $request){
+        $realdest=$request['destinasi'];
+        $dest="%". (string)$request['destinasi'] ."%";
+        $budget=(int)$request['budget'];
+        $startdate=$request['startdate'];
+        $enddate=$request['enddate'];
+
+        $getKegiatans = DB::table('kegiatans')
+            ->join('lokasi_kegiatans','kegiatans.id','=','lokasi_kegiatans.idKegiatan')
+            ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
+            ->select('kegiatans.*' , 'lokasis.id','lokasis.nama as namalokasi')
+            ->where('kegiatans.budget','<',$budget)
+            ->where('lokasis.nama','LIKE',$dest)
+            ->get();
+
+        return view('searchpage',compact('getKegiatans','realdest'));
+        
     }
 }

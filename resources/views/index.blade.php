@@ -15,27 +15,27 @@
 	<div class="container-fluid img-container" style="padding: 0">
 
 		<div class="container-div-black">
-			<div class="col-md-8 col-xs-12  col-md-offset-2 vcenter">
+			<div class="col-md-10 col-xs-12  col-md-offset-1 vcenter">
 				<h1 class="h1-primary white-font">Do-Rame</h1>
 				<p class="p-primary white-font">Mulai petualanganmu bersama tour guide dan teman baru!</p>
 				<br>
 				<br>
-				<form>
+				<form action="/search">
 					<div class="form-group col-md-4">
 						<label class="sr-only" for="destinasi">Destinasi</label>
 						<input type="text" class="form-control input-lg" id="destinasi" name="destinasi" placeholder="Destinasi">
 					</div>
 					<div class="form-group col-md-2 col-xs-12">
 						<label class="sr-only" for="budget">
-							Jumlah orang
+							budget?
 						</label>
 						<input type="text" class="form-control input-lg" id="budget" name="budget" placeholder="Budget?">
 					</div>
 					<div class="form-group col-md-4">
 						<div class="input-group input-daterange">
-						    <input type="textarea" class="form-control input-lg" value="" id="startdate">
+						    <input type="textarea" class="form-control input-lg" value="" id="startdate" name=startdate>
 						    <div class="input-group-addon">to</div>
-						    <input type="text" class="form-control input-lg" value="" id="enddate">
+						    <input type="text" class="form-control input-lg" value="" id="enddate" name=enddate>
 						</div>
 					</div>
 					<div class="form-group col-md-2 col-xs-12">

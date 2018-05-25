@@ -70,6 +70,7 @@
 
 .post-ptcp{
 	margin-bottom: 0;
+	font-size: 0.9em;
 }
 
 .post-date{
@@ -82,6 +83,7 @@
 
 .post-cost{
 	font-size: 1.5em;
+	margin-right: 1%;
 }
 
 .post-desc , .post-ptcp{
@@ -127,4 +129,21 @@
 
 #more-btn{
 	margin-left:50%;
+}
+
+#less-btn{
+	margin-left:50%;
+}
+.btn-content{
+	font-size: 0.9em;
+}
+
+.text-over p, .text-over h4, .text-over h1{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.unactive{
+	display: none;
 }
