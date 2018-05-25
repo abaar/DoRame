@@ -36,9 +36,12 @@ Route::get('/myprofile/edit',function(){
 //    return view('profile.password');
 //});
 
-Route::get('/myprofile/history', function () {
-    return view('profile.history');
-});
+//Route::get('/myprofile/history', function () {
+//    return view('profile.history');
+//});
+
+Route::get('/myprofile/history', 'PesertaKegiatanController@show');
+
 Route::get('/post/public',function(){
 	return view('post.postpublic');
 });

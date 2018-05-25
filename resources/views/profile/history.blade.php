@@ -1,6 +1,7 @@
 @extends('profile.masterprofile')
 
 @section('content')
+<?php var_dump($trips); ?>
 <div class="container">
     <h2 style="text-align: center;">Trip History</h2>
     <hr>
@@ -17,17 +18,17 @@
                 </tr>
             </thead>
             <tbody>
-            {{--UNCOMMENT KALAU SUDAH KONEK DB DAN CONTROLLER--}}
-            {{--@foreach($trips as $trip)--}}
-                {{--<tr>--}}
-                    {{--<td>{{$trip->mulai}}</td>--}}
-                    {{--<td>{{$trip->selesai}}</td>--}}
-                    {{--<td>{{$trip->nama}}</td>--}}
-                    {{--<td>{{$trip->lokasi}}</td>--}}
-                    {{--<td>{{$trip->leader}}</td>--}}
-                    {{--<td>{{$trip->guide}}</td>--}}
-                {{--</tr>--}}
-            {{--@endforeach--}}
+            UNCOMMENT KALAU SUDAH KONEK DB DAN CONTROLLER
+            @foreach($trips as $trip)
+                <tr>
+                    <td>{{$trip->mulai}}</td>
+                    <td>{{$trip->selesai}}</td>
+                    <td>{{$trip->nama}}</td>
+                    <td>{{$trip->lokasikegiatan}}</td>
+                    <td>{{$trip->leader}}</td>
+                    <td>{{$trip->guide}}</td>
+                </tr>
+            @endforeach
             </tbody>
 
         </table>

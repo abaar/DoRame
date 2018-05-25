@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\User;
 use App\pesertaKegiatan;
+use App\kegiatan;
+use App\lokasi;
 use Illuminate\Http\Request;
 
 class PesertaKegiatanController extends Controller
@@ -44,9 +49,18 @@ class PesertaKegiatanController extends Controller
      * @param  \App\pesertaKegiatan  $pesertaKegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(pesertaKegiatan $pesertaKegiatan)
+    public function show(/*pesertaKegiatan $pesertaKegiatan*/)
     {
-        //
+        $trips = DB::table('peserta_kegiatans')
+            ->select('peserta_kegiatans.*')->where('peserta_kegiatans.idUser', '=', 13)
+            ->join('kegiatans', 'kegiatans.id', '=', 'peserta_kegiatans.idKegiatan')
+            ->join('users as lead', 'lead.id', '=', 'kegiatans.leader')
+            ->join('users as guid', 'guid.id', '=', 'kegiatans.guide')
+            ->join('lokasis', 'lokasis.id', '=', 'kegiatans.id')
+            ->select('kegiatans.mulai', 'kegiatans.selesai', 'kegiatans.nama', 'lokasis.nama as lokasikegiatan', 'lead.namaDepan as leader', 'guid.namaDepan as guide')
+            ->get();
+//        $hehe = DB::table('peserta_kegiatans')->where('peserta_kegiatans.idUser', '=', 13);
+        return view('profile.history', compact('trips'));
     }
 
     /**
@@ -57,7 +71,7 @@ class PesertaKegiatanController extends Controller
      */
     public function edit(pesertaKegiatan $pesertaKegiatan)
     {
-        //
+
     }
 
     /**
