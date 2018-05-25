@@ -144,6 +144,7 @@
 	var js_selesai=[];
 	var js_id=[];
 	var js_peserta=[];
+	var js_daterange=[];
 
 	$(document).ready(function(){
 		var post= document.getElementsByClassName('outerpost-container');
@@ -191,6 +192,19 @@
 			var hold=post_ptcp[i].innerHTML;
 			js_peserta.push(hold.slice(27,hold.length));
 		}
+
+		var date1= new Date();
+		for (var i=0; i<post_len; ++i){
+			var day=js_mulai[i].slice(0,2);
+			var month=js_mulai[i].slice(3,5);
+			var year=js_mulai[i].slice(6,js_mulai[i].length);
+
+			var date2 = new Date((parseInt(month)+"/"+parseInt(day)+"/"+parseInt(year)).toString());
+			var timeDiff = (date2.getTime() - date1.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+			js_daterange.push(diffDays);
+			alert(js_daterange[i]);
+		}
 	});
 
 	$("#more-btn").click(function(){
@@ -228,7 +242,7 @@
 
 	$("#sel1").change(function(){
 		var option=$(this).val();
-
+		var today= new Date();
 		console.log(js_budget);
 		if (option=="Budget Tertinggi"){
 			for (var i=0; i<len; ++i){
@@ -238,6 +252,10 @@
 						idx=j;
 					}
 				}
+				var holder = js_daterange[idx];
+				js_daterange[idx]=js_daterange[i];
+				js_daterange[i]=holder;
+
 				var holder = js_budget[idx];
 				js_budget[idx]=js_budget[i];
 				js_budget[i]=holder;
@@ -268,10 +286,86 @@
 			}
 		}
 		else if (option=="Jadwal Terdekat"){
+			for (var i=0; i<len; ++i){
+				var idx=i;
+				for (var j=i+1; j<len;++j){
+					if (js_daterange[idx]>js_daterange[j]){
+						idx=j;
+					}
+				}
+				var holder = js_daterange[idx];
+				js_daterange[idx]=js_daterange[i];
+				js_daterange[i]=holder;
 
+				var holder = js_budget[idx];
+				js_budget[idx]=js_budget[i];
+				js_budget[i]=holder;
+
+				var holder = js_peserta[idx];
+				js_peserta[idx]=js_peserta[i];
+				js_peserta[i]=holder;
+
+				var holder = js_selesai[idx];
+				js_selesai[idx]=js_selesai[i];
+				js_selesai[i]=holder;
+
+				var holder =js_mulai[idx];
+				js_mulai[idx]=js_mulai[i];
+				js_mulai[i]=holder;
+
+				var holder =js_desc[idx];
+				js_desc[idx]=js_desc[i];
+				js_desc[i]=holder;
+
+				var holder= js_nama[idx];
+				js_nama[idx]=js_nama[i];
+				js_nama[i]=holder;
+
+				var holder =js_id[idx];
+				js_id[idx]=js_id[i];
+				js_id[i]=holder;
+			}
 		}
 		else if (option=="Jadwal Terjauh"){
+			for (var i=0; i<len; ++i){
+				var idx=i;
+				for (var j=i+1; j<len;++j){
+					if (js_daterange[idx]<js_daterange[j]){
+						idx=j;
+					}
+				}
+				var holder = js_daterange[idx];
+				js_daterange[idx]=js_daterange[i];
+				js_daterange[i]=holder;
 
+				var holder = js_budget[idx];
+				js_budget[idx]=js_budget[i];
+				js_budget[i]=holder;
+
+				var holder = js_peserta[idx];
+				js_peserta[idx]=js_peserta[i];
+				js_peserta[i]=holder;
+
+				var holder = js_selesai[idx];
+				js_selesai[idx]=js_selesai[i];
+				js_selesai[i]=holder;
+
+				var holder =js_mulai[idx];
+				js_mulai[idx]=js_mulai[i];
+				js_mulai[i]=holder;
+
+				var holder =js_desc[idx];
+				js_desc[idx]=js_desc[i];
+				js_desc[i]=holder;
+
+				var holder= js_nama[idx];
+				js_nama[idx]=js_nama[i];
+				js_nama[i]=holder;
+
+				var holder =js_id[idx];
+				js_id[idx]=js_id[i];
+				js_id[i]=holder;
+			}
 		}
 		else if (option=="Budget Terendah"){
 			for (var i=0; i<len; ++i){
@@ -281,6 +375,10 @@
 						idx=j;
 					}
 				}
+				var holder = js_daterange[idx];
+				js_daterange[idx]=js_daterange[i];
+				js_daterange[i]=holder;
+
 				var holder = js_budget[idx];
 				js_budget[idx]=js_budget[i];
 				js_budget[i]=holder;
