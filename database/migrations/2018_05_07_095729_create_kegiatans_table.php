@@ -29,7 +29,7 @@ class CreateKegiatansTable extends Migration
         Schema::table('kegiatans', function ($table){
             $table->foreign('leader')->references('id')->on('users') ->onDelete('cascade');
             $table->foreign('guide')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('lokasi')->references('id')->on('lokasis');
+            $table->foreign('lokasikegiatan')->references('id')->on('lokasis');
         });
     }
 
