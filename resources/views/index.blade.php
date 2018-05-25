@@ -15,27 +15,27 @@
 	<div class="container-fluid img-container" style="padding: 0">
 
 		<div class="container-div-black">
-			<div class="col-md-8 col-xs-12  col-md-offset-2 vcenter">
+			<div class="col-md-10 col-xs-12  col-md-offset-1 vcenter">
 				<h1 class="h1-primary white-font">Do-Rame</h1>
 				<p class="p-primary white-font">Mulai petualanganmu bersama tour guide dan teman baru!</p>
 				<br>
 				<br>
-				<form>
+				<form action="/search">
 					<div class="form-group col-md-4">
 						<label class="sr-only" for="destinasi">Destinasi</label>
 						<input type="text" class="form-control input-lg" id="destinasi" name="destinasi" placeholder="Destinasi">
 					</div>
 					<div class="form-group col-md-2 col-xs-12">
 						<label class="sr-only" for="budget">
-							Jumlah orang
+							budget?
 						</label>
 						<input type="text" class="form-control input-lg" id="budget" name="budget" placeholder="Budget?">
 					</div>
 					<div class="form-group col-md-4">
 						<div class="input-group input-daterange">
-						    <input type="textarea" class="form-control input-lg" value="" id="startdate">
+						    <input type="textarea" class="form-control input-lg" value="" id="startdate" name=startdate>
 						    <div class="input-group-addon">to</div>
-						    <input type="text" class="form-control input-lg" value="" id="enddate">
+						    <input type="text" class="form-control input-lg" value="" id="enddate" name=enddate>
 						</div>
 					</div>
 					<div class="form-group col-md-2 col-xs-12">
@@ -191,54 +191,61 @@
 
 @section('script')
 <script>
+	$("#startdate").datepicker();
+	$("#enddate").datepicker();
+	$("#startdate").disableAutoFill();
+	$("#enddate").disableAutoFill();
 //kalau end dipiih duluan dan ternyata > start pas dipilih belum
-var start_date=$("stardate").val();
-var flag_date=0;
-$('.input-daterange input').each(function() {
-	var id=$(this).attr("id");
-    $(this).daterangepicker({
-    	singleDatePicker:true,
-    	isInvalidDate:function(date){
-		var d;
-		if (id=='enddate' &&flag_date==1) {
-			d = start_date;
-			var month = parseInt(d[0]+d[1]);
-			var day = parseInt(d[3]+d[4]);
-			var year = parseInt(d[6]+d[7]+d[8]+d[9]);
-			if(date.format('DD')<day && date.format('MM')==month && date.format('YYYY')==year){
-				return true;
-			}
-			else if(date.format('MM')<month){
-				return true;
-			}
-			else if (date.format('YYYY')<year){
-				return true;
-			}
-		}
-		else{
-			d = new Date();
-			var year = d.getFullYear();
-			var month = d.getMonth()+1;
-			var day = d.getDate();
-			if(date.format('DD')<day && date.format('MM')==month && date.format('YYYY')==year){
-				return true;
-			}
-			else if(date.format('MM')<month){
-				return true;
-			}
-			else if (date.format('YYYY')<year){
-				return true;
-			}
-		}
-	}
-    },function(start,end,label){
-	  	console.log('New date range selected: ' + start.format('YYYY-MM-DD') +" "+ id);
-	  	if(id=='startdate'){
-	  		start_date=start.format('MM')+'/'+start.format('DD')+'/'+start.format('YYYY');
-	  		flag_date=1;
-	  	}
-   	});
-});
+// var start_date=$("stardate").val();
+// var flag_date=0;
+// $('.input-daterange input').each(function() {
+// 	var id=$(this).attr("id");
+//     $(this).daterangepicker({
+//     	singleDatePicker:true,
+//     	isInvalidDate:function(date){
+// 		var d;
+// 		if (id=='enddate' &&flag_date==1) {
+// 			d = start_date;
+// 			var month = parseInt(d[0]+d[1]);
+// 			var day = parseInt(d[3]+d[4]);
+// 			var year = parseInt(d[6]+d[7]+d[8]+d[9]);
+// 			if(date.format('DD')<day && date.format('MM')==month && date.format('YYYY')==year){
+// 				return true;
+// 			}
+// 			else if(date.format('MM')<month){
+// 				return true;
+// 			}
+// 			else if (date.format('YYYY')<year){
+// 				return true;
+// 			}
+// 		}
+// 		else{
+// 			d = new Date();
+// 			var year = d.getFullYear();
+// 			var month = d.getMonth()+1;
+// 			var day = d.getDate();
+// 			if(date.format('DD')<day && date.format('MM')==month && date.format('YYYY')==year){
+// 				return true;
+// 			}
+// 			else if(date.format('MM')<month){
+// 				return true;
+// 			}
+// 			else if (date.format('YYYY')<year){
+// 				return true;
+// 			}
+// 		}
+// 	}
+//     },function(start,end,label){
+// 	  	console.log('New date range selected: ' + start.format('YYYY-MM-DD') +" "+ id);
+// 	  	if(id=='startdate'){
+// 	  		start_date=start.format('MM')+'/'+start.format('DD')+'/'+start.format('YYYY');
+// 	  		flag_date=1;
+// 	  	}
+//    	});
+// });
+
+
+
 
 
 function replaceme(){
