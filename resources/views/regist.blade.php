@@ -28,6 +28,10 @@
 							<label class="sr-only">Nope</label>
 							<input type="text" class="form-control input-lg" name="nope" placeholder="+628888888888">
 						</div>
+						<div class="form-group">
+							<label class="sr-only">Kota</label>
+							<input type="text" class="form-control input-lg" name="Asal" placeholder="Asal kota...">
+						</div>
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
