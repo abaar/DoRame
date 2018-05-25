@@ -98,12 +98,24 @@ class KegiatanController extends Controller
         $getKegiatans = DB::table('kegiatans')
             ->join('lokasi_kegiatans','kegiatans.id','=','lokasi_kegiatans.idKegiatan')
             ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
-            ->select('kegiatans.*' , 'lokasis.id','lokasis.nama as namalokasi')
+            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','lokasis.nama as namalokasi')
             ->where('kegiatans.budget','<',$budget)
             ->where('lokasis.nama','LIKE',$dest)
             ->get();
 
-        return view('searchpage',compact('getKegiatans','realdest'));
+        $pesertas = DB::table('kegiatans')
+            ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')
+            ->join('lokasi_kegiatans','kegiatans.id','=','lokasi_kegiatans.idKegiatan')
+            ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
+            ->where('kegiatans.budget','<',$budget)
+            ->where('lokasis.nama','LIKE',$dest)
+            ->groupBy('kegiatans.id')
+            ->get();
+    
+  
+        return view('searchpage',compact('getKegiatans','realdest','pesertas'));
         
     }
 }

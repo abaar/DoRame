@@ -22,11 +22,17 @@
 						<p class="p-primary white-font"><?php echo count($getKegiatans)?> Hasil</p>	
 					</div>
 					<div class="form-container">
-						<form class="">
+						<form action="/search">
 							<div class="search-more" >
 								<div class="form-group col-md-12">
 									<label class="sr-only" for="destinasi">Destinasi</label>
 									<input type="text" class="form-control input-lg" id="destinasi" name="destinasi" placeholder="Destinasi">
+								</div>
+								<div class="form-group col-md-12">
+									<label class="sr-only" for="budget">
+										budget?
+									</label>
+									<input type="text" class="form-control input-lg" id="budget" name="budget" placeholder="Budget?">
 								</div>
 								<div class="form-group col-md-12">
 									<label class="sr-only">From</label>
@@ -60,15 +66,15 @@
 						</form>
 					</div>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-9" id="postingan-container">
 					<div class="col-md-12 sort-container">
 						<div class="col-md-3 form-group float-right ">
 							<label class="sr-only" for="sel1">Select list:</label>
 							<select class="form-control input-sm" id="sel1">
-								<option>Budget Tertinggi</option>
 								<option>Budget Terendah</option>
-								<option>Durasi Terlama</option>
-								<option>Durasi Terpendek</option>
+								<option>Budget Tertinggi </option>
+								<option>Jadwal Terdekat</option>
+								<option>Jadwal Terjaauh</option>
 							</select>
 						</div>
 						<p class="float-right sortme-title">Urutkan : </p>
@@ -91,8 +97,14 @@
 									<p class="post-desc">{{($kegiatan->deskripsi)}}</p>
 								</div>
 								<div class="col-md-6 col-xs-12 ">
-									<p class="post-ptcp">Tourist / Guide Aplicants: 20 / 5</p>
-									<p class="post-date">09 April 2018 - 08 April 2018</p>
+									<p class="post-ptcp">Tourist / Guide Aplicants: 2
+<!-- 										@foreach($pesertas as $peserta)
+											@if($peserta->id == $kegiatan->id)
+												{{$peserta->jumlah}}
+											@endif
+										@endforeach -->
+									</p>
+									<p class="post-date">{{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}} </p>
 								</div>
 								<div class="col-md-6 col-xs-12 no-padding">
 									<button class="btn btn-content float-right">Daftar Turis</button>
@@ -119,16 +131,65 @@
 
 @section('script')
 <script type="text/javascript">
+	$("#startdate").datepicker();
+	$("#enddate").datepicker();
+	$("#startdate").disableAutoFill();
+	$("#enddate").disableAutoFill();	
 	var last=0;
+	var len=0;
+	var js_budget=[];
+	var js_desc=[];
+	var js_nama=[];
+	var js_mulai=[];
+	var js_selesai=[];
+	var js_id=[];
+	var js_peserta=[];
+
 	$(document).ready(function(){
 		var post= document.getElementsByClassName('outerpost-container');
 		var post_len = post.length;
+		len=post_len;
 		if (post_len>5){
 			$("#more-btn").removeClass("unactive");
 			for (var i=5 ; i<post_len ; ++i){
 				post[i].style.display='none';
 			}
 			last=5;
+		}
+
+		for (var i=0 ; i<post_len;++i){
+			js_id.push(post[i].id);
+
+		}
+
+		var post_title=document.getElementsByClassName("post-title");
+		for (var i=0 ; i<post_len;++i){
+			js_nama.push(post_title[i].innerHTML);
+
+		}
+
+		var post_cost=document.getElementsByClassName("post-cost");
+		for (var i=0 ; i<post_len;++i){
+			var hold=post_cost[i].innerHTML;
+			js_budget.push(parseInt(hold.slice(1,hold.length)));
+		}
+
+		var post_desc=document.getElementsByClassName("post-desc");
+		for (var i=0 ; i<post_len;++i){
+			js_desc.push(post_desc[i].innerHTML);
+		}
+
+		var post_date=document.getElementsByClassName("post-date");
+		for (var i=0 ; i<post_len;++i){
+			var hold=post_date[i].innerHTML;
+			js_mulai.push(hold.slice(0,10));
+			js_selesai.push(hold.slice(13,hold.length));
+		}
+
+		var post_ptcp=document.getElementsByClassName("post-ptcp");
+		for (var i=0 ; i<post_len;++i){
+			var hold=post_ptcp[i].innerHTML;
+			js_peserta.push(hold.slice(27,hold.length));
 		}
 	});
 
@@ -163,6 +224,102 @@
 		}
 		$("#less-btn").fadeOut();
 		$("#more-btn").fadeIn();
+	});
+
+	$("#sel1").change(function(){
+		var option=$(this).val();
+
+		console.log(js_budget);
+		if (option=="Budget Tertinggi"){
+			for (var i=0; i<len; ++i){
+				var idx=i;
+				for (var j=i+1; j<len;++j){
+					if (js_budget[idx]<js_budget[j]){
+						idx=j;
+					}
+				}
+				var holder = js_budget[idx];
+				js_budget[idx]=js_budget[i];
+				js_budget[i]=holder;
+
+				var holder = js_peserta[idx];
+				js_peserta[idx]=js_peserta[i];
+				js_peserta[i]=holder;
+
+				var holder = js_selesai[idx];
+				js_selesai[idx]=js_selesai[i];
+				js_selesai[i]=holder;
+
+				var holder =js_mulai[idx];
+				js_mulai[idx]=js_mulai[i];
+				js_mulai[i]=holder;
+
+				var holder =js_desc[idx];
+				js_desc[idx]=js_desc[i];
+				js_desc[i]=holder;
+
+				var holder= js_nama[idx];
+				js_nama[idx]=js_nama[i];
+				js_nama[i]=holder;
+
+				var holder =js_id[idx];
+				js_id[idx]=js_id[i];
+				js_id[i]=holder;
+			}
+		}
+		else if (option=="Jadwal Terdekat"){
+
+		}
+		else if (option=="Jadwal Terjauh"){
+
+		}
+		else if (option=="Budget Terendah"){
+			for (var i=0; i<len; ++i){
+				var idx=i;
+				for (var j=i+1; j<len;++j){
+					if (js_budget[idx]>js_budget[j]){
+						idx=j;
+					}
+				}
+				var holder = js_budget[idx];
+				js_budget[idx]=js_budget[i];
+				js_budget[i]=holder;
+
+				var holder = js_peserta[idx];
+				js_peserta[idx]=js_peserta[i];
+				js_peserta[i]=holder;
+
+				var holder = js_selesai[idx];
+				js_selesai[idx]=js_selesai[i];
+				js_selesai[i]=holder;
+
+				var holder =js_mulai[idx];
+				js_mulai[idx]=js_mulai[i];
+				js_mulai[i]=holder;
+
+				var holder =js_desc[idx];
+				js_desc[idx]=js_desc[i];
+				js_desc[i]=holder;
+
+				var holder= js_nama[idx];
+				js_nama[idx]=js_nama[i];
+				js_nama[i]=holder;
+
+				var holder =js_id[idx];
+				js_id[idx]=js_id[i];
+				js_id[i]=holder;
+			}
+		}
+		$(".outerpost-container").fadeOut(400);
+		setTimeout(function(){
+		   	$(".outerpost-container").remove();
+		   	var targetappend=document.getElementById("postingan-container");
+		   	for (var i=0; i<len; ++i){
+		   		targetappend.innerHTML+="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'><button class='btn btn-content float-right'>Daftar Turis</button><button class='btn btn-content float-right'>Daftar Guide</button></div></div></div></div></div>"
+		   	}
+		   $(".outerpost-container").fadeIn("fast");
+		   $(".outerpost-container").removeClass("unactive");
+		}, 501);
 	});
 
 </script>
