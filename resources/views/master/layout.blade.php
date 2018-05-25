@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    {{--<link rel="stylesheet" href="/css/bootstrap-theme.min.css">--}}
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/custom.menu.css">
@@ -15,6 +15,7 @@
     <style>
         body{
             padding-top: 50px;   /*fix navbar padding*/
+            font-family: 'Raleway', sans-serif;
         }
     </style>
 </head>

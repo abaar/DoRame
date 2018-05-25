@@ -1,7 +1,7 @@
 @if (isset($label))
     <label for="{{ $name }}" class="control-label">{{ $label }}</label>
 @endif
-<div class="input-group col-md-6 col-xs-12" style="margin-bottom: 10px;">
+<div style="margin-bottom: 10px;">
     <input id="{{ $name }}"
            type="{{ isset($type) ? $type : 'text' }}"
            class="form-control"
@@ -12,8 +12,8 @@
 
     @if ($errors->has($name))
         <span class="help-block">
-        <strong>{{ $errors->first($name) }}</strong>
-    </span>
+            <strong>{{ $errors->first($name) }}</strong>
+        </span>
     @endif
 </div>
 
