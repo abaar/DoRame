@@ -27,17 +27,12 @@ $factory->define(App\User::class, function (Faker $faker) {
 });
 
 $factory->define(App\Kegiatan::class, function (Faker $faker) {
-		
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
+        $userid = DB::table('users')->pluck('id')->toArray();
 	return[
             'nama' => $faker->catchPhrase,
             'deskripsi' => $faker->sentence,
-            'leader' => $faker->randomElement($array),
-            'guide' => $faker->randomElement($array),
+            'leader' => $faker->randomElement($userid),
+            'guide' => $faker->randomElement($userid),
             'status' => 1,
             'budget' => 100000,
             'lokasikegiatan' => 0,
@@ -55,84 +50,67 @@ $factory->define(App\Lokasi::class, function (Faker $faker) {
 
 $factory->define(App\LokasiKegiatan::class, function (Faker $faker) {
 
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
-
+		$lokasiid = DB::table('lokasis')->pluck('id')->toArray();
+        $kegiatanid = DB::table('kegiatans')->pluck('id')->toArray();
+        
 	return[
-            "idLokasi" =>$faker->randomElement($array),
-            "idKegiatan" => $faker->randomElement($array),
+            "idLokasi" =>$faker->randomElement($lokasiid),
+            "idKegiatan" => $faker->randomElement($kegiatanid),
             'mulai' =>date("Y-m-d H:i:s"),
             'selesai' =>date("Y-m-d H:i:s"),
 	];
 });
 
 $factory->define(App\PesertaKegiatan::class, function (Faker $faker) {
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
+		$userid = DB::table('users')->pluck('id')->toArray();
+        $kegiatanid = DB::table('kegiatans')->pluck('id')->toArray();
 	return[
-            'idUser'=>$faker->randomElement($array),
-            'idKegiatan'=>$faker->randomElement($array),
+            'idUser'=>$faker->randomElement($userid),
+            'idKegiatan'=>$faker->randomElement($kegiatanid),
             'isVerified'=>$faker->boolean
 	];
 });
 
 $factory->define(App\KomentarKegiatan::class, function (Faker $faker) {
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
+		$userid = DB::table('users')->pluck('id')->toArray();
+        $kegiatanid = DB::table('kegiatans')->pluck('id')->toArray();
 	return[
-            'idUser'=>$faker->randomElement($array),
-            'idKegiatan'=>$faker->randomElement($array),
+            'idUser'=>$faker->randomElement($userid),
+            'idKegiatan'=>$faker->randomElement($kegiatanid),
             'komentar' => $faker->sentence
 	];
 });
 
 $factory->define(App\DokumentasiKegiatan::class, function (Faker $faker) {
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
+		$userid = DB::table('users')->pluck('id')->toArray();
+        $kegiatanid = DB::table('kegiatans')->pluck('id')->toArray();
 	return[
-            'idKegiatan' =>$faker->randomElement($array),
-            'idUser' =>$faker->randomElement($array),
+            'idKegiatan' =>$faker->randomElement( $kegiatanid),
+            'idUser' =>$faker->randomElement($userid),
             'judul' => $faker->catchPhrase,             
             'deskripsi'=>  $faker->realText,
-            'like' => $faker->randomElement($array)
+            'like' => $faker->randomElement($userid)
 	];
 });
 
 
 $factory->define(App\KomentarDokumentasiKegiatan::class, function (Faker $faker) {
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
+	   $userid = DB::table('users')->pluck('id')->toArray();
+       $dokumid = DB::table('dokumentasi_kegiatans')->pluck('id')->toArray();
+    	
 	return[
-            'idUser' =>$faker->randomElement($array),
-            'idDokumentasi' =>$faker->randomElement($array),
+            'idUser' =>$faker->randomElement($userid),
+            'idDokumentasi' =>$faker->randomElement($dokumid),
             'komentar' =>  $faker->sentence,
 	];
 });
 
 $factory->define(App\KomentarLokasi::class, function (Faker $faker) {
-		$array = array();
-		for ($x = 1; $x <= 30; $x++)
-		{
-    	$array[] = $x;
-		}
-	return[
-            'idLokasi'=>$faker->randomElement($array),
-            'idUser'=>$faker->randomElement($array),
+	    $lokasiid = DB::table('lokasis')->pluck('id')->toArray();
+        $userid = DB::table('users')->pluck('id')->toArray();
+    return[
+            'idLokasi'=>$faker->randomElement($lokasiid),
+            'idUser'=>$faker->randomElement($userid),
             'komentar'=>$faker->sentence,
 	];
 });

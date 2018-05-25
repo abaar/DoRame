@@ -12,6 +12,6 @@ class KomentarKegiatanTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\KomentarKegiatan::class,20)->create();
+        factory(App\KomentarKegiatan::class,50)->create();
     }
 }
