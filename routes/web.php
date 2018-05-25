@@ -38,6 +38,7 @@ Route::get('/myprofile/edit',function(){
 
 Route::get('/myprofile/history', function (){
    return view('profile.history');
+});
 
 Route::get('/post/public',function(){
 	return view('post.postpublic');
