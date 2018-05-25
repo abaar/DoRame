@@ -15,12 +15,12 @@
 	<div class="container-fluid img-container" style="padding: 0">
 
 		<div class="container-div-black">
-			<div class="col-md-8 col-xs-12  col-md-offset-2 vcenter">
+			<div class="col-md-10 col-xs-12  col-md-offset-1 vcenter">
 				<h1 class="h1-primary white-font">Do-Rame</h1>
 				<p class="p-primary white-font">Mulai petualanganmu bersama tour guide dan teman baru!</p>
 				<br>
 				<br>
-				<form>
+				<form action="{{route('')}}">
 					<div class="form-group col-md-4">
 						<label class="sr-only" for="destinasi">Destinasi</label>
 						<input type="text" class="form-control input-lg" id="destinasi" name="destinasi" placeholder="Destinasi">

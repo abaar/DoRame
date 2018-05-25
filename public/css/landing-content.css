@@ -1,3 +1,7 @@
+.{
+	font-size:1em;
+}
+
 .body{
 	box-sizing: border-box;
 }
@@ -179,3 +183,4 @@
 	height: 1px;
 	border-bottom: 1px solid #ecf0f1;
 }
+
