@@ -16,4 +16,8 @@ class dokumentasiKegiatan extends Model
 		return $this->belongsTo('app\kegiatan', 'idKegiatan');
 	}
 
+	public function kometarDokumentasiKegiatan(){
+		return $this->hasMany('App\komentarDokumentasiKegiatan', 'idDokumentasi');
+	}
+
 }
