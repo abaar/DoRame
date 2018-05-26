@@ -440,7 +440,7 @@
 		   	$(".outerpost-container").remove();
 		   	var targetappend=document.getElementById("postingan-container");
 		   	for (var i=0; i<len; ++i){
-		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
+		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"' onclick='redirect(this.id)'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
 		   		if (js_public[i]=='1'){
 		   			hold+="<button class='btn btn-content float-right'>Daftar Turis</button>";
 		   		}

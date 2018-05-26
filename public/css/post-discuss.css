@@ -54,3 +54,7 @@
 	color: blue;
 	cursor: pointer;
 }
+
+.comment-footer:hover{
+	text-decoration: underline;
+}

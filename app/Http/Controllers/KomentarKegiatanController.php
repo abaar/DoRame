@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\kegiatan;
+use App\lokasi;
+use App\lokasiKegiatan;
 use App\komentarKegiatan;
+use DB;
 use Illuminate\Http\Request;
 
 class KomentarKegiatanController extends Controller
@@ -84,6 +88,44 @@ class KomentarKegiatanController extends Controller
     }
 
     public function showdiscuss($id){
+        $diskusis= DB::table('komentar_kegiatans')
+            ->join('kegiatans','kegiatans.id','=','komentar_kegiatans.idKegiatan')
+            ->join('users','users.id','=','komentar_kegiatans.idUser')
+            ->select('users.namaDepan as nama','users.id as uid','users.foto','komentar_kegiatans.komentar','komentar_kegiatans.created_at as kapan','users.username','komentar_kegiatans.id as kid')
+            ->Distinct()
+            ->where('komentar_kegiatans.idKegiatan','=',$id)
+            ->get();
+
+        $detil=DB::table('kegiatans')
+            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget')
+            ->where('kegiatans.id','=',$id)
+            ->get();
+
+        $pesertas = DB::table('kegiatans')
+            ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
+            ->where('kegiatans.id','=',$id)
+            ->where('peserta_kegiatans.applyAsGuide','=',0)
+            ->groupBy('kegiatans.id')
+            ->get();
         
+        $guides = DB::table('kegiatans')
+            ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')    
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
+            ->where('kegiatans.id','=',$id)
+            ->where('peserta_kegiatans.applyAsGuide','=',1)
+            ->groupBy('kegiatans.id')
+            ->get();
+        
+        $lokasis = DB::table('lokasi_kegiatans')
+            ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
+            ->select('lokasis.nama as nama','lokasis.id as id')
+            ->where('lokasi_kegiatans.idKegiatan','=',$id)
+            ->get();
+
+
+        return view('post.postdiscuss',compact('diskusis','pesertas','guides','lokasis','detil'));
     }
 }

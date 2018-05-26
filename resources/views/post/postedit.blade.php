@@ -44,7 +44,7 @@
 					    	<label class="" for="deksripsi">Deskripsi</label>
 						</div>
 						<div class="col-md-7 col-md-offset-1 input-container red">
-							<textarea class="form-control" rows="3" id="Deskripsi" placeholder="Deskripsi Kegiatan..." onkeyup="textAreaAdjust(this)" style="overflow:hidden">{{$detil_kegiatans[0]->deskripsi}}</textarea>
+							<textarea class="form-control" rows="2" id="Deskripsi" placeholder="Deskripsi Kegiatan..." onkeyup="textAreaAdjust(this)" style="overflow:hidden">{{$detil_kegiatans[0]->deskripsi}}</textarea>
 						</div>
 				  	</div>
 				  	<div class="form-group row">

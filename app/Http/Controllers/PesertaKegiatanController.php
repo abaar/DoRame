@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\pesertaKegiatan;
+use DB;
+
 use Illuminate\Http\Request;
 
 class PesertaKegiatanController extends Controller
@@ -81,5 +83,43 @@ class PesertaKegiatanController extends Controller
     public function destroy(pesertaKegiatan $pesertaKegiatan)
     {
         //
+    }
+
+    public function showpeserta($id){
+        $users=DB::table('peserta_kegiatans')
+         ->join('users','users.id','=','peserta_kegiatans.idUser')
+         ->select('peserta_kegiatans.*','users.namaDepan as nama')
+         ->Distinct()
+         ->where('peserta_kegiatans.idKegiatan','=',$id)
+         ->get();
+        
+        $detil=DB::table('kegiatans')
+            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget')
+            ->where('kegiatans.id','=',$id)
+            ->get();
+         $pesertas = DB::table('kegiatans')
+            ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
+            ->where('kegiatans.id','=',$id)
+            ->where('peserta_kegiatans.applyAsGuide','=',0)
+            ->groupBy('kegiatans.id')
+            ->get();
+        
+        $guides = DB::table('kegiatans')
+            ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')    
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
+            ->where('kegiatans.id','=',$id)
+            ->where('peserta_kegiatans.applyAsGuide','=',1)
+            ->groupBy('kegiatans.id')
+            ->get();
+        
+        $lokasis = DB::table('lokasi_kegiatans')
+            ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
+            ->select('lokasis.nama as nama','lokasis.id as id')
+            ->where('lokasi_kegiatans.idKegiatan','=',$id)
+            ->get();
+         return view('post.postapplicant',compact('users','detil','pesertas','guides','lokasis'));
     }
 }
