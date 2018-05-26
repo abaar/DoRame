@@ -19,6 +19,11 @@ class CreateKegiatansTable extends Migration
             $table->text('deskripsi');
             $table->integer('leader')->unsigned();
             $table->boolean('needguide');
+
+            $table->boolean('documbyguide');
+            $table->boolean('negoable');
+            $table->boolean('public');
+        
             $table->integer('lokasikegiatan')->unsigned()->default(0);
             $table->integer('status');
             $table->integer('budget');
