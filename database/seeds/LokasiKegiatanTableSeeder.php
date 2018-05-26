@@ -11,7 +11,7 @@ class LokasiKegiatanTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\LokasiKegiatan::class,20)->create();
+    	factory(App\LokasiKegiatan::class,1000)->create();
         //
     }
 }

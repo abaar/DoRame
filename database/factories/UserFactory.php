@@ -28,6 +28,17 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->define(App\Kegiatan::class, function (Faker $faker) {
         $userid = DB::table('users')->pluck('id')->toArray();
+        $cost = array();
+        for ($x = 100000; $x <= 1000000; $x+=1000)
+        {
+             $cost[] = $x;
+        }
+
+        $status=array();
+        for($y=0; $y<=2; $y++)
+        {
+            $status[]=$y;
+        }
 	return[
             'nama' => $faker->catchPhrase,
             'deskripsi' => $faker->sentence,
@@ -36,8 +47,8 @@ $factory->define(App\Kegiatan::class, function (Faker $faker) {
             'documbyguide'=>$faker->boolean,
             'negoable'=>$faker->boolean,
             'public'=>$faker->boolean,
-            'status' => 1,
-            'budget' => 100000,
+            'status' => $faker->randomElement($status),
+            'budget' => $faker->randomElement($cost),
             'mulai' =>date("Y-m-d H:i:s"),
             'selesai' =>date("Y-m-d H:i:s")
 	];

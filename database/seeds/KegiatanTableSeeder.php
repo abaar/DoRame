@@ -11,7 +11,7 @@ class KegiatanTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\Kegiatan::class,40)->create();
+    	factory(App\Kegiatan::class,1000)->create();
         //
     }
 }
