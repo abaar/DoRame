@@ -80,7 +80,8 @@ $factory->define(App\PesertaKegiatan::class, function (Faker $faker) {
 	return[
             'idUser'=>$faker->randomElement($userid),
             'idKegiatan'=>$faker->randomElement($kegiatanid),
-            'isVerified'=>$faker->boolean
+            'isVerified'=>$faker->boolean,
+            'applyAsGuide'=>$faker->boolean
 	];
 });
 

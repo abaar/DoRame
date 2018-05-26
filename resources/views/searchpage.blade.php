@@ -66,61 +66,72 @@
 						</form>
 					</div>
 				</div>
-				<div class="col-md-9" id="postingan-container">
+				<div class="col-md-9">
 					<div class="col-md-12 sort-container">
 						<div class="col-md-3 form-group float-right ">
 							<label class="sr-only" for="sel1">Select list:</label>
 							<select class="form-control input-sm" id="sel1">
-								<option>Budget Terendah</option>
-								<option>Budget Tertinggi </option>
-								<option>Jadwal Terdekat</option>
-								<option>Jadwal Terjaauh</option>
+								<option value="1">Budget Terendah</option>
+								<option value="2">Budget Tertinggi </option>
+								<option value="3">Jadwal Terdekat</option>
+								<option value="4">Jadwal Terjauh</option>
 							</select>
 						</div>
 						<p class="float-right sortme-title">Urutkan : </p>
-					</div>		
-					@foreach($getKegiatans as $kegiatan)
-					<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}" onclick="redirect(this.id)">
-						<div class="col-md-12 post-container" style="padding: 10px">
-							<div class="row">
-							<div class="col-md-4 post-image-container ">
-								<img src="/img/1.jpg" class="post-image">
-							</div>
-							<div class="col-md-8">
-								<div class="col-md-9 text-over ">
-									<h4 class="post-title">{{($kegiatan->nama)}}</h4>
+					</div>
+					<div class="row" id="postingan-container">
+						@foreach($getKegiatans as $kegiatan)
+						<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}" onclick="redirect(this.id)">
+							<div class="col-md-12 post-container" style="padding: 10px">
+								<div class="row">
+								<div class="col-md-4 post-image-container ">
+									<img src="/img/1.jpg" class="post-image">
 								</div>
-								<div class="col-md-3 ">
-									<h5 class="post-cost">${{$kegiatan->budget}}</h5>
-								</div>
-								<div class="col-md-12 border-top-grey text-over">
-									<p class="post-desc">{{($kegiatan->deskripsi)}}</p>
-								</div>
-								<div class="col-md-6 col-xs-12 ">
-									<p class="post-ptcp">Tourist / Guide Aplicants: 
-										@foreach($pesertas as $peserta)
-											@if($peserta->id == $kegiatan->id)
-												{{$peserta->jumlah}}
-											@endif
-										@endforeach
-										/
-										@foreach($guides as $guide)
-											@if($guide->id == $kegiatan->id)
-												{{$guide->jumlah}}
-											@endif
-										@endforeach
-									</p>
-									<p class="post-date">{{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}} </p>
-								</div>
-								<div class="col-md-6 col-xs-12 no-padding">
-									<button class="btn btn-content float-right">Daftar Turis</button>
-									<button class="btn btn-content float-right">Daftar Guide</button>
-								</div>
-							</div>								
+								<div class="col-md-8">
+									<div class="col-md-9 text-over ">
+										<h4 class="post-title">{{($kegiatan->nama)}}</h4>
+									</div>
+									<div class="col-md-3 ">
+										<h5 class="post-cost">${{$kegiatan->budget}}</h5>
+									</div>
+									<div class="col-md-12 border-top-grey text-over">
+										<p class="post-desc">{{($kegiatan->deskripsi)}}</p>
+									</div>
+									<div class="col-md-6 col-xs-12 ">
+										<p class="post-ptcp">Tourist / Guide Aplicants: 
+											<?php $found=0; $found2=0;?>
+											@foreach($pesertas as $peserta)
+												@if($peserta->id == $kegiatan->id)
+													{{$peserta->jumlah}}
+													<?php $found=1;?>
+												@endif
+											@endforeach
+											@if($found==0)0 @endif
+											/
+											@foreach($guides as $guide)
+												@if($guide->id == $kegiatan->id)
+													{{$guide->jumlah}}
+													<?php $found2=1;?>
+												@endif
+											@endforeach
+											@if($found2==0)0 @endif
+										</p>
+										<p class="post-date">{{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}} </p>
+									</div>
+									<div class="col-md-6 col-xs-12 no-padding">
+										@if($kegiatan->public==1)
+										<button class="btn turisbtn btn-content float-right">Daftar Turis</button>
+										@endif
+										@if($kegiatan->needguide==1)
+										<button class="btn guidebtn btn-content float-right">Daftar Guide</button>
+										@endif
+									</div>
+								</div>								
 							</div>
 						</div>
 					</div>
-					@endforeach		
+					@endforeach	
+					</div>	
 				</div>
 				<div class="col-md-12" id="more-btn-container">
 					<button class="btn unactive" id="more-btn">Lebih Banyak</button>
@@ -155,6 +166,8 @@
 	var js_id=[];
 	var js_peserta=[];
 	var js_daterange=[];
+	var js_needguide=[];
+	var js_public=[];
 
 	$(document).ready(function(){
 		var post= document.getElementsByClassName('outerpost-container');
@@ -168,36 +181,40 @@
 			last=5;
 		}
 
-		for (var i=0 ; i<post_len;++i){
-			js_id.push(post[i].id);
 
-		}
-
-		var post_title=document.getElementsByClassName("post-title");
-		for (var i=0 ; i<post_len;++i){
-			js_nama.push(post_title[i].innerHTML);
-
-		}
-
+		var post_ptcp=document.getElementsByClassName("post-ptcp");
+		var post_date=document.getElementsByClassName("post-date");
+		var post_desc=document.getElementsByClassName("post-desc");
 		var post_cost=document.getElementsByClassName("post-cost");
+		var needguide='@foreach($getKegiatans as $kegiatan){{$kegiatan->needguide}}@endforeach';
+		var post_title=document.getElementsByClassName("post-title");	
+		var public ='@foreach($getKegiatans as $kegiatan){{$kegiatan->public}}@endforeach';
+		
+		for (var i=0; i<post_len; ++i){
+			js_needguide.push(needguide[i]);
+			js_public.push(public[i]);
+			js_id.push(post[i].id);
+			js_nama.push(post_title[i].innerHTML);
+		}
+
+
 		for (var i=0 ; i<post_len;++i){
 			var hold=post_cost[i].innerHTML;
 			js_budget.push(parseInt(hold.slice(1,hold.length)));
 		}
 
-		var post_desc=document.getElementsByClassName("post-desc");
+
 		for (var i=0 ; i<post_len;++i){
 			js_desc.push(post_desc[i].innerHTML);
 		}
 
-		var post_date=document.getElementsByClassName("post-date");
+
 		for (var i=0 ; i<post_len;++i){
 			var hold=post_date[i].innerHTML;
 			js_mulai.push(hold.slice(0,10));
 			js_selesai.push(hold.slice(13,hold.length));
 		}
 
-		var post_ptcp=document.getElementsByClassName("post-ptcp");
 		for (var i=0 ; i<post_len;++i){
 			var hold=post_ptcp[i].innerHTML;
 			js_peserta.push(hold.slice(27,hold.length));
@@ -221,7 +238,7 @@
 		var post_len = post.length;
 		var bool=0;
 		for (var i=last; i<last+5;++i){
-			if (i==post_len){
+			if (i+1==post_len){
 				$("#more-btn").fadeOut();
 				$("#less-btn").fadeIn();
 				bool=1;
@@ -242,9 +259,10 @@
 		var post= document.getElementsByClassName('outerpost-container');
 		var post_len = post.length;
 
-		for (var i=post_len-1; i>=last; --i){
-			$("#"+post[i].id).fadeOut();
+		for (var i=post_len-1; i>=5; --i){
+			$("#"+post[i].id).fadeOut()
 		}
+		last=5;
 		$("#less-btn").fadeOut();
 		$("#more-btn").fadeIn();
 	});
@@ -252,8 +270,8 @@
 	$("#sel1").change(function(){
 		var option=$(this).val();
 		var today= new Date();
-		console.log(js_budget);
-		if (option=="Budget Tertinggi"){
+		
+		if (option==2){
 			for (var i=0; i<len; ++i){
 				var idx=i;
 				for (var j=i+1; j<len;++j){
@@ -293,8 +311,9 @@
 				js_id[idx]=js_id[i];
 				js_id[i]=holder;
 			}
+			console.log(js_budget);
 		}
-		else if (option=="Jadwal Terdekat"){
+		else if (option==3){
 			for (var i=0; i<len; ++i){
 				var idx=i;
 				for (var j=i+1; j<len;++j){
@@ -335,7 +354,7 @@
 				js_id[i]=holder;
 			}
 		}
-		else if (option=="Jadwal Terjauh"){
+		else if (option=4){
 			for (var i=0; i<len; ++i){
 				var idx=i;
 				for (var j=i+1; j<len;++j){
@@ -376,7 +395,7 @@
 				js_id[i]=holder;
 			}
 		}
-		else if (option=="Budget Terendah"){
+		else if (option==1){
 			for (var i=0; i<len; ++i){
 				var idx=i;
 				for (var j=i+1; j<len;++j){
@@ -417,16 +436,26 @@
 				js_id[i]=holder;
 			}
 		}
-		$(".outerpost-container").fadeOut(400);
-		setTimeout(function(){
+		$(".outerpost-container").fadeOut(200);
 		   	$(".outerpost-container").remove();
 		   	var targetappend=document.getElementById("postingan-container");
 		   	for (var i=0; i<len; ++i){
-		   		targetappend.innerHTML+="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'><button class='btn btn-content float-right'>Daftar Turis</button><button class='btn btn-content float-right'>Daftar Guide</button></div></div></div></div></div>"
+		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
+		   		if (js_public[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Turis</button>";
+		   		}
+		   		if (js_needguide[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Guide</button>";
+		   		}
+		   		hold+="</div></div></div></div></div>";
+		   		targetappend.innerHTML+=hold;
 		   	}
-		   $(".outerpost-container").fadeIn("fast");
-		   $(".outerpost-container").removeClass("unactive");
-		}, 501);
+		   	var postingansorted=document.getElementsByClassName("outerpost-container");
+		  	for(var i=0; i<5 ; ++i){
+			   $("#"+postingansorted[i].id).fadeIn("fast");
+			   $("#"+postingansorted[i].id).removeClass("unactive");		  		
+		  	} 	
+
 	});
 
 </script>

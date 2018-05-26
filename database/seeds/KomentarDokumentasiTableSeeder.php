@@ -12,6 +12,6 @@ class KomentarDokumentasiTableSeeder extends Seeder
     public function run()
     {
         //
-    	factory(App\KomentarDokumentasiKegiatan::class,1000)->create();
+    	factory(App\KomentarDokumentasiKegiatan::class,200)->create();
     }
 }

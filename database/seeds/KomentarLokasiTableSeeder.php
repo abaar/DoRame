@@ -12,6 +12,6 @@ class KomentarLokasiTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\KomentarLokasi::class,1000)->create();
+        factory(App\KomentarLokasi::class,200)->create();
     }
 }
