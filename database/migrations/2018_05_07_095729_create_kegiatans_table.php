@@ -24,7 +24,6 @@ class CreateKegiatansTable extends Migration
             $table->boolean('negoable');
             $table->boolean('public');
         
-            $table->integer('lokasikegiatan')->unsigned()->default(0);
             $table->integer('status');
             $table->integer('budget');
             $table->datetime('mulai');

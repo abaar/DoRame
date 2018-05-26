@@ -38,7 +38,6 @@ $factory->define(App\Kegiatan::class, function (Faker $faker) {
             'public'=>$faker->boolean,
             'status' => 1,
             'budget' => 100000,
-            'lokasikegiatan' => 0,
             'mulai' =>date("Y-m-d H:i:s"),
             'selesai' =>date("Y-m-d H:i:s")
 	];
