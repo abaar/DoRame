@@ -49,9 +49,9 @@ $factory->define(App\Kegiatan::class, function (Faker $faker) {
             'public'=>$faker->boolean,
             'status' => $faker->randomElement($status),
             'budget' => $faker->randomElement($cost),
-            'mulai' =>date("Y-m-d H:i:s"),
-            'selesai' =>date("Y-m-d H:i:s")
-	];
+            'mulai' =>$faker->dateTimeThisMonth,
+            'selesai' =>date("2018-06-01 20:0:0")
+    ];
 });
 
 $factory->define(App\Lokasi::class, function (Faker $faker) {
