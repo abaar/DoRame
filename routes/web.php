@@ -71,3 +71,5 @@ Route::get('/location',function(){
 Route::get('/post/{id}',['uses'=>'KegiatanController@showpost']);
 
 Route::get('/post/edit/{id}',['uses' => 'KegiatanController@editpost']);
+
+Route::get('/post/edit/{id}',['uses'=>'KomentarKegiatan@showdiscuss']);

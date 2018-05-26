@@ -6,6 +6,9 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="/css/post-create.css">
+<style type="text/css">
+
+</style>
 @endsection
 
 
@@ -43,7 +46,18 @@
 						<div class="col-md-7 col-md-offset-1 input-container red">
 							<textarea class="form-control" rows="3" id="Deskripsi" placeholder="Deskripsi Kegiatan..." onkeyup="textAreaAdjust(this)" style="overflow:hidden">{{$detil_kegiatans[0]->deskripsi}}</textarea>
 						</div>
-
+				  	</div>
+				  	<div class="form-group row">
+				  		<div class="col-md-2 col-md-offset-1">
+					  		<label class="">Terbuka Untuk</label>		
+				  		</div>
+				  		<div class="col-md-7 col-md-offset-1 input-container">
+				  			<select class="form-control">
+				  				<option>Wisatawan & Tour Guide</option>
+				  				<option>Wisatawan</option>
+				  				<option>Tour Guide</option>
+				  			</select>				  			
+				  		</div>
 				  	</div>
 				  	<div class="form-group row">
 				  		<div class="col-md-2 col-md-offset-1">
@@ -79,11 +93,11 @@
 				  			<a onclick="addlokasi()">Tambah Lokasi</a>
 				  		</div>
 				  	</div>
-				  	<div class="col-md-4 col-md-offset-2 input-container">
+				  	<div class="col-md-4 col-md-offset-4 input-container">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Wisatawan
+								Dokumentasi oleh Guide
 							</label>
 						</div>				  		
 				  	</div>
@@ -91,7 +105,7 @@
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Guide
+								Bisa di-<em>nego</em>
 							</label>
 						</div>				  		
 				  	</div>
