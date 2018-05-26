@@ -82,4 +82,8 @@ class KomentarKegiatanController extends Controller
     {
         //
     }
+
+    public function showdiscuss($id){
+        
+    }
 }

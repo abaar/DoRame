@@ -6,6 +6,9 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="/css/post-create.css">
+<style type="text/css">
+
+</style>
 @endsection
 
 
@@ -25,26 +28,43 @@
 							<label class="" for="judul">Judul</label>							
 						</div>
 				 		<div class="col-md-7 col-md-offset-1 input-container">
-				    		<input type="Text" class="form-control" id="judul" placeholder="Judul Kegiatan..." value="
-Kota kediri kota impian kota tahu tempe pecel wenak bos!">	
+				    		<input type="Text" class="form-control" id="judul" placeholder="Judul Kegiatan..." value="{{$detil_kegiatans[0]->nama}}">	
 				 		</div>
-
+				  	</div>
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="budget">Budget</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="Text" class="form-control" id="judul" placeholder="Judul Kegiatan..." value="{{$detil_kegiatans[0]->budget}}">	
+				 		</div>
 				  	</div>
 					<div class="form-group row">
 						<div class="col-md-2 col-md-offset-1">
 					    	<label class="" for="deksripsi">Deskripsi</label>
 						</div>
 						<div class="col-md-7 col-md-offset-1 input-container red">
-							<textarea class="form-control" rows="3" id="Deskripsi" placeholder="Deskripsi Kegiatan...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pellentesque luctus dui vitae consequat. Sed placerat, nunc et bibendum laoreet, quam lorem euismod purus, quis aliquam dui nibh non purus. Proin ut dictum ligula. Ut ultricies turpis ligula, sit amet hendrerit nisl mollis non. Nullam iaculis tincidunt quam, vitae dignissim lectus porta eu. Donec tristique ac felis in hendrerit. Quisque vel pulvinar nibh, ut varius tortor. Vivamus laoreet eros mi, nec interdum tellus dignissim in.</textarea>
+							<textarea class="form-control" rows="3" id="Deskripsi" placeholder="Deskripsi Kegiatan..." onkeyup="textAreaAdjust(this)" style="overflow:hidden">{{$detil_kegiatans[0]->deskripsi}}</textarea>
 						</div>
-
+				  	</div>
+				  	<div class="form-group row">
+				  		<div class="col-md-2 col-md-offset-1">
+					  		<label class="">Terbuka Untuk</label>		
+				  		</div>
+				  		<div class="col-md-7 col-md-offset-1 input-container">
+				  			<select class="form-control">
+				  				<option>Wisatawan & Tour Guide</option>
+				  				<option>Wisatawan</option>
+				  				<option>Tour Guide</option>
+				  			</select>				  			
+				  		</div>
 				  	</div>
 				  	<div class="form-group row">
 				  		<div class="col-md-2 col-md-offset-1">
 					  		<label class="">Berangkat</label>		
 				  		</div>
 				  		<div class="col-md-7 col-md-offset-1 input-container">
-				  			<input type="text" id="startdate" class="form-control" placeholder="Tgl Mulai">				  			
+				  			<input type="text" id="startdate" class="form-control" placeholder="Tgl Mulai" value="halo">				  			
 				  		</div>
 				  	</div>
 				  	<div class="form-group row">
@@ -52,7 +72,7 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!">
 					  		<label class="">Berakhir</label>		
 				  		</div>
 				  		<div class="col-md-7 col-md-offset-1 input-container">
-				  			<input type="text" id="enddate" class="form-control" placeholder="Tgl Selesai">				  			
+				  			<input type="text" id="enddate" class="form-control" placeholder="Tgl Selesai" value="halo">				  			
 				  		</div>
 				  	</div>
 				  	<div class="form-group row">
@@ -60,22 +80,24 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!">
 					  		<div class="col-md-2 col-md-offset-1">
 					  			<label>Lokasi</label>
 					  		</div>
-					  		<div class="col-md-7 col-md-offset-1 input-container dynamicloc" id="lokasi1">
-					  			<input type="text" name="lokasi" class="form-control">
+					  		@foreach($detil_lokasis as $lokasi)
+					  		<div class="col-md-7 col-md-offset-1 input-container dynamicloc" id="lokasi{{$lokasi->id}}">
+					  			<input type="text" name="lokasi" class="form-control" value="{{$lokasi->nama}}">
 					  		</div>
-					  		<div class="col-md-1 diactivate" id="divalokasi1">
-					  			<a id="alokasi1" onclick="removelokasi(this.id)">X</a>
-					  		</div>				  			
+					  		<div class="col-md-1 diactivate" id="divalokasi{{$lokasi->id}}">
+					  			<a id="alokasi{{$lokasi->id}}" onclick="removelokasi(this.id)">X</a>
+					  		</div>
+					  		@endforeach	
 				  		</div>
 				  		<div class="col-md-7 col-md-offset-4 input-container" style="text-align: center;">
 				  			<a onclick="addlokasi()">Tambah Lokasi</a>
 				  		</div>
 				  	</div>
-				  	<div class="col-md-4 col-md-offset-2 input-container">
+				  	<div class="col-md-4 col-md-offset-4 input-container">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Wisatawan
+								Dokumentasi oleh Guide
 							</label>
 						</div>				  		
 				  	</div>
@@ -83,7 +105,7 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Guide
+								Bisa di-<em>nego</em>
 							</label>
 						</div>				  		
 				  	</div>
@@ -144,6 +166,11 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!">
 			$("#divalokasi"+myid).fadeOut();
 		}
 	}
+
+function textAreaAdjust(o) {
+  o.style.height = "1px";
+  o.style.height = (25+o.scrollHeight)+"px";
+}
 </script>
 
 @section('script')
