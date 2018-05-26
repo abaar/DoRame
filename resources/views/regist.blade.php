@@ -1,68 +1,106 @@
-@extends('layouts.layout')
+@extends('master.layout')
 
-@section('title') Login - Dorame @endsection
+@section('title')
+	Buat Rencana Kegiatan
+@endsection
+
+@section('style')
+<link rel="stylesheet" type="text/css" href="/css/post-create.css">
+@endsection
+
 
 @section('content')
-@include('navbar')
-<link rel="stylesheet" type="text/css" href="/css/regist.css">
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4 col-container">
-			<div class="content">
-				<div class="form-container">
-					<h2>Daftar</h2>
-					<form>
-						<div class="form-group">
-							<label class="sr-only">Nama</label>
-							<input type="text" class="form-control input-lg" name="nama" placeholder="Nama">
-						</div>
-						<div class="form-group">
-							<label class="sr-only">email</label>
-							<input type="email" class="form-control input-lg" name="email" placeholder="kecoa@cripsy.com">
-						</div>
-						<div class="form-group">
-							<label class="sr-only">password</label>
-							<input type="password" class="form-control input-lg" name="password" placeholder="Password">
-						</div>
-						<div class="form-group">
-							<label class="sr-only">Nope</label>
-							<input type="text" class="form-control input-lg" name="nope" placeholder="+628888888888">
-						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="">
-								i've agree the <a href="#">term of use.</a>
-							</label>
-						</div>
-						<button type="submit" class="btn btn-block">Daftar</button>
-					</form>
-					<div class="col-md-12">
-						<p class="float-me-right">Sudah punya akun?<a href="#">Login</a></p>
-					</div>
+
+	<div class="container-fluid boody">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 form-container">
+				<h2 style="text-align: center;" class="">Buat rencana kegiatanmu</h2>
+				<div class="col-md-2 col-md-offset-5" id="title-line">
+					
 				</div>
+				<div class="col-md-12" style="margin-bottom: 10%"></div>
+				<form action="/regist/insert" method="post">
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="namaDepan">Nama Depan</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="text" class="form-control" id="namaDepan"  name="namaDepan" placeholder="Sunaryo">	
+				 		</div>
+				  	</div>	
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="namaBelakang">Nama Belakang</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="text" class="form-control" id="namaBelakang"  name="namaBelakang" placeholder="Uzumaki">	
+				 		</div>
+				  	</div>
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="asalkota">Asal Kota</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="text" class="form-control" id="asalkota"  name="asalkota" placeholder="Jakarta">	
+				 		</div>
+				  	</div>	
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="username">Username</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="Text" class="form-control" id="username" name="username" placeholder="username...">			
+				 		</div>
+				  	</div>  	
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="password">Password</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="password" class="form-control" id="password"  name="password" placeholder="password...">	
+				 		</div>
+				  	</div>	
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="repassword">Re-Password</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="repassword" class="form-control" id="repassword"  name="repassword" placeholder="Ketik ulang password...">	
+				 		</div>
+				  	</div>	
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="email">Email</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="email" class="form-control" id="email"  name="email" placeholder="dorame@email.com">	
+				 		</div>
+				  	</div>	
+				  	<div class="col-md-7 col-md-offset-4 input-container">
+
+							<label>
+								Dengan mendaftar, saya setuju dengan <span><a href="#">Syarat & Ketentuan</a></span>.
+							</label>
+			  		
+				  	</div>
+					<div class="form-group col-md-2 col-md-offset-5">
+						<label class="sr-only">Kirim</label>
+						<input type="submit" name="kirim" value="Buat" class="btn btn-success form-control">
+					</div>
+
+				</form>
 			</div>
 		</div>
 	</div>
-</div>
-
 @endsection
+<script type="text/javascript">
+
+function textAreaAdjust(o) {
+  o.style.height = "1px";
+  o.style.height = (25+o.scrollHeight)+"px";
+}
+</script>
 
 @section('script')
-	<script type="text/javascript">
-		function replaceme(){
-			var tinggi=$(".form-container").height()-200;
-			console.log(tinggi);
-			var tinggi_window=$(window).height();
-			tinggi= (tinggi_window-tinggi)/2;
-			tinggi=tinggi*100/tinggi_window;
-			tinggi=tinggi+"%";
-			$(".form-container").css("margin-top",tinggi);
-		};
-		$(window).ready(function(){
-			replaceme();
-		});
-		$(window).resize(function(){
-			replaceme();
-		});
-	</script>
+
 @endsection
