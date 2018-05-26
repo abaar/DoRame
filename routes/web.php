@@ -43,6 +43,7 @@ Route::get('/post/public',function(){
 //
 //THIS ONE DELETED, but u shld see postaplicant-user.blade.php
 
+
 Route::get('/post/discuss',function(){
 	return view('post.postdiscuss');
 });
@@ -66,3 +67,7 @@ Route::get('/post/edit',function(){
 Route::get('/location',function(){
 	return view('lokasi.location');
 });
+
+Route::get('/post/{id}',['uses'=>'KegiatanController@showpost']);
+
+Route::get('/post/edit/{id}',['uses' => 'KegiatanController@editpost']);

@@ -32,7 +32,7 @@ $factory->define(App\Kegiatan::class, function (Faker $faker) {
             'nama' => $faker->catchPhrase,
             'deskripsi' => $faker->sentence,
             'leader' => $faker->randomElement($userid),
-            'needguide'=>$faker->boolean
+            'needguide'=>$faker->boolean,
             'status' => 1,
             'budget' => 100000,
             'lokasikegiatan' => 0,

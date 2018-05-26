@@ -80,7 +80,7 @@
 						<p class="float-right sortme-title">Urutkan : </p>
 					</div>		
 					@foreach($getKegiatans as $kegiatan)
-					<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}">
+					<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}" onclick="redirect(this.id)">
 						<div class="col-md-12 post-container" style="padding: 10px">
 							<div class="row">
 							<div class="col-md-4 post-image-container ">
@@ -97,12 +97,18 @@
 									<p class="post-desc">{{($kegiatan->deskripsi)}}</p>
 								</div>
 								<div class="col-md-6 col-xs-12 ">
-									<p class="post-ptcp">Tourist / Guide Aplicants: 2
-<!-- 										@foreach($pesertas as $peserta)
+									<p class="post-ptcp">Tourist / Guide Aplicants: 
+										@foreach($pesertas as $peserta)
 											@if($peserta->id == $kegiatan->id)
 												{{$peserta->jumlah}}
 											@endif
-										@endforeach -->
+										@endforeach
+										/
+										@foreach($guides as $guide)
+											@if($guide->id == $kegiatan->id)
+												{{$guide->jumlah}}
+											@endif
+										@endforeach
 									</p>
 									<p class="post-date">{{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}} </p>
 								</div>
@@ -131,6 +137,10 @@
 
 @section('script')
 <script type="text/javascript">
+	function redirect(id){
+		location.href='/post/'+id;
+	}
+
 	$("#startdate").datepicker();
 	$("#enddate").datepicker();
 	$("#startdate").disableAutoFill();
@@ -203,7 +213,6 @@
 			var timeDiff = (date2.getTime() - date1.getTime());
 			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 			js_daterange.push(diffDays);
-			alert(js_daterange[i]);
 		}
 	});
 
