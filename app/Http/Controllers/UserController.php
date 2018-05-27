@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use DB;
+use Validator;
 use Illuminate\Http\Request;
-
+use Hash;
 class UserController extends Controller
 {
     /**
@@ -37,15 +38,47 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $rules=array(
+            'username' => ['required','regex:/^[a-zA-Z0-9]+\Z/'],
+            'namaDepan' => 'required',
+            'namaBelakang' =>'required',
+            'password' =>'required|min:8',
+            'repassword' => 'required|
+            same:password',
+            'email' => 'required',
+            'asalkota' => 'required');
+
+       $messages =array(
+        'required' =>'Kolom :attribute wajib diisi!',
+        'username.regex' =>'Username hanya boleh terdiri dari Alphanumeric!',
+        'password.min' => 'Password minimal 8 karakter!',
+        'repassword.same' => 'Re-password tidak sama!'
+        );
+
+        $validator=Validator::make($request->all(),$rules,$messages);
+        if ($validator->fails()) { 
+            return redirect()->back()
+                    ->withErrors($validator) // send back all errors to the login form
+                    ->withInput();
+        }
+
         if ($request->isMethod('post')){
             $data = new User();
             $data->username=$request->username;
             $data->namaDepan=$request->namaDepan;
             $data->namaBelakang=$request->namaBelakang;
-            $data->password=$request->password;
+            $data->password=bcrypt($request->password);
             $data->email=$request->email;
             $data->asalkota=$request->asalkota;
-            $data->save();
+
+            try {
+              $data->save();
+              return "Daftar sukses";
+            } catch (\Illuminate\Database\QueryException $e) {
+                $msg = "Username / Email sudah terdaftar!";
+                return view('regist',compact('msg'));
+            }
+            
         }
     }
 
