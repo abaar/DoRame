@@ -27,7 +27,7 @@
                         <li><a href="{{url('/myprofile/history')}}">Trip History</a></li>
                         {{--<li><a href="{{url('/myprofile/mytrip')}}">Active Trip</a></li>--}}
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="{{route('logout')}}">Logout</a></li>
                     </ul>
                 </li>
             </ul>

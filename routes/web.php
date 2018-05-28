@@ -86,3 +86,5 @@ Route::post('/regist/insert','UserController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/user/{user}', 'UserController@show');
