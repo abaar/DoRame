@@ -135,7 +135,7 @@ class UserController extends Controller
             //get just ext
             $extension = $request->file('foto')->getClientOriginalExtension();
             //filename to store
-            $fileNametoStore = $filename.'_'.time().'.'.$extension;
+            $fileNametoStore = 'user'.Auth::id().'.'.$extension;
             //upload image
             $path = $request->file('foto')->storeAs('public/img',$fileNametoStore);
         }else{
@@ -176,5 +176,33 @@ class UserController extends Controller
             ->select('kegiatans.id', 'kegiatans.mulai', 'kegiatans.selesai', 'kegiatans.nama', 'lokasis.nama as lokasikegiatan', 'lead.namaDepan as leader')
             ->get();
         return view('profile.history', compact('trips'));
+    }
+
+    public function updatePass(Request $request)
+    {
+        $rules=array(
+            'newpass' =>'required|min:8',
+            'repass' => 'required|same:newpass');
+
+        $messages =array(
+            'required' =>'Kolom :attribute wajib diisi!',
+            'newpass.min' => 'Password minimal 8 karakter!',
+            'repass.same' => 'Re-password tidak sama!'
+        );
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator);
+        }
+
+        $data = Auth::user();
+        if (Hash::check($request->curpass, $data->password)){
+            $data->password=bcrypt($request->newpass);
+            $data->save();
+            return redirect()->back();
+        }
+        else return redirect()->back()->withErrors(['curpass' => ['Password tidak sama']]);
+//        return back()->withErrors(['field_name' => ['Your custom message here.']]);
     }
 }

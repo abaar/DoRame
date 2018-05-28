@@ -55,7 +55,7 @@
         <h2 style="text-align: center;">Change Password</h2>
         <hr>
         <div class="col-md-6 col-md-offset-3 col-xs-12" style="/*border: 1px  black solid;*/">
-            <form class="form-group" method="post" action="/myprofile/edit">
+            <form class="form-group" method="post" action="/myprofile/edit/pass">
                 @component('component.form.input', [
                     'type' => 'password',
                     'name' => 'curpass',
@@ -80,6 +80,7 @@
                 <button type="submit" class="btn btn-primary">Update Password</button>
                 <br>
             </form>
+            {{--{{$errors}}--}}
         </div>
     </div>
 @endsection

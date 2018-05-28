@@ -25,13 +25,20 @@ Route::get('/regist',function(){
 
 Route::get('/search','KegiatanController@search');
 
+
+
 //Start myprofile
 Route::get('/myprofile/edit',function(){
     return view('profile.index');
 });
 Route::get('/myprofile/history', 'UserController@tripHistory');
 Route::post('/myprofile/edit', 'UserController@update');
+Route::post('/myprofile/edit/pass', 'UserController@updatePass');
 //end
+
+
+
+
 Route::get('/post/public',function(){
 	return view('post.postpublic');
 });
