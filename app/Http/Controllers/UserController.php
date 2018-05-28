@@ -7,8 +7,13 @@ use DB;
 use Validator;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +50,7 @@ class UserController extends Controller
             'password' =>'required|min:8',
             'repassword' => 'required|
             same:password',
-            'email' => 'required',
+            'email' => 'required|email',
             'asalkota' => 'required');
 
        $messages =array(
@@ -88,7 +93,7 @@ class UserController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(ser $user)
+    public function show(User $user)
     {
         //
     }
@@ -99,7 +104,7 @@ class UserController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(user $user)
+    public function edit(User $user)
     {
         //
     }
@@ -111,9 +116,40 @@ class UserController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request)
     {
-        //
+//        dd($request);
+        $rules=array(
+            'namaDepan' => 'required',
+            'namaBelakang' =>'required',
+            'asalkota' => 'required',
+            'foto' => 'image|nullable|max:1999');
+        $messages =array(
+            'required' =>'Kolom :attribute wajib diisi!',
+        );
+        if ($request->hasFile('foto')){
+            // get filename with ext
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            //get just filename
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            //filename to store
+            $fileNametoStore = $filename.'_'.time().'.'.$extension;
+            //upload image
+            $path = $request->file('foto')->storeAs('public/img',$fileNametoStore);
+        }else{
+            $fileNametoStore = 'defaultava.jpg';
+        }
+
+        $data = Auth::user();
+        $data->namaDepan=$request->namaDepan;
+        $data->namaBelakang=$request->namaBelakang;
+        $data->asalkota=$request->asalkota;
+        $data->foto = $fileNametoStore;
+        $data->save();
+        return redirect()->back();
+
     }
 
     /**
@@ -122,8 +158,23 @@ class UserController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user $user)
+    public function destroy(User $user)
     {
         //
+    }
+
+    public function tripHistory(){
+//        $idUser = Auth::user()->id;
+        $trips = DB::table('peserta_kegiatans')
+//            ->select('peserta_kegiatans.*')
+            ->where('peserta_kegiatans.idUser', '=', 10)
+            ->where('peserta_kegiatans.isVerified', '=', '1')
+            ->join('kegiatans', 'kegiatans.id', '=', 'peserta_kegiatans.idKegiatan')
+            ->join('users as lead', 'lead.id', '=', 'kegiatans.leader')
+//            ->join('users as guid', 'guid.id', '=', 'kegiatans.guide')
+            ->join('lokasis', 'lokasis.id', '=', 'kegiatans.id')
+            ->select('kegiatans.id', 'kegiatans.mulai', 'kegiatans.selesai', 'kegiatans.nama', 'lokasis.nama as lokasikegiatan', 'lead.namaDepan as leader')
+            ->get();
+        return view('profile.history', compact('trips'));
     }
 }

@@ -33,7 +33,7 @@
         <h4 class="modal-title">Mulai petualanganmu sekarang!</h4>
       </div>
       <div class="modal-body">
-        <form accept="#" method="post">
+        <form action="{{route('login')}}" accept="#" method="post">
           <div class="form-group"> 
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" placeholder="enter username">
@@ -45,6 +45,7 @@
           <div class="checkbox">
           <label><input type="checkbox" value="" checked>Remember me</label>
           </div>
+          {{csrf_field()}}
           <button type="submit" class="btn btn-block" style="background-color: #27ae60; color: white"> Login</button>
 
         </form>

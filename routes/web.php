@@ -25,14 +25,13 @@ Route::get('/regist',function(){
 
 Route::get('/search','KegiatanController@search');
 
+//Start myprofile
 Route::get('/myprofile/edit',function(){
     return view('profile.index');
 });
-
-
-Route::get('/myprofile/history', function () {
-    return view('profile.history');
-});
+Route::get('/myprofile/history', 'UserController@tripHistory');
+Route::post('/myprofile/edit', 'UserController@update');
+//end
 Route::get('/post/public',function(){
 	return view('post.postpublic');
 });
@@ -77,3 +76,6 @@ Route::get('/post/discuss/{id}',['uses'=>'KomentarKegiatanController@showdiscuss
 Route::get('/post/user/{id}',['uses'=>'PesertaKegiatanController@showpeserta']);
 
 Route::post('/regist/insert','UserController@store');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
