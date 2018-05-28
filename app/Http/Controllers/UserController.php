@@ -126,7 +126,15 @@ class UserController extends Controller
             'foto' => 'image|nullable|max:1999');
         $messages =array(
             'required' =>'Kolom :attribute wajib diisi!',
+            'max' => 'Size foto melebihi batas 2MB'
         );
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator);
+        }
+
         if ($request->hasFile('foto')){
             // get filename with ext
             $filenameWithExt = $request->file('foto')->getClientOriginalName();
