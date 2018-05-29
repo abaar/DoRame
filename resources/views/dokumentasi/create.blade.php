@@ -9,8 +9,15 @@
             <div class="col-md-8 col-md-offset-2">
                 <h2 style="text-align: center;" class="">Share your Journey</h2>
                 <hr>
+                @if (isset($errors))
+                    @foreach($errors as $error)
+                        {{$error}}
+                        {!! '<br>' !!}
+                    @endforeach
+                    {{--{{dd($errors)}}--}}
+                @endif
                 <div class="col-md-12">
-                    <form action="/journey/create" method="post" enctype="multipart/form-data">
+                    <form action="/journey/create/2" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <label for="kegiatan" class="control-label">Trip's Name</label>
                         <p style="margin-bottom: 10px;" class="form-control-static" id="kegiatan">dummynama</p>
@@ -25,7 +32,7 @@
                         'label' => 'Photos (multiple)',
                         'attributes' => 'multiple'
                         ])@endcomponent
-                        <input type="hidden" name="kegiatan" value="{{isset($kegiatan)}}">
+                        <input type="hidden" name="kegiatan" value="5">
                         <label for="story" class="control-label">Story Content</label>
                         <textarea name="story" id="story"></textarea>
                         <br>

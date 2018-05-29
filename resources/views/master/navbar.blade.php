@@ -15,8 +15,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{(\Request::is('home*'))?' active':''}}"><a href="/home">Home <span class="sr-only">(current)</span></a></li>
-                <li class="{{(\Request::is('trip*'))?' active':''}}"><a href="/trip">Trip</a></li>
-                <li class="{{(\Request::is('timeline*'))?' active':''}}"><a href="/timeline">Timeline</a></li>
+                <li class="{{(\Request::is('trip*'))?' active':''}}"><a href="/post">Trip</a></li>
+                <li class="{{(\Request::is('timeline*'))?' active':''}}"><a href="/journey">Timeline</a></li>
             </ul>
             @guest
             @else

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class fotoDokumentasi extends Model
 {
     //
-    public function dokumentasi(){
+    public function dokumentasiKegiatan(){
 		return $this->belongsTo('app\dokumentasiKegiatan', 'idDokumentasi');
 	}
 

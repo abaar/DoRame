@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Validator;
 use App\dokumentasiKegiatan;
 use App\fotoDokumentasi;
 use Illuminate\Http\Request;
@@ -16,6 +17,9 @@ class DokumentasiKegiatanController extends Controller
     public function index()
     {
         $trips = dokumentasiKegiatan::all();
+//        $trips = DB::table('dokumentasi_kegiatans')
+//            ->join('foto_dokumentasis', 'dokumentasi_kegiatans.id', '=', 'foto_dokumentasis.idDokumentasi')
+//            ->limit(1)->get();
         return view('dokumentasi.index', compact('trips'));
     }
 
@@ -47,17 +51,18 @@ class DokumentasiKegiatanController extends Controller
             'max' => 'Size foto melebihi batas 2MB'
         );
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator);
-        }
+//        $validator = Validator::make($request->all(), $rules, $messages);
+//        if ($validator->fails()) {
+//            return redirect()->back()
+//                ->withErrors($validator);
+//        }
         $data = new dokumentasiKegiatan();
         $data->idKegiatan = $request->kegiatan;
         $data->idUser = Auth::id();
-        $data->judul = $request->story;
+        $data->judul = $request->title;
+        $data->deskripsi = $request->story;
+        $data->like = 0;
         $data->save();
-
         $kegiatan = DB::table('dokumentasi_kegiatans')->where('idKegiatan', '=', $request->kegiatan)->first();
         $files = $request->file('foto');
         $count = 1;
@@ -87,7 +92,7 @@ class DokumentasiKegiatanController extends Controller
      */
     public function show(dokumentasiKegiatan $dokumentasiKegiatan)
     {
-        //
+        return view('dokumentasi.show', compact('dokumentasiKegiatan'));
     }
 
     /**
