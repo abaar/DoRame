@@ -99,7 +99,7 @@ class PesertaKegiatanController extends Controller
             ->get();
         $pesertas = DB::table('kegiatans')
             ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
-            ->join('users','users.email','=','peserta_kegiatans.idUser')
+            ->join('users','users.id','=','peserta_kegiatans.idUser')
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.id','=',$id)
             ->where('peserta_kegiatans.applyAsGuide','=',0)
@@ -108,7 +108,7 @@ class PesertaKegiatanController extends Controller
         
         $guides = DB::table('kegiatans')
             ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
-            ->join('users','users.email','=','peserta_kegiatans.idUser')    
+            ->join('users','users.id','=','peserta_kegiatans.idUser')    
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.id','=',$id)
             ->where('peserta_kegiatans.applyAsGuide','=',1)
@@ -126,23 +126,24 @@ class PesertaKegiatanController extends Controller
             ->where('idKegiatan','=',$id)
             ->get();
 
-
+        $verified = 0;
          if (Auth::check()){
-            if (Auth::user()->email==$detil[0]->leader){
+            if (Auth::user()->id==$detil[0]->leader){
                 return view('post.postapplicant',compact('users','detil','pesertas','guides','lokasis'));
             }
             else{
-                $logedin=Auth::user()->email;
+                $logedin=Auth::user()->id;
                 foreach ($pesertas2 as $ygikut) {
                     if ($ygikut->idUser == $logedin){
-                        return view('post.postpubapplicant',compact('users','detil','pesertas','guides','lokasis','logedin'));             
+                        $verified=1;
+                        return view('post.postpubapplicant',compact('users','detil','pesertas','guides','lokasis','logedin','verified'));             
                     }   
                 }
-                $logedin='no';
+
                 return view('post.postpubapplicant',compact('users','detil','pesertas','guides','lokasis','logedin'));       
             }
          }
-          $logedin='no';
+        $logedin='no';
         return view('post.postpubapplicant',compact('users','detil','pesertas','guides','lokasis','logedin'));
          
     }

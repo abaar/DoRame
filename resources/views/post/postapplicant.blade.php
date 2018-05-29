@@ -7,13 +7,17 @@
 
 @section('content-posttitle')
 
-Kota kediri kota impian kota tahu tempe pecel wenak bos!
+{{$detil[0]->nama}}
 
 @endsection
 
 
 @section('content-postimg')
-<img src="/img/1.jpg" id="img-container">
+	@if($detil[0]->foto==null)
+		<img src="/img/nopict.jpg" id="img-container">
+	@else
+		<img src="{{$detil[0]->foto}}" id="img-container">
+	@endif
 @endsection
 
 @section('content-maincontent')
@@ -41,7 +45,7 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      	@foreach($users as $user)
 					      		@if($user->applyAsGuide==0 && $user->isVerified==1)
 					      			<tr>
-							        <td>{{$user->nama}}</td>
+							        <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
 							        <td>
 							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
 							        </td>
@@ -62,9 +66,9 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      	@foreach($users as $user)
 					      		@if($user->applyAsGuide==1 && $user->isVerified==1)
 					      			<tr>
-							        <td>{{$user->nama}}</td>
+							        <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
 							        <td>
-							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+							        	<input type="submit" name="terima" value="Keluarkan" onclick="kickme('{{$user->idUser}}',{{$detil[0]->id}})" class="btn btn-danger">
 							        </td>
 							    	</tr>
 					        	@endif
@@ -85,11 +89,11 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      	@foreach($users as $user)
 							      @if($user->isVerified==0) 	
 							      <tr>
-							        <td>{{$user->nama}}</td>
+							        <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
 							        <td>@if($user->applyAsGuide==1)Guide @else Wisatawan @endif</td>
 							        <td>
-							        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-							        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
+							        	<input type="submit" name="terima" value="Terima" onclick="acceptme('{{$user->idUser}}',{{$detil[0]->id}})" class="btn btn-success">
+							        	<input type="submit" name="tolak" value="Tolak" onclick="rejectme('{{$user->idUser}}',{{$detil[0]->id}})" class="btn btn-danger">
 							        </td>
 							      </tr>
 							      @endif
@@ -138,7 +142,7 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 @endsection
 
 @section('content-sidecontent')
-				<div class="col-md-12" id="main-info" style="">
+				<div class="col-md-12" id="main-info" style="margin-bottom: 10%">
 					<div class="col-md-12 " id="main-info-header">
 						<p>
 							${{$detil[0]->budget}}
@@ -207,6 +211,28 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 		if(confirm("Apakah anda yakin?")){
 			location.href="/post/cancel/"+id;
 		}
+	}
+
+	function acceptme(email,id){
+		if(confirm("Apakah anda yakin?")){
+			location.href='/post/'+id+'/user/acc/'+email;
+		}
+	}
+
+	function rejectme(email,id){
+		if(confirm("Apakah anda yakin? Anda akan menghapusnya dari list!")){
+			location.href='/post/'+id+'/user/wa/'+email;
+		}
+	}
+
+	function kickme(email,id){
+		if(confirm("Apakah anda yakin akan memindahkannya ke golongan pendaftar?")){
+			location.href='/post/'+id+'/user/kick/'+email;
+		}
+	}
+
+	function showprofile(id){
+		location.href='/user/'+id;
 	}
 </script>
 @endsection

@@ -7,13 +7,17 @@
 
 @section('content-posttitle')
 
-Kota kediri kota impian kota tahu tempe pecel wenak bos!
+{{$detil[0]->nama}}
 
 @endsection
 
 
 @section('content-postimg')
-<img src="/img/1.jpg" id="img-container">
+	@if($detil[0]->foto==null)
+		<img src="/img/nopict.jpg" id="img-container">
+	@else
+		<img src="{{$detil[0]->foto}}" id="img-container">
+	@endif
 @endsection
 
 @section('content-maincontent')
@@ -34,17 +38,14 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					    <thead>
 					      <tr>
 					        <th class="col-md-8">Nama</th>
-					        <th class="col-md-4">Aksi</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 					      	@foreach($users as $user)
 					      		@if($user->applyAsGuide==0 && $user->isVerified==1)
 					      			<tr>
-							        <td>{{$user->nama}}</td>
-							        <td>
-							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-							        </td>
+							        <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
+
 							    	</tr>
 					        	@endif
 					        @endforeach
@@ -55,17 +56,13 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					    <thead>
 					      <tr>
 					        <th class="col-md-8">Nama</th>
-					        <th class="col-md-4">Aksi</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 					      	@foreach($users as $user)
 					      		@if($user->applyAsGuide==1 && $user->isVerified==1)
 					      			<tr>
-							        <td>{{$user->nama}}</td>
-							        <td>
-							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-							        </td>
+									 <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
 							    	</tr>
 					        	@endif
 					        @endforeach
@@ -77,20 +74,15 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					    <thead>
 					      <tr>
 					        <th class="col-md-6">Nama</th>
-					        <th class="col-md-2">Sebagai</th>
-					        <th class="col-md-4">Aksi</th>
+					        <th class="col-md-6">Sebagai</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 					      	@foreach($users as $user)
 							      @if($user->isVerified==0) 	
 							      <tr>
-							        <td>{{$user->nama}}</td>
+							        <td><p onclick="showprofile('{{$user->idUser}}')">{{$user->nama}}</p></td>
 							        <td>@if($user->applyAsGuide==1)Guide @else Wisatawan @endif</td>
-							        <td>
-							        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-							        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
-							        </td>
 							      </tr>
 							      @endif
 					        @endforeach
@@ -138,14 +130,26 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 @endsection
 
 @section('content-sidecontent')
-				<div class="col-md-12" id="main-info" style="">
+				<div class="col-md-12" id="main-info" style="margin-bottom: 10%;">
 					<div class="col-md-12 " id="main-info-header">
 						<p>
 							${{$detil[0]->budget}}
 						</p>
-						<button class="btn apply-btn float-me-right" onclick="cancelmypost({{$detil[0]->id}})">
-							Batalkan Rencana
+						@if($logedin!='no' and isset($verified))
+						<button class="btn apply-btn float-me-right" onclick="batalikut({{$detil[0]->id}},'{{$logedin}}')">
+							Batal ikut
 						</button>
+							@else
+							@if($detil[0]->public)
+								<button class="btn apply-btn float-me-right" onclick="daftart('{{$logedin}}',{{$detil[0]->id}})">
+									Daftar Jadi Turis!
+								</button>
+							@elseif($detil[0]->needguide)
+								<button class="btn apply-btn float-me-right" onclick="daftarg('{{$logedin}}',{{$detil[0]->id}})">
+									Daftar Jadi Guide!
+								</button>
+							@endif
+						@endif
 					</div>
 					<div class="col-md-12">
 						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> @if(count($pesertas)!=0){{$pesertas[0]->jumlah}}@elseif(count($pesertas)==0) 0 @endif Wisatawan & @if(count($guides)!=0){{$guides[0]->jumlah}}@elseif(count($guides)==0) 0 @endif  Guide</p>
@@ -207,6 +211,34 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 		if(confirm("Apakah anda yakin?")){
 			location.href="/post/cancel/"+id;
 		}
+	}
+	function daftart(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/turis/'+oleh;
+		}
+		else{
+			location.href='/login';
+		}
+
+	}
+
+	function daftarg(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/guide/'+oleh;
+		}
+		else{
+			location.href='/login';
+		}
+		
+	}
+
+	function batalikut(id,email){
+		if(confirm("Apakah anda yakin?")){
+			location.href='/post/'+id+/batal/+email;
+		}
+	}
+	function showprofile(id){
+		location.href='/user/'+id;
 	}
 </script>
 @endsection

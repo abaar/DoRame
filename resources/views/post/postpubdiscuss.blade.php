@@ -13,7 +13,11 @@
 
 
 @section('content-postimg')
-<img src="/img/1.jpg" id="img-container">
+	@if($detil[0]->foto==null)
+		<img src="/img/nopict.jpg" id="img-container">
+	@else
+		<img src="{{$detil[0]->foto}}" id="img-container">
+	@endif
 @endsection
 
 @section('content-maincontent')
@@ -26,7 +30,11 @@
 					@foreach($diskusis as $diskusi)
 					<div>
 						<div class="col-md-1 img-comment-cont" style="">
-							<img src="{{$diskusi->foto}}"  class="img-comment">
+							@if($diskusi->foto==null)
+							<img src="/img/defaultava.jpg" class="img-comment">
+							@else
+							<img src="/storage/img/{{$diskusi->foto?:'defaultava.jpg'}}" class="img-comment">
+							@endif
 						</div>
 						<div class="col-md-11 inline-block" style="">
 							<p><span class="comment-user"><a class="float-me-left" href="/user/{{$diskusi->uid}}">{{$diskusi->nama}}</a></span> {{$diskusi->kapan}}</p>
@@ -36,7 +44,9 @@
 						</div>
 						<div class="col-md-11 col-md-offset-1 inline-block comment-footer-cont" id="akbarnoto">
 							<p class="float-me-left comment-footer" id="{{$diskusi->username}}" onclick="komenme(this.id)">Reply</p>
+							@if(Auth::user()->id==$diskusi->uid)
 							<p class="float-me-left comment-footer" id="{{$diskusi->kid}}" onclick="deleteme(this.id)">Delete</p>
+							@endif
 						</div>
 					</div>					
 					@endforeach
@@ -137,7 +147,7 @@
 		location.href='/post/'+ke+'/regist/turis/'+oleh;
 		}
 		else{
-			location.href='/home';
+			location.href='/login';
 		}
 
 	}
@@ -147,7 +157,7 @@
 		location.href='/post/'+ke+'/regist/guide/'+oleh;
 		}
 		else{
-			location.href='/home';
+			location.href='/login';
 		}
 		
 	}

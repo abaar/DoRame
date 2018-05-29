@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/custom.menu.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     @yield('style')
     <style>
         body{
@@ -25,8 +26,11 @@
 @yield('content')
 @include('footer')
 <!-- Latest compiled and minified JavaScript -->
+
+
 <script type="text/javascript" src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script type="tex/javascript" src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
 @yield('script')
 </body>
 </html>

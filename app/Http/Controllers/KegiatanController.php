@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\kegiatan;
 use App\lokasi;
 use App\lokasiKegiatan;
+use App\pesertakegiatan;
 use DB;
-
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\View;
@@ -41,7 +42,97 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $rules=array(
+            'judul' => 'required',
+            'deskripsi' => 'required|min:20',
+            'budget' =>'required|integer',
+            'startdate' =>'required|date',
+            'enddate' => 'required|date|after_or_equal:startdate',
+            'lokasi' => 'required'
+        );
+
+       $messages =array(
+        'deskripsi.min'=> ':attribute minimal 20 Kata!',
+        'budget.integer' => ':attribute harus berupa angka!',
+        'required' =>'Kolom :attribute wajib diisi!',
+        'startdate.required' => 'Kolom Berangkat Wajib di isi!',
+        'enddate.required' =>'Kolom Berkahir wajib diisi!',
+        'enddate.after_or_equal' =>'Tanggal berakhir harus lebih atau sama dengan Tanggal berangkat!'
+        );
+
+        $validator=Validator::make($request->all(),$rules,$messages);
+        if ($validator->fails()) { 
+            return redirect()->back()
+                    ->withErrors($validator) // send back all errors to the login form
+                    ->withInput();
+        }
+
+       if(!Auth::check()){
+            return redirect('/login');
+        }
+        $data=new kegiatan();
+        $data->nama = $request->judul;
+        $data->deskripsi = $request->deskripsi;
+        $data->budget = $request->budget;
+        if ($request->publicstatus == 1){
+            $data->public = 1;
+            $data->needguide=1;
+        }
+        else if ($request->publicstatus == 2){
+            $data->public=1;
+            $data->needguide=0;
+        }
+        else{
+            $data->public=0;
+            $data->needguide=1;
+        }
+        $data->foto=null;
+        $data->mulai=$request->startdate;
+        $data->selesai=$request->enddate;
+        $data->leader = Auth::user()->id;
+        if ($request->documbyguide!=null){
+        $data->documbyguide=1;
+        }
+        else{$data->documbyguide=0;}
+        $data->negoable=($request->negoable==null)?0:1;
+        $data->status=0;
+        $data->save();
+        
+        $mengikuti= new pesertakegiatan();
+        $mengikuti->idUser=Auth::user()->id;
+        $mengikuti->idKegiatan=$data->id;
+        $mengikuti->applyAsGuide=2;
+        $mengikuti->isVerified=1;
+        $mengikuti->save();
+
+        foreach ($request->lokasi as $halo) {
+             $cek = DB::table('lokasis')
+                ->select('id')
+                ->where('nama','LIKE',$halo)
+                ->get();
+            if (count($cek)!=0){
+                foreach($cek as $insertkebertempat){
+                    $bertempat = new lokasiKegiatan();
+                    $bertempat->idKegiatan=$data->id;
+                    $bertempat->idLokasi = $insertkebertempat->id;
+                    $bertempat->save();
+                }
+            }
+            else{
+                $lokasi = new lokasi();
+                $lokasi->nama=$halo;
+                $lokasi->deskripsi=$request->deskripsi;
+                $lokasi->save();
+
+                $bertempat = new lokasiKegiatan();
+                $bertempat->idKegiatan=$data->id;
+                $bertempat->idLokasi = $lokasi->id;
+                $bertempat->save();
+            }
+        }
+
+        return redirect('/post/'.$data->id);        
     }
 
     /**

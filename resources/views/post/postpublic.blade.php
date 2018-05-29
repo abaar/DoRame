@@ -12,7 +12,11 @@
 
 
 @section('content-postimg')
-<img src="/img/1.jpg" id="img-container">
+	@if($kegiatans[0]->foto==null)
+		<img src="/img/nopict.jpg" id="img-container">
+	@else
+		<img src="{{$detil[0]->foto}}" id="img-container">
+	@endif
 @endsection
 
 @section('content-maincontent')
@@ -21,9 +25,13 @@
         			</h4>
 					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
 					<p class="what-submain">Didampingi oleh Guide secara langsung</p>
-					<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
-					<p class="what-submain">Guidemu akan mendokumentasikan tourmu!</p>
+					@if($kegiatans[0]->documbyguide==1)
+						<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
+						<p class="what-submain">Guidemu akan mendokumentasikan tourmu!</p>
+					@endif
+					@if($kegiatans[0]->negoable==1)
 					<p class="what-main"><span class="glyphicon glyphicon-barcode"></span> Negotiable Price</p>
+					@endif
 					<p class="what-main"><span class="glyphicon glyphicon-bookmark"></span> Tujuan Wisata</p>
 					<ul>
 						@foreach($lokasis as $lokasi)
@@ -155,7 +163,7 @@
 		location.href='/post/'+ke+'/regist/turis/'+oleh;
 		}
 		else{
-			location.href='/home';
+			location.href='/login';
 		}
 
 	}
@@ -165,7 +173,7 @@
 		location.href='/post/'+ke+'/regist/guide/'+oleh;
 		}
 		else{
-			location.href='/home';
+			location.href='/login';
 		}
 		
 	}

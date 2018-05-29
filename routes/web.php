@@ -112,3 +112,5 @@ Route::get('/post/discuss/delete/{iddis}',['uses'=>'KomentarKegiatanController@d
 
 
 Route::post('/post/{id}/discuss/insert',['uses'=>'KomentarKegiatanController@store']);
+
+Route::post('/post/create/insert','KegiatanController@store');
