@@ -44,7 +44,7 @@
 						</div>
 						<div class="col-md-11 col-md-offset-1 inline-block comment-footer-cont" id="akbarnoto">
 							<p class="float-me-left comment-footer" id="{{$diskusi->username}}" onclick="komenme(this.id)">Reply</p>
-							@if(Auth::user()->id==$diskusi->uid)
+							@if($logedin==$diskusi->uid)
 							<p class="float-me-left comment-footer" id="{{$diskusi->kid}}" onclick="deleteme(this.id)">Delete</p>
 							@endif
 						</div>

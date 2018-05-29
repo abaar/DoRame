@@ -89,4 +89,4 @@ Route::post('/post/edit/insert/{id}',['uses'=>'KegiatanController@update']);
 
 Route::post('/lokasi/discuss/{id}',['uses'=>'KomentarLokasiController@store']);
 
-Route::get('/lokasi/discuss/delete/{id}',['uses'=>'KomentarLokasiController@deletekomentar'])
+Route::get('/lokasi/discuss/delete/{id}',['uses'=>'KomentarLokasiController@deletekomentar']);

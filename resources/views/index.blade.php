@@ -59,7 +59,7 @@
 						<p class="use-number">1</p>
 						<p class="use-title">Daftar</p>
 					</div>
-					<div class="use-image">
+					<div class="use-image" style="background-image: url('/img/step1.jpg')">
 					</div>
 					<div class="use-description">
 						<p>
@@ -71,12 +71,12 @@
 		</div>	
 		<div class="col-md-4 col-xs-4">
 			<div class="col-md-10 col-xs-10 col-md-offset-1 col-xs-offset-1 red">
-				<div class="use-content">
+				<div class="use-content" >
 					<div class="use-header">
 						<p class="use-number">2</p>
 						<p class="use-title">Post Keinginanmu</p>
 					</div>
-					<div class="use-image">
+					<div class="use-image" style="background-image: url('/img/step2.jpg')" >
 					</div>
 					<div class="use-description">
 						<p>
@@ -93,7 +93,7 @@
 						<p class="use-number">3</p>
 						<p class="use-title">Enjoy!</p>
 					</div>
-					<div class="use-image">
+					<div class="use-image" style="background-image: url('/img/step3.jpg')">
 					</div>
 					<div class="use-description">
 						<p>
