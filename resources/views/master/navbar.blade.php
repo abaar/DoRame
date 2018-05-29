@@ -27,7 +27,17 @@
                         <li><a href="{{url('/myprofile/history')}}">Trip History</a></li>
                         {{--<li><a href="{{url('/myprofile/mytrip')}}">Active Trip</a></li>--}}
                         <li role="separator" class="divider"></li>
-                        <li><a href="{{route('logout')}}">Logout</a></li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
