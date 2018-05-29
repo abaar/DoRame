@@ -10,13 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/', function () {
+Route::get('/index',function(){
         return view('index');
     });
 
-    Route::get('/index',function(){
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
         return view('index');
     });
 
@@ -37,41 +36,14 @@ Route::get('/myprofile/edit',function(){
 Route::get('/myprofile/history', 'UserController@tripHistory');
 Route::post('/myprofile/edit', 'UserController@update');
 Route::post('/myprofile/edit/pass', 'UserController@updatePass');
-//end
 
 
-
-
-Route::get('/post/public',function(){
-	return view('post.postpublic');
-});
-
-// Route::get('/post/user',function(){
-// 	return view('post.postuser');
-// });
-//
-//THIS ONE DELETED, but u shld see postaplicant-user.blade.php
-
-
-Route::get('/post/discuss',function(){
-	return view('post.postdiscuss');
-});
-
-Route::get('/post/applicant',function(){
-	return view('post.postapplicant');
-});
-
-Route::get('/post/owner',function(){
-	return view('post.postowner');
-});
 
 Route::get('/post/create',function(){
 	return view('post.postcreate');
 });
 
-Route::get('/post/edit',function(){
-	return view('post.postedit');
-});
+
 
 Route::get('/location',function(){
 	return view('lokasi.location');
@@ -114,3 +86,5 @@ Route::get('/post/discuss/delete/{iddis}',['uses'=>'KomentarKegiatanController@d
 Route::post('/post/{id}/discuss/insert',['uses'=>'KomentarKegiatanController@store']);
 
 Route::post('/post/create/insert','KegiatanController@store');
+
+Route::post('/post/edit/insert/{id}',['uses'=>'KegiatanController@update']);

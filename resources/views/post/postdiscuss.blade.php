@@ -106,7 +106,7 @@
 
 
 @section('content-sidecontent')
-				<div class="col-md-12" id="main-info" style="">
+				<div class="col-md-12" id="main-info" style="margin-bottom: 10%;">
 					<div class="col-md-12 " id="main-info-header">
 						<p>
 							${{$detil[0]->budget}}

@@ -44,7 +44,7 @@
 					<ul>
 						@foreach($lokasis as $lokasi)
 						<li>
-							<a href="{{$lokasi->id}}">{{$lokasi->nama}}</a>	
+							<a href="{{url('/lokasi',$lokasi->id)}}">{{$lokasi->nama}}</a>	
 						</li>
 						@endforeach
 					</ul>

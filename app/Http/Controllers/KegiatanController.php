@@ -164,9 +164,77 @@ class KegiatanController extends Controller
      * @param  \App\lokasi  $lokasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kegiatan $kegiatan)
+    public function update(Request $request, $id)
     {
-        //
+        $rules=array(
+            'judul' => 'required',
+            'deskripsi' => 'required|min:20',
+            'budget' =>'required|integer',
+            'startdate' =>'required|date',
+            'enddate' => 'required|date|after_or_equal:startdate'
+        );
+
+       $messages =array(
+        'deskripsi.min'=> ':attribute minimal 20 Kata!',
+        'budget.integer' => ':attribute harus berupa angka!',
+        'required' =>'Kolom :attribute wajib diisi!',
+        'startdate.required' => 'Kolom Berangkat Wajib di isi!',
+        'enddate.required' =>'Kolom Berkahir wajib diisi!',
+        'enddate.after_or_equal' =>'Tanggal berakhir harus lebih atau sama dengan Tanggal berangkat!'
+        );
+
+        $validator=Validator::make($request->all(),$rules,$messages);
+        if ($validator->fails()) { 
+            return redirect()->back()
+                    ->withErrors($validator) // send back all errors to the login form
+                    ->withInput();
+        }
+        $public=1;
+        $needguide=1;
+        if ($request->publicstatus==2){
+            $needguide=0;
+        }
+        else if ($request->publicstatus==3){
+            $public=0;
+        }
+
+        $docum=1;
+        $nego=1;
+
+        if($request->documbyguide==null){
+            $docum=0;
+        }
+        if($request->negoable==null){
+            $nego=0;
+        }
+
+        if ($request->hasFile('foto')){
+            // get filename with ext
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            //get just filename
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            //filename to store
+            $fileNametoStore = 'user'.Auth::id().'.'.$extension;
+            //upload image
+            $path = $request->file('foto')->storeAs('public/img',$fileNametoStore);
+        }else{
+            $fileNametoStore = 'defaultava.jpg';
+        }
+
+        kegiatan::where('id','=',$id)->update(['nama'=>$request->judul,
+            'budget'=>$request->budget,
+            'deskripsi'=>$request->deskripsi,
+            'public'=>$public,
+            'needguide'=>$needguide,
+            'mulai'=>$request->startdate,
+            'selesai'=> $request->enddate,
+            'documbyguide'=>$docum,
+            'negoable'=>$nego
+        );
+
+        return redirect('/post/'.$id);
     }
 
     /**
@@ -177,7 +245,7 @@ class KegiatanController extends Controller
      */
     public function destroy(kegiatan $kegiatan)
     {
-        //
+        
     }
 
     public function search(request $request){
@@ -288,7 +356,7 @@ class KegiatanController extends Controller
 
     public function editpost($id){
         $detil_kegiatans = DB::table('kegiatans')
-            ->select('kegiatans.id','kegiatans.nama','kegiatans.mulai','kegiatans.selesai','kegiatans.budget','kegiatans.deskripsi')
+            ->select('kegiatans.id','kegiatans.nama','kegiatans.mulai','kegiatans.selesai','kegiatans.budget','kegiatans.deskripsi','kegiatans.foto')
             ->where('kegiatans.id','=',$id)
             ->get();
 
@@ -298,7 +366,9 @@ class KegiatanController extends Controller
             ->where('lokasi_kegiatans.idKegiatan','=',$id)
             ->get();
 
-        return view('post.postedit',compact('detil_kegiatans','detil_lokasis'));
+        $detil1=$detil_kegiatans[0]->nama;
+
+        return view('post.postedit',compact('detil_kegiatans','detil_lokasis','detil1'));
     }
 
     public function cancel($id){
