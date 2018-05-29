@@ -51,8 +51,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <p>Belum punya akun?<a href="#"> Daftar sekarang!</a></p>
-        <p>Lupa <a href="#">password?</a></p>
+        <p>Belum punya akun?<a href="/regist"> Daftar sekarang!</a></p>
       </div>
     </div>
 
