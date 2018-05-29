@@ -27,17 +27,35 @@
 				 		<div class="col-md-7 col-md-offset-1 input-container">
 				    		<input type="Text" class="form-control" id="judul" placeholder="Judul Kegiatan...">			
 				 		</div>
-
+				  	</div>
+					<div class="form-group row">
+						<div class="col-md-2 col-md-offset-1">
+							<label class="" for="budget">Budget</label>							
+						</div>
+				 		<div class="col-md-7 col-md-offset-1 input-container">
+				    		<input type="Text" class="form-control" id="judul" placeholder="Budget...">	
+				 		</div>
 				  	</div>
 					<div class="form-group row">
 						<div class="col-md-2 col-md-offset-1">
 					    	<label class="" for="deksripsi">Deskripsi</label>
 						</div>
 						<div class="col-md-7 col-md-offset-1 input-container red">
-							<textarea class="form-control" rows="3" id="Deskripsi" placeholder="Deskripsi Kegiatan..."></textarea>
+							<textarea class="form-control" rows="2" id="Deskripsi" placeholder="Deskripsi Kegiatan..." onkeyup="textAreaAdjust(this)" style="overflow:hidden"></textarea>
 						</div>
-
 				  	</div>
+				  	<div class="form-group row">
+				  		<div class="col-md-2 col-md-offset-1">
+					  		<label class="">Terbuka Untuk</label>		
+				  		</div>
+				  		<div class="col-md-7 col-md-offset-1 input-container">
+				  			<select class="form-control">
+				  				<option>Wisatawan & Tour Guide</option>
+				  				<option>Wisatawan</option>
+				  				<option>Tour Guide</option>
+				  			</select>				  			
+				  		</div>
+				  	</div>				  	
 				  	<div class="form-group row">
 				  		<div class="col-md-2 col-md-offset-1">
 					  		<label class="">Berangkat</label>		
@@ -70,11 +88,11 @@
 				  			<a onclick="addlokasi()">Tambah Lokasi</a>
 				  		</div>
 				  	</div>
-				  	<div class="col-md-4 col-md-offset-2 input-container">
+				  	<div class="col-md-4 col-md-offset-4 input-container">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Wisatawan
+								Dokumentasi oleh Guide
 							</label>
 						</div>				  		
 				  	</div>
@@ -82,7 +100,7 @@
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" value="">
-								Terbuka Untuk Guide
+								Bisa di-<em>nego</em>
 							</label>
 						</div>				  		
 				  	</div>
@@ -143,6 +161,11 @@
 			$("#divalokasi"+myid).fadeOut();
 		}
 	}
+
+function textAreaAdjust(o) {
+  o.style.height = "1px";
+  o.style.height = (25+o.scrollHeight)+"px";
+}
 </script>
 
 @section('script')

@@ -14,6 +14,7 @@ class CreateKomentarKegiatansTable extends Migration
     public function up()
     {
         Schema::create('komentar_kegiatans', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('idUser')->unsigned();
             $table->integer('idKegiatan')->unsigned();
             $table->text('komentar');

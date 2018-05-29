@@ -11,7 +11,7 @@ class DokumentasiKegiatanTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\DokumentasiKegiatan::class,1000)->create();
+    	factory(App\DokumentasiKegiatan::class,10)->create();
         //
     }
 }

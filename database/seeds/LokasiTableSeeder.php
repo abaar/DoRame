@@ -11,7 +11,7 @@ class LokasiTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\Lokasi::class,1000)->create();
+    	factory(App\Lokasi::class,100)->create();
         //
     }
 }

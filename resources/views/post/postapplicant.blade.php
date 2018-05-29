@@ -38,24 +38,16 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr>
-					        <td>John</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>Mary</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>July</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
+					      	@foreach($users as $user)
+					      		@if($user->applyAsGuide==0 && $user->isVerified==1)
+					      			<tr>
+							        <td>{{$user->nama}}</td>
+							        <td>
+							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+							        </td>
+							    	</tr>
+					        	@endif
+					        @endforeach
 					    </tbody>
 					 </table>
 
@@ -67,24 +59,16 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr>
-					        <td>Johnoooo</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>Marry me</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>July januari</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
-					        </td>
-					      </tr>
+					      	@foreach($users as $user)
+					      		@if($user->applyAsGuide==1 && $user->isVerified==1)
+					      			<tr>
+							        <td>{{$user->nama}}</td>
+							        <td>
+							        	<input type="submit" name="terima" value="Keluarkan" onclick="return confirm ('Anda yakin?')" class="btn btn-danger">
+							        </td>
+							    	</tr>
+					        	@endif
+					        @endforeach
 					    </tbody>
 					  </table>
 
@@ -98,43 +82,57 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr>
-					        <td>Johnoooo</td>
-					        <td>Guide</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>Marry me</td>
-					        <td>Wisatawan</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
-					        </td>
-					      </tr>
-					      <tr>
-					        <td>July januari</td>
-					        <td>Guide</td>
-					        <td>
-					        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
-					        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
-					        </td>
-					      </tr>
+					      	@foreach($users as $user)
+							      @if($user->isVerified==0) 	
+							      <tr>
+							        <td>{{$user->nama}}</td>
+							        <td>@if($user->applyAsGuide==1)Guide @else Wisatawan @endif</td>
+							        <td>
+							        	<input type="submit" name="terima" value="Terima" onclick="return confirm ('Anda yakin?')" class="btn btn-success">
+							        	<input type="submit" name="tolak" value="Tolak" onclick="return confirm ('Anda yakin ingin menolak?')" class="btn btn-danger">
+							        </td>
+							      </tr>
+							      @endif
+					        @endforeach
 					    </tbody>
 					  </table>					  
 				</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="top:40%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 5%; text-align: center;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Bagikan rencana perjalananmu</h4>
+      </div>
+      <div class="modal-body">
+        	<div class="form-group row">
+        		<div class="col-md-2">
+        			<label class="" for="link" style="text-align: center; line-height:2.5">Alamat</label>
+        		</div>
+        		<div class="col-md-8">
+        			<input type="text" class="form-control" name="link" value="http://localhost:8000/post/{{$detil[0]->id}}">
+        		</div>
+        		<div class="col-md-2">
+        			<button class="btn" onclick="copythevalue({{$detil[0]->id}})">Copy</button>
+        		</div>
+        	</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
 
 @section('content-owner-regist')
-<div class="col-md-4 choice-option" id="page-info">
+<div class="col-md-4 choice-option" onclick="info({{$detil[0]->id}})" id="page-info">
 	<p>Informasi</p>
 </div>
-<div class="col-md-4 choice-option" id="chat-info">
+<div class="col-md-4 choice-option" onclick="diskusi({{$detil[0]->id}})" id="chat-info">
 	<p>Diskusi</p>
 </div>
-<div class="col-md-4 choice-option" id="regist-info">
+<div class="col-md-4 choice-option"  onclick="user({{$detil[0]->id}})" id="regist-info">
 	<p>Pendaftar</p>
 </div> 
 @endsection
@@ -143,26 +141,25 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 				<div class="col-md-12" id="main-info" style="">
 					<div class="col-md-12 " id="main-info-header">
 						<p>
-							$1234
+							${{$detil[0]->budget}}
 						</p>
-						<button class="btn apply-btn float-me-right">
+						<button class="btn apply-btn float-me-right" onclick="cancelmypost({{$detil[0]->id}})">
 							Batalkan Rencana
 						</button>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> 10 Wisatawan & 20 Guide</p>
+						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> @if(count($pesertas)!=0){{$pesertas[0]->jumlah}}@elseif(count($pesertas)==0) 0 @endif Wisatawan & @if(count($guides)!=0){{$guides[0]->jumlah}}@elseif(count($guides)==0) 0 @endif  Guide</p>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> 09 April 1998 - 08 April 1997</p>
+						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> {{date('d-m-Y',strtotime($detil[0]->mulai))}} - {{date('d-m-Y',strtotime($detil[0]->selesai))}}</p>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="place"><span class="glyphicon glyphicon-map-marker"></span> Main City : Kediri</p>
+						<p class="main-info-content" id="place"><span class="glyphicon glyphicon-map-marker"></span> Main City : {{$lokasis[0]->nama}}</p>
 					</div>
 					<div class="col-md-12" id="anchor-container">
-						<a href="#" class="float-me-right main-info-anchor" style="">Undang Teman <span class="glyphicon glyphicon-envelope"></span> </a>
-						<br>
-						<a href="#" class="float-me-right main-info-anchor" style="">Bagikan <span class="glyphicon glyphicon-share-alt"></span></a>	
+						<a href="#" data-toggle="modal" data-target="#myModal" class="float-me-right main-info-anchor" style="">Bagikan <span class="glyphicon glyphicon-share-alt"></span></a>		
 					</div>
+				</div>
 @endsection
 
 @section('script-post')
@@ -192,6 +189,24 @@ Kota kediri kota impian kota tahu tempe pecel wenak bos!
 		$(this).addClass("active");
 		$("#turis-div-btn").removeClass("active");
 		$("#guide-div-btn").removeClass("active");
-	});	
+	});
+
+	function info(id){
+		location.href='/post/'+id;
+	}
+
+	function diskusi(id){
+		location.href="/post/discuss/"+id;
+	}
+
+	function user(id){
+
+	}
+
+	function cancelmypost(id){
+		if(confirm("Apakah anda yakin?")){
+			location.href="/post/cancel/"+id;
+		}
+	}
 </script>
 @endsection

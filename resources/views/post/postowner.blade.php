@@ -26,9 +26,13 @@
         			</h4>
 					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
 					<p class="what-submain">Didampingi oleh Guide secara langsung</p>
-					<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
-					<p class="what-submain">Guidemu akan mendokumentasikan tourmu!</p>
+					@if($kegiatans[0]->documbyguide==1)
+						<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
+						<p class="what-submain">Guidemu akan mendokumentasikan tourmu!</p>
+					@endif
+					@if($kegiatans[0]->negoable==1)
 					<p class="what-main"><span class="glyphicon glyphicon-barcode"></span> Negotiable Price</p>
+					@endif
 					<p class="what-main"><span class="glyphicon glyphicon-bookmark"></span> Tujuan Wisata</p>
 					<ul>
 						@foreach($lokasis as $lokasi)

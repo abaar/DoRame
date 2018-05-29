@@ -33,7 +33,7 @@
         <h4 class="modal-title">Mulai petualanganmu sekarang!</h4>
       </div>
       <div class="modal-body">
-        <form accept="#" method="post">
+        <form action="/login" method="post">
           <div class="form-group"> 
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" placeholder="enter username">
@@ -50,8 +50,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <p>Belum punya akun?<a href="#"> Daftar sekarang!</a></p>
-        <p>Lupa <a href="#">password?</a></p>
+        <p>Belum punya akun?<a href="/regist"> Daftar sekarang!</a></p>
       </div>
     </div>
 

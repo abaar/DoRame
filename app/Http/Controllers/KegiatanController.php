@@ -98,8 +98,10 @@ class KegiatanController extends Controller
         $getKegiatans = DB::table('kegiatans')
             ->join('lokasi_kegiatans','kegiatans.id','=','lokasi_kegiatans.idKegiatan')
             ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
-            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','lokasis.nama as namalokasi')
+            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.needguide','kegiatans.public')
+            ->Distinct()
             ->where('kegiatans.budget','<',$budget)
+            ->where('kegiatans.status','=',1)
             ->where('lokasis.nama','LIKE',$dest)
             ->get();
 
@@ -111,6 +113,7 @@ class KegiatanController extends Controller
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.budget','<',$budget)
             ->where('lokasis.nama','LIKE',$dest)
+            ->where('kegiatans.status','=',1)
             ->where('peserta_kegiatans.applyAsGuide','=',0)
             ->groupBy('kegiatans.id')
             ->get();
@@ -123,6 +126,7 @@ class KegiatanController extends Controller
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.budget','<',$budget)
             ->where('lokasis.nama','LIKE',$dest)
+            ->where('kegiatans.status','=',1)
             ->where('peserta_kegiatans.applyAsGuide','=',1)
             ->groupBy('kegiatans.id')
             ->get();
@@ -133,7 +137,7 @@ class KegiatanController extends Controller
 
     public function showpost($id){
         $kegiatans = DB::table('kegiatans')
-            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai')
+            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.documbyguide','kegiatans.negoable')
             ->where('kegiatans.id','=',$id)
             ->get();
 
