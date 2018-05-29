@@ -85,7 +85,11 @@
 							<div class="col-md-12 post-container" style="padding: 10px">
 								<div class="row">
 								<div class="col-md-4 post-image-container ">
-									<img src="/img/1.jpg" class="post-image">
+									@if($kegiatan->foto == null)
+									<img src="/img/nopict.jpg" class="post-image">
+									@else
+									<img src="{{$kegiatan->foto}}" class="post-image">
+									@endif
 								</div>
 								<div class="col-md-8">
 									<div class="col-md-9 text-over ">

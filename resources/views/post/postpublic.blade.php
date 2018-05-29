@@ -1,107 +1,173 @@
-@extends('master.layout')
+@extends('post.masterpost')
 
-@section('title')
-	Halo
-@endsection
-
-@section('style')
+@section('poststyle')
 <link rel="stylesheet" type="text/css" href="/css/post.css">
+@endsection
+
+@section('content-posttitle')
+
+{{$kegiatans[0]->nama}}
 
 @endsection
 
-@section('content')
-	<div class="container-fluid boody" style="margin:0">
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
-				<h3 class="post-title">Kota kediri kota impian kota tahu tempe pecel wenak bos!</h3>
-			</div>
-			<div class="col-md-10 col-md-offset-1" style="">
-				<img src="/img/1.jpg" style="width: 100%; max-height: 400px; overflow: hidden;">
-			</div>
-			<!--End of foto -->
-			<div class="col-md-7 col-md-offset-1" id="side-info">
+
+@section('content-postimg')
+<img src="/img/1.jpg" id="img-container">
+@endsection
+
+@section('content-maincontent')
 				<div class="col-md-12 blue what-info">
-					<h4>Apa yang kamu dapatkan!</h4>
-					<p><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
-					<p>Didampingi oleh Guide secara langsung</p>
-					<p><span class="glyphicon glyphicon-camera"></span> Documentation</p>
-					<p>Guidemu akan mendokumentasikan tourmu!</p>
-					<p><span class="glyphicon glyphicon-barcode"></span> Negotiable Price</p>
-					<span class="glyphicon glyphicon-bookmark"></span> Tujuan Wisata
+					<h4>Apa yang kamu dapatkan!
+        			</h4>
+					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
+					<p class="what-submain">Didampingi oleh Guide secara langsung</p>
+					<p class="what-main"><span class="glyphicon glyphicon-camera"></span> Documentation</p>
+					<p class="what-submain">Guidemu akan mendokumentasikan tourmu!</p>
+					<p class="what-main"><span class="glyphicon glyphicon-barcode"></span> Negotiable Price</p>
+					<p class="what-main"><span class="glyphicon glyphicon-bookmark"></span> Tujuan Wisata</p>
 					<ul>
+						@foreach($lokasis as $lokasi)
 						<li>
-							<a href="#">Gunung Kelud</a>	
+							<a href="{{$lokasi->id}}">{{$lokasi->nama}}</a>	
 						</li>
-						<li>
-							<a href="#">Simpang Lima Gumul</a>
-						</li>
-						<li>
-							<a href="#">Warung pecel mbok e</a>
-						</li>
+						@endforeach
 					</ul>
 				</div>
 				<!-- end of left info -->
+				@foreach($kegiatans as $kegiatan)
 				<div class="col-md-12 desc-info">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pellentesque luctus dui vitae consequat. Sed placerat, nunc et bibendum laoreet, quam lorem euismod purus, quis aliquam dui nibh non purus. Proin ut dictum ligula. Ut ultricies turpis ligula, sit amet hendrerit nisl mollis non. Nullam iaculis tincidunt quam, vitae dignissim lectus porta eu. Donec tristique ac felis in hendrerit. Quisque vel pulvinar nibh, ut varius tortor. Vivamus laoreet eros mi, nec interdum tellus dignissim in.<p>
+					<p>{{$kegiatan->deskripsi}}<p>
 				</div>
+				@endforeach
 				<!-- end of desc info -->
 				<div class="col-md-12 note-info">
 					<p>
-						Catatan
+						Catatan dari Dorame
 					</p>
 					<ul>
 						<li>
-							Jangan berak sembarangan
+							Selalu patuhi adat setempat
 						</li>
 						<li>
 							Jangan buang sampah sembarangan
 						</li>
 						<li>
-							Jangan norak
+							Selalu jagalah kebersihan tempat wisata
 						</li>
 						<li>
-							Jangan nggodain mbak mbak
+							Bookmark halaman kami!
 						</li>
 					</ul>
-					<a href="#" style="text-align: center;"><p>see less</p></a>
 				</div>
-			</div>
-			<!-- end of side-info -->
-			<div class="col-md-3 main-info-cont">
-				<div class="col-md-12" id="main-info">
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="top:40%">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 5%; text-align: center;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Bagikan rencana perjalananmu</h4>
+      </div>
+      <div class="modal-body">
+        	<div class="form-group row">
+        		<div class="col-md-2">
+        			<label class="" for="link" style="text-align: center; line-height:2.5">Alamat</label>
+        		</div>
+        		<div class="col-md-8">
+        			<input type="text" class="form-control" name="link" value="http://localhost:8000/post/{{$kegiatans[0]->id}}">
+        		</div>
+        		<div class="col-md-2">
+        			<button class="btn" onclick="copythevalue({{$kegiatans[0]->id}})">Copy</button>
+        		</div>
+        	</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+@endsection
+
+@section('content-owner-regist')
+<div class="col-md-4 choice-option" onclick="info({{$kegiatans[0]->id}})" id="page-info">
+	<p>Informasi</p>
+</div>
+<div class="col-md-4 choice-option" onclick="diskusi({{$kegiatans[0]->id}})" id="chat-info">
+	<p>Diskusi</p>
+</div>
+<div class="col-md-4 choice-option"  onclick="user({{$kegiatans[0]->id}})" id="regist-info">
+	<p>Pendaftar</p>
+</div> 
+@endsection
+
+@section('content-sidecontent')
+				@foreach($kegiatans as $kegiatan)
+				<div class="col-md-12" id="main-info" style="">
 					<div class="col-md-12 " id="main-info-header">
-						<p class="" style="display:inline-block;">
-							$1234
+						<p>
+							${{$kegiatan->budget}}
 						</p>
-						<button class="btn apply-btn float-me-right">
-							Daftar Turis
+						@if($kegiatan->public)
+						<button class="btn apply-btn float-me-right" onclick="daftart('{{$logedin}}',{{$kegiatans[0]->id}})">
+							Daftar Jadi Turis!
 						</button>
-						<button class="btn apply-btn float-me-right">
-							Daftar Guide
+						@elseif($kegiatan->needguide)
+						<button class="btn apply-btn float-me-right" onclick="daftarg('{{$logedin}}',{{$kegiatans[0]->id}})">
+							Daftar Jadi Guide!
 						</button>
+						@endif
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> 10 Wisatawan & 20 Guide</p>
+						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> 
+							@if(count($pesertas)!=0){{$pesertas[0]->jumlah}}@elseif(count($pesertas)==0) 0 @endif Wisatawan & @if(count($guides)!=0){{$guides[0]->jumlah}}@elseif(count($guides)==0) 0 @endif  Guide</p>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> 09 April 1998 - 08 April 1997</p>
+						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> {{date('Y-m-d',strtotime($kegiatan->mulai))}} - {{date('Y-m-d',strtotime($kegiatan->selesai))}}</p>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="place"><span class="glyphicon glyphicon-map-marker"></span> Main City : Kediri</p>
+						<p class="main-info-content" id="place"><span class="glyphicon glyphicon-map-marker"></span> Main City : {{$lokasis[0]->nama}}</p>
 					</div>
-					<div class="col-md-12" style="display: inline-block">
-						<a href="#" class="float-me-right main-info-anchor" style="display:block;">Undang Teman <span class="glyphicon glyphicon-envelope"></span> </a>
-						<br>
-						<a href="#" class="float-me-right main-info-anchor" style="display: block">Bagikan <span class="glyphicon glyphicon-share-alt"></span></a>	
+					<div class="col-md-12" id="anchor-container">
+						<a href="#" data-toggle="modal" data-target="#myModal" class="float-me-right main-info-anchor" style="">Bagikan <span class="glyphicon glyphicon-share-alt"></span></a>	
 					</div>
 				</div>
-			</div>
-			<!-- end of main-info -->
-			<div class="col-md-12">
-				
-			</div>
-		</div>
-		<!-- end of row -->
-	</div>
-	<!-- end of container fluid -->
+				@endforeach
+@endsection
+
+@section('script-post')
+<script type="text/javascript">
+	function info(id){
+
+	}
+
+	function diskusi(id){
+		location.href="/post/discuss/"+id;
+	}
+
+	function user(id){
+		location.href="/post/user/"+id;
+	}
+
+	function daftart(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/turis/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+
+	}
+
+	function daftarg(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/guide/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+		
+	}
+</script>
 @endsection

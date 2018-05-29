@@ -8,7 +8,7 @@ use App\lokasiKegiatan;
 use App\komentarKegiatan;
 use DB;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class KomentarKegiatanController extends Controller
 {
     /**
@@ -91,13 +91,13 @@ class KomentarKegiatanController extends Controller
         $diskusis= DB::table('komentar_kegiatans')
             ->join('kegiatans','kegiatans.id','=','komentar_kegiatans.idKegiatan')
             ->join('users','users.id','=','komentar_kegiatans.idUser')
-            ->select('users.namaDepan as nama','users.id as uid','users.foto','komentar_kegiatans.komentar','komentar_kegiatans.created_at as kapan','users.username','komentar_kegiatans.id as kid')
+            ->select('users.namaDepan as nama','users.id as uid','users.foto','komentar_kegiatans.komentar','komentar_kegiatans.created_at as kapan','users.username','komentar_kegiatans.id as kid','kegiatans.foto')
             ->Distinct()
             ->where('komentar_kegiatans.idKegiatan','=',$id)
             ->get();
 
         $detil=DB::table('kegiatans')
-            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget')
+            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget','kegiatans.nama','kegiatans.foto','kegiatans.public','kegiatans.needguide','kegiatans.leader')
             ->where('kegiatans.id','=',$id)
             ->get();
 
@@ -125,6 +125,28 @@ class KomentarKegiatanController extends Controller
             ->where('lokasi_kegiatans.idKegiatan','=',$id)
             ->get();
 
+
+
+        $pesertas2=DB::table('peserta_kegiatans')
+            ->select('idUser','isVerified')
+            ->where('idKegiatan','=',$id)
+            ->get();
+
+        if(Auth::check()){
+            $logedin=Auth::user()->id;
+            foreach ($pesertas2 as $ygikut) {
+                if ($ygikut->idUser == $logedin and $ygikut->isVerified==1){
+                    return view('post.postdiscuss',compact('diskusis','pesertas','guides','lokasis','logedin','detil'));              
+                }
+                else if($ygikut->idUser==$logedin and $ygikut->isVerified==0){
+                    $notverified=1;
+                    return view('post.postdiscuss',compact('diskusis','pesertas','guides','lokasis','logedin','detil','notverified'));
+                }
+            }
+            return view('post.postpubdiscuss',compact('diskusis','pesertas','guides','lokasis','logedin','detil'));
+        }
+        $logedin='no';
+        return view('post.postpubdiscuss',compact('diskusis','pesertas','guides','lokasis','detil','logedin'));
 
         return view('post.postdiscuss',compact('diskusis','pesertas','guides','lokasis','detil'));
     }

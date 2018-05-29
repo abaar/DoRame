@@ -12,17 +12,24 @@
 
 
 @section('content-postimg')
-<img src="/img/1.jpg" id="img-container">
+
+	@if($kegiatans[0]->foto==null)
+		<img src="/img/nopict.jpg" id="img-container">
+	@else
+		<img src="{{$kegiatans[0]->foto}}" id="img-container">
+	@endif
 @endsection
 
 @section('content-maincontent')
 				<div class="col-md-12 blue what-info">
 					<h4>Apa yang kamu dapatkan!
+						@if(Auth::user()->id == $kegiatans[0]->leader)
 						<span class="float-me-right"> 
 							<a href="/post/edit/{{$kegiatans[0]->id}}">
           					<span class="glyphicon glyphicon-cog"></span>
         					</a>
         				</span>
+        				@endif
         			</h4>
 					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
 					<p class="what-submain">Didampingi oleh Guide secara langsung</p>
@@ -118,16 +125,21 @@
 						<p>
 							${{$kegiatan->budget}}
 						</p>
+						@if ($kegiatan->leader==Auth::user()->id)
 						<button class="btn apply-btn float-me-right" onclick="cancelmypost({{$kegiatans[0]->id}})">
 							Batalkan Rencana
 						</button>
+						@else
+						<button class="btn apply-btn float-me-right" onclick="batalikut({{$kegiatans[0]->id}},{{Auth::user()->id}})">Batal Ikut
+						</button>
+						@endif
 					</div>
 					<div class="col-md-12">
 						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> 
 							@if(count($pesertas)!=0){{$pesertas[0]->jumlah}}@elseif(count($pesertas)==0) 0 @endif Wisatawan & @if(count($guides)!=0){{$guides[0]->jumlah}}@elseif(count($guides)==0) 0 @endif  Guide</p>
 					</div>
 					<div class="col-md-12">
-						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> {{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}}</p>
+						<p class="main-info-content" id="date"><span class="glyphicon glyphicon-time"></span> {{date('Y-m-d',strtotime($kegiatan->mulai))}} - {{date('Y-m-d',strtotime($kegiatan->selesai))}}</p>
 					</div>
 					<div class="col-md-12">
 						<p class="main-info-content" id="place"><span class="glyphicon glyphicon-map-marker"></span> Main City : {{$lokasis[0]->nama}}</p>
@@ -153,9 +165,16 @@
 		location.href="/post/user/"+id;
 	}
 
+
 	function cancelmypost(id){
 		if(confirm("Apakah anda yakin?")){
 			location.href="/post/cancel/"+id;
+		}
+	}
+
+	function batalikut(id,user){
+		if(confirm("Apakah anda yakin?")){
+			location.href='/post/'+id+/batal/+user;
 		}
 	}
 </script>

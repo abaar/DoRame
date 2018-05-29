@@ -13,27 +13,11 @@
 
 
 @section('content-postimg')
-	@if($detil[0]->foto==null)
-		<img src="/img/nopict.jpg" id="img-container">
-	@else
-		<img src="{{$detil[0]->foto}}" id="img-container">
-	@endif
+<img src="/img/1.jpg" id="img-container">
 @endsection
 
 @section('content-maincontent')
 				<div class="col-md-12 comment-section">
-					<div>
-						<form>
-							<div class="form-group">
-								<label class="sr-only">Komentar</label>
-								<textarea class="form-control" rows="2" id="komentar" placeholder="Komentar..." onkeyup="textAreaAdjust(this)" style="overflow:hidden"></textarea>
-							</div>
-							<div class="form-group">
-								<label class="sr-only">submit</label>
-								<input type="submit" name="submit" class="form-control">
-							</div>
-						</form>
-					</div>
 					<!-- end of comment container -->
 
 
@@ -56,6 +40,10 @@
 						</div>
 					</div>					
 					@endforeach
+
+					@if(count($diskusis)==0)
+					<p>Belum ada Diskusi!</p>
+					@endif
 				</div>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog" style="top:40%">
@@ -104,14 +92,15 @@
 						<p>
 							${{$detil[0]->budget}}
 						</p>
-						@if($detil[0]->leader==Auth::user()->id)
-						<button class="btn apply-btn float-me-right" onclick="cancelmypost({{$detil[0]->id}})">
-							Batalkan Rencana
-						</button>
-						@else
-						<button class="btn apply-btn float-me-right" onclick="batalikut({{$detil[0]->id}},{{Auth::user()->id}})">Batal Ikut
-						</button>
-						@endif
+							@if($detil[0]->public)
+								<button class="btn apply-btn float-me-right" onclick="daftart('{{$logedin}}',{{$detil[0]->id}})">
+									Daftar Jadi Turis!
+								</button>
+							@elseif($detil[0]->needguide)
+								<button class="btn apply-btn float-me-right" onclick="daftarg('{{$logedin}}',{{$detil[0]->id}})">
+									Daftar Jadi Guide!
+								</button>
+							@endif
 					</div>
 					<div class="col-md-12">
 						<p class="main-info-content" id="wisata"><span class="glyphicon glyphicon-user"></span> @if(count($pesertas)!=0){{$pesertas[0]->jumlah}}@elseif(count($pesertas)==0) 0 @endif Wisatawan & @if(count($guides)!=0){{$guides[0]->jumlah}}@elseif(count($guides)==0) 0 @endif  Guide</p>
@@ -172,16 +161,5 @@
 		location.href="/post/user/"+id;
 	}
 
-	function cancelmypost(id){
-		if(confirm("Apakah anda yakin?")){
-			location.href="/post/cancel/"+id;
-		}
-	}
-
-	function batalikut(id,user){
-		if(confirm("Apakah anda yakin?")){
-			location.href='/post/'+id+/batal/+user;
-		}
-	}
 </script>
 @endsection

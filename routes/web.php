@@ -88,3 +88,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user/{user}', 'UserController@show');
+
+Route::get('/post/{id}/regist/turis/{username}',['uses'=>'PesertaKegiatanController@daftarturis'])->middleware('auth');
+
+Route::get('/post/{id}/regist/guide/{username}',['uses'=>'PesertaKegiatanController@daftarguide'])->middleware('auth');
+
+Route::get('/post/{id}/batal/{user}',['uses'=>'PesertaKegiatanController@batalikut']);
+
+Route::get('/post/cancel/{id}',['uses'=>'KegiatanController@cancel']);

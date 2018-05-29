@@ -99,7 +99,7 @@ class KegiatanController extends Controller
         $getKegiatans = DB::table('kegiatans')
             ->join('lokasi_kegiatans','kegiatans.id','=','lokasi_kegiatans.idKegiatan')
             ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
-            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.needguide','kegiatans.public')
+            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.needguide','kegiatans.public','kegiatans.foto')
             ->Distinct()
             ->where('kegiatans.budget','<',$budget)
             ->where('kegiatans.status','=',1)
@@ -140,7 +140,7 @@ class KegiatanController extends Controller
             ->get();
         $logedin='no';
         if (Auth::check()){
-            $logedin=Auth::user()->username;
+            $logedin=Auth::user()->id;
         }
         return view('searchpage',compact('getKegiatans','realdest','pesertas','guides','logedin'));
         
@@ -148,7 +148,7 @@ class KegiatanController extends Controller
 
     public function showpost($id){
         $kegiatans = DB::table('kegiatans')
-            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.documbyguide','kegiatans.negoable')
+            ->select('kegiatans.id as id' ,'kegiatans.nama','kegiatans.deskripsi','kegiatans.budget','kegiatans.mulai','kegiatans.selesai','kegiatans.documbyguide','kegiatans.negoable','kegiatans.leader','kegiatans.public','kegiatans.foto','kegiatans.needguide')
             ->where('kegiatans.id','=',$id)
             ->get();
 
@@ -176,9 +176,23 @@ class KegiatanController extends Controller
             ->where('lokasi_kegiatans.idKegiatan','=',$id)
             ->get();
 
+        $daftarpesertas = DB::table('peserta_kegiatans')
+            ->select('idUser')
+            ->where('idKegiatan','=',$id)
+            ->get();
 
-        //var_dump($kegiatans);
-        return view('post.postowner',compact('kegiatans','pesertas','guides','lokasis'));
+        if(Auth::check()){
+            $logedin=Auth::user()->id;
+            foreach ($daftarpesertas as $ygikut) {
+                if ($ygikut->idUser == $logedin){
+                    return view('post.postowner',compact('kegiatans','pesertas','guides','lokasis','logedin'));                    
+                }
+            }
+            
+            return view('post.postpublic',compact('kegiatans','pesertas','guides','lokasis','logedin'));
+        }
+        $logedin='no';
+        return view('post.postpublic',compact('kegiatans','pesertas','guides','lokasis','logedin'));
     }
 
     public function editpost($id){
@@ -194,5 +208,26 @@ class KegiatanController extends Controller
             ->get();
 
         return view('post.postedit',compact('detil_kegiatans','detil_lokasis'));
+    }
+
+    public function cancel($id){
+        $detil=DB::table('kegiatans')
+        ->select('kegiatans.leader')
+        ->where('kegiatans.id','=',$id)
+        ->get();
+
+        if($detil[0]->id==Auth::user()->id){
+            Kegiatan::where('id','=',$id)->delete();
+            return redirect('/index');
+        }
+    }
+    public function showhistory(){
+        $data = DB::table('histories')
+        ->join('kegiatans','kegiatans.id','=','histories.idKegiatan')
+        ->select('*')->where('email_user','=',Auth::user()->email)->get();
+
+
+        return view('profile.history',compact('data'));
+
     }
 }
