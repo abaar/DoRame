@@ -18,6 +18,8 @@
                 <li class="{{(\Request::is('trip*'))?' active':''}}"><a href="/trip">Trip</a></li>
                 <li class="{{(\Request::is('timeline*'))?' active':''}}"><a href="/timeline">Timeline</a></li>
             </ul>
+            @guest
+            @else
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, {{Auth::user()->namaDepan}} <span class="caret"></span></a>
@@ -31,6 +33,7 @@
                     </ul>
                 </li>
             </ul>
+            @endguest
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

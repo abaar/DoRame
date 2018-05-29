@@ -191,10 +191,12 @@
 
 @section('script')
 <script>
-	$("#startdate").datepicker();
-	$("#enddate").datepicker();
-	$("#startdate").disableAutoFill();
-	$("#enddate").disableAutoFill();
+	$("#startdate").datepicker({
+		format:'yyyy-mm-dd'
+	});
+	$("#enddate").datepicker({
+		format:'yyyy-mm-dd'
+	});
 //kalau end dipiih duluan dan ternyata > start pas dipilih belum
 // var start_date=$("stardate").val();
 // var flag_date=0;

@@ -19,11 +19,11 @@ class CreateKegiatansTable extends Migration
             $table->text('deskripsi');
             $table->integer('leader')->unsigned();
             $table->boolean('needguide');
-
+            $table->string('foto')->nullable()->default(null);
             $table->boolean('documbyguide');
             $table->boolean('negoable');
             $table->boolean('public');
-        
+            
             $table->integer('status');
             $table->integer('budget');
             $table->datetime('mulai');

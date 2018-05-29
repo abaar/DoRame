@@ -21,7 +21,7 @@ Route::get('/index',function(){
 
 Route::get('/regist',function(){
 	return view('regist');
-});
+})->middleware('guest');
 
 Route::get('/search','KegiatanController@search');
 

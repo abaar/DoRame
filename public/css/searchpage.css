@@ -81,6 +81,13 @@
 	font-weight: 600;
 }
 
+.post-title{
+	cursor: pointer;
+}
+
+.post-title:hover{
+	text-decoration: underline;
+}
 .post-cost{
 	font-size: 1.5em;
 	margin-right: 1%;

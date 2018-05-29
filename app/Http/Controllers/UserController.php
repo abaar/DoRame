@@ -10,10 +10,7 @@ use Hash;
 use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,16 +41,18 @@ class UserController extends Controller
     {
         //
         $rules=array(
-            'username' => ['required','regex:/^[a-zA-Z0-9]+\Z/'],
+            'username' => ['required','unique:users','regex:/^[a-zA-Z0-9]+\Z/'],
             'namaDepan' => 'required',
             'namaBelakang' =>'required',
             'password' =>'required|min:8',
             'repassword' => 'required|
             same:password',
-            'email' => 'required|email',
+            'email' => 'required|unique:users|email',
             'asalkota' => 'required');
 
        $messages =array(
+        'username.unique' => ':attribute telah dipakai!',
+        'email.unique' => ':attribute telah dipakai!',
         'required' =>'Kolom :attribute wajib diisi!',
         'username.regex' =>'Username hanya boleh terdiri dari Alphanumeric!',
         'password.min' => 'Password minimal 8 karakter!',
@@ -78,7 +77,8 @@ class UserController extends Controller
 
             try {
               $data->save();
-              return "Daftar sukses";
+              Auth::loginUsingId($data->username);
+              return redirect('/myprofile/edit');
             } catch (\Illuminate\Database\QueryException $e) {
                 $msg = "Username / Email sudah terdaftar!";
                 return view('regist',compact('msg'));

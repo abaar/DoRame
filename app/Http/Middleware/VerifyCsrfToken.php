@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         '/regist/insert',
-        'post/create/insert'
+        '/post/create/insert',
+        ''
     ];
 }

@@ -8,16 +8,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand nav-content" href="#" style="color : white; font-size: 1.5em;"">Dorame</a>
+      <a class="navbar-brand nav-content" href="#" style="color : white; font-size: 1.5em;">Dorame</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      @guest
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#" data-toggle="modal" data-target="#myModal" class="nav-content" style="color : white; font-size: 1.5em;">Login</a></li>
 
             <li><a href="#" class="nav-content" style="color : white; font-size: 1.5em;">Get Started</a></li>
         </ul>
+      @else
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/myprofile/edit" class="nav-content" style="color : white; font-size: 1.5em;">Halo, {{Auth::user()->namaDepan}}</a></li>
+
+            <li><a href="/logout" class="nav-content" style="color : white; font-size: 1.5em;">Logout</a></li>
+        </ul>
+      @endguest
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

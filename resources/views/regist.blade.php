@@ -14,7 +14,7 @@
 	<div class="container-fluid boody">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 form-container">
-				<h2 style="text-align: center;" class="">Buat rencana kegiatanmu</h2>
+				<h2 style="text-align: center;" class="">Daftar dan Berpetualang!</h2>
 				<div class="col-md-2 col-md-offset-5" id="title-line">
 					
 				</div>

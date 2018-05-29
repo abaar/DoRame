@@ -36,11 +36,11 @@
 								</div>
 								<div class="form-group col-md-12">
 									<label class="sr-only">From</label>
-									<input type="text" class="form-control input-lg" value="" id="startdate">
+									<input type="text" class="form-control input-lg" name="startdate" value="" id="startdate">
 								</div>
 								<div class="form-group col-md-12">
 									<label class="sr-only">To</label>
-									<input type="text" class="form-control input-lg" value="" id="enddate">
+									<input type="text" class="form-control input-lg" name="enddate" value="" id="enddate">
 								</div>	
 								<div class="form-group col-md-12 col-xs-12">
 									<label class="sr-only">Submit</label>
@@ -52,13 +52,13 @@
 								<h4>Applying as : </h4>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="checkguide">
+										<input type="checkbox" name="checkguide" id="checkguide" value="guide" checked="">
 										Tour Guide
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="checkguide">
+										<input type="checkbox" name="checktouris" id="checktouris" checked value="turis">
 										Turis
 									</label>
 								</div>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="row" id="postingan-container">
 						@foreach($getKegiatans as $kegiatan)
-						<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}" onclick="redirect(this.id)">
+						<div class="col-md-12 outerpost-container" id="{{$kegiatan->id}}">
 							<div class="col-md-12 post-container" style="padding: 10px">
 								<div class="row">
 								<div class="col-md-4 post-image-container ">
@@ -89,7 +89,7 @@
 								</div>
 								<div class="col-md-8">
 									<div class="col-md-9 text-over ">
-										<h4 class="post-title">{{($kegiatan->nama)}}</h4>
+										<h4 class="post-title" onclick="redirect('{{$kegiatan->id}}')">{{($kegiatan->nama)}}</h4>
 									</div>
 									<div class="col-md-3 ">
 										<h5 class="post-cost">${{$kegiatan->budget}}</h5>
@@ -116,14 +116,14 @@
 											@endforeach
 											@if($found2==0)0 @endif
 										</p>
-										<p class="post-date">{{date('d-m-Y',strtotime($kegiatan->mulai))}} - {{date('d-m-Y',strtotime($kegiatan->selesai))}} </p>
+										<p class="post-date">{{date('Y-m-d',strtotime($kegiatan->mulai))}} - {{date('Y-m-d',strtotime($kegiatan->selesai))}} </p>
 									</div>
 									<div class="col-md-6 col-xs-12 no-padding">
 										@if($kegiatan->public==1)
-										<button class="btn turisbtn btn-content float-right">Daftar Turis</button>
+										<button class="btn turisbtn btn-content float-right" onclick="daftart('{{$logedin}}',{{$kegiatan->id}})">Daftar Turis</button>
 										@endif
 										@if($kegiatan->needguide==1)
-										<button class="btn guidebtn btn-content float-right">Daftar Guide</button>
+										<button class="btn guidebtn btn-content float-right" onclick="daftarg('{{$logedin}}',{{$kegiatan->id}})">Daftar Guide</button>
 										@endif
 									</div>
 								</div>								
@@ -152,10 +152,14 @@
 		location.href='/post/'+id;
 	}
 
-	$("#startdate").datepicker();
-	$("#enddate").datepicker();
-	$("#startdate").disableAutoFill();
-	$("#enddate").disableAutoFill();	
+	$("#startdate").datepicker({
+		format:'yyyy-mm-dd'
+	});
+	$("#enddate").datepicker({
+		format:'yyyy-mm-dd'
+	});
+
+
 	var last=0;
 	var len=0;
 	var js_budget=[];
@@ -165,9 +169,12 @@
 	var js_selesai=[];
 	var js_id=[];
 	var js_peserta=[];
+	var js_guide=[];
 	var js_daterange=[];
 	var js_needguide=[];
 	var js_public=[];
+	var public=1;
+	var guide=1;
 
 	$(document).ready(function(){
 		var post= document.getElementsByClassName('outerpost-container');
@@ -188,11 +195,11 @@
 		var post_cost=document.getElementsByClassName("post-cost");
 		var needguide='@foreach($getKegiatans as $kegiatan){{$kegiatan->needguide}}@endforeach';
 		var post_title=document.getElementsByClassName("post-title");	
-		var public ='@foreach($getKegiatans as $kegiatan){{$kegiatan->public}}@endforeach';
+		var publics ='@foreach($getKegiatans as $kegiatan){{$kegiatan->public}}@endforeach';
 		
 		for (var i=0; i<post_len; ++i){
 			js_needguide.push(needguide[i]);
-			js_public.push(public[i]);
+			js_public.push(publics[i]);
 			js_id.push(post[i].id);
 			js_nama.push(post_title[i].innerHTML);
 		}
@@ -233,12 +240,12 @@
 		}
 	});
 
-	$("#more-btn").click(function(){
+$("#more-btn").click(function(){
 		var post= document.getElementsByClassName('outerpost-container');
 		var post_len = post.length;
 		var bool=0;
 		for (var i=last; i<last+5;++i){
-			if (i+1==post_len){
+			if (i==post_len){
 				$("#more-btn").fadeOut();
 				$("#less-btn").fadeIn();
 				bool=1;
@@ -260,17 +267,77 @@
 		var post_len = post.length;
 
 		for (var i=post_len-1; i>=5; --i){
-			$("#"+post[i].id).fadeOut()
+			$("#"+post[i].id).fadeOut();
+			//alert("#"+post[i].id);
 		}
 		last=5;
 		$("#less-btn").fadeOut();
 		$("#more-btn").fadeIn();
 	});
 
+	$("#checktouris").change(function(){
+		if($(this).is(':checked')){
+			public=1;
+		}
+		else{
+			public=0;
+		}
+		$(".outerpost-container").fadeOut(200);
+		   	$(".outerpost-container").remove();
+		   	var targetappend=document.getElementById("postingan-container");
+		   	for (var i=0; i<len; ++i){
+		   		if (public==js_public[i] || guide==js_needguide[i]){
+		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title' onclick='redirect("+js_id[i]+")'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
+		   		if (js_public[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Turis</button>";
+		   		}
+		   		if (js_needguide[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Guide</button>";
+		   		}
+		   		hold+="</div></div></div></div></div>";
+		   		targetappend.innerHTML+=hold;
+		   		}
+		   	}
+		   	var postingansorted=document.getElementsByClassName("outerpost-container");
+		  	for(var i=0; i<5 ; ++i){
+			   $("#"+postingansorted[i].id).fadeIn("fast");
+			   $("#"+postingansorted[i].id).removeClass("unactive");		  		
+		  	} 	
+	});
+
+	$("#checkguide").change(function(){
+		if($(this).is(':checked')){
+			guide=1;
+		}
+		else{
+			guide=0;
+		}
+		$(".outerpost-container").fadeOut(200);
+		   	$(".outerpost-container").remove();
+		   	var targetappend=document.getElementById("postingan-container");
+		   	for (var i=0; i<len; ++i){
+		   		if (public==js_public[i] || guide==js_needguide[i]){
+		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title' onclick='redirect("+js_id[i]+")'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: "+js_peserta[i]+"</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
+		   		if (js_public[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Turis</button>";
+		   		}
+		   		if (js_needguide[i]=='1'){
+		   			hold+="<button class='btn btn-content float-right'>Daftar Guide</button>";
+		   		}
+		   		hold+="</div></div></div></div></div>";
+		   		targetappend.innerHTML+=hold;
+		   		}
+		   	}
+		   	var postingansorted=document.getElementsByClassName("outerpost-container");
+		  	for(var i=0; i<5 ; ++i){
+			   $("#"+postingansorted[i].id).fadeIn("fast");
+			   $("#"+postingansorted[i].id).removeClass("unactive");		  		
+		  	} 	
+	});
+
 	$("#sel1").change(function(){
-		var option=$(this).val();
+		var option=$("#sel1").val();
 		var today= new Date();
-		
 		if (option==2){
 			for (var i=0; i<len; ++i){
 				var idx=i;
@@ -354,7 +421,7 @@
 				js_id[i]=holder;
 			}
 		}
-		else if (option=4){
+		else if (option==4){
 			for (var i=0; i<len; ++i){
 				var idx=i;
 				for (var j=i+1; j<len;++j){
@@ -437,10 +504,11 @@
 			}
 		}
 		$(".outerpost-container").fadeOut(200);
-		   	$(".outerpost-container").remove();
+		$(".outerpost-container").remove();
 		   	var targetappend=document.getElementById("postingan-container");
 		   	for (var i=0; i<len; ++i){
-		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"' onclick='redirect(this.id)'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: 2</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
+		   		if (public==js_public[i] || guide==js_needguide[i]){
+		   		var hold="<div class='col-md-12 outerpost-container unactive' id='"+js_id[i]+"'><div class='col-md-12 post-container' style='padding: 10px'><div class='row'><div class='col-md-4 post-image-container'><img src='/img/1.jpg' class='post-image'></div><div class='col-md-8'><div class='col-md-9 text-over'><h4 class='post-title' onclick='redirect("+js_id[i]+")'>"+js_nama[i]+"</h4></div><div class='col-md-3'><h5 class='post-cost'>$"+js_budget[i]+"</h5></div><div class='col-md-12 border-top-grey text-over'><p class='post-desc'>"+js_desc[i]+"</p></div><div class='col-md-6 col-xs-12'><p class='post-ptcp'>Tourist / Guide Aplicants: "+js_peserta[i]+"</p><p class='post-date'>"+js_mulai[i]+" - "+js_selesai[i]+" </p></div><div class='col-md-6 col-xs-12 no-padding'>"
 		   		if (js_public[i]=='1'){
 		   			hold+="<button class='btn btn-content float-right'>Daftar Turis</button>";
 		   		}
@@ -449,14 +517,35 @@
 		   		}
 		   		hold+="</div></div></div></div></div>";
 		   		targetappend.innerHTML+=hold;
+		   		}
 		   	}
 		   	var postingansorted=document.getElementsByClassName("outerpost-container");
 		  	for(var i=0; i<5 ; ++i){
+		  		if (i==postingansorted.length) break;
 			   $("#"+postingansorted[i].id).fadeIn("fast");
 			   $("#"+postingansorted[i].id).removeClass("unactive");		  		
 		  	} 	
-
 	});
+
+	function daftart(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/turis/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+
+	}
+
+	function daftarg(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/guide/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+		
+	}
 
 </script>
 @endsection

@@ -10,6 +10,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\View;
+use Illuminate\Support\Facades\Auth;
 class KegiatanController extends Controller
 {
     /**
@@ -103,6 +104,9 @@ class KegiatanController extends Controller
             ->where('kegiatans.budget','<',$budget)
             ->where('kegiatans.status','=',1)
             ->where('lokasis.nama','LIKE',$dest)
+            ->where('kegiatans.mulai','>=',$startdate)
+            ->where('kegiatans.selesai','<=',$enddate)
+            ->orderBy('kegiatans.budget','ASC')
             ->get();
 
         $pesertas = DB::table('kegiatans')
@@ -113,6 +117,8 @@ class KegiatanController extends Controller
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.budget','<',$budget)
             ->where('lokasis.nama','LIKE',$dest)
+            ->where('kegiatans.mulai','>=',$startdate)
+            ->where('kegiatans.selesai','<=',$enddate)
             ->where('kegiatans.status','=',1)
             ->where('peserta_kegiatans.applyAsGuide','=',0)
             ->groupBy('kegiatans.id')
@@ -126,12 +132,17 @@ class KegiatanController extends Controller
             ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.budget','<',$budget)
             ->where('lokasis.nama','LIKE',$dest)
+            ->where('kegiatans.mulai','>=',$startdate)
+            ->where('kegiatans.selesai','<=',$enddate)
             ->where('kegiatans.status','=',1)
             ->where('peserta_kegiatans.applyAsGuide','=',1)
             ->groupBy('kegiatans.id')
             ->get();
-  
-        return view('searchpage',compact('getKegiatans','realdest','pesertas','guides'));
+        $logedin='no';
+        if (Auth::check()){
+            $logedin=Auth::user()->username;
+        }
+        return view('searchpage',compact('getKegiatans','realdest','pesertas','guides','logedin'));
         
     }
 
