@@ -15,6 +15,6 @@ class VerifyCsrfToken extends Middleware
         //
         '/regist/insert',
         '/post/create/insert',
-        ''
+        '/post/*/discuss/insert'
     ];
 }

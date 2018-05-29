@@ -37,9 +37,19 @@ class KomentarKegiatanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //
+         if (Auth::check()){
+        $data = new komentarKegiatan();
+        $data->komentar=$request->komentar;
+        $data->idUser=Auth::user()->id;
+        $data->idKegiatan=$id;
+        $data->save();
+            return redirect('/post/discuss/'.$id);
+        }
+        else{
+            return redirect('/index');
+        }
     }
 
     /**
@@ -91,9 +101,10 @@ class KomentarKegiatanController extends Controller
         $diskusis= DB::table('komentar_kegiatans')
             ->join('kegiatans','kegiatans.id','=','komentar_kegiatans.idKegiatan')
             ->join('users','users.id','=','komentar_kegiatans.idUser')
-            ->select('users.namaDepan as nama','users.id as uid','users.foto','komentar_kegiatans.komentar','komentar_kegiatans.created_at as kapan','users.username','komentar_kegiatans.id as kid','kegiatans.foto')
+            ->select('users.namaDepan as nama','users.id as uid','users.foto','komentar_kegiatans.komentar','komentar_kegiatans.created_at as kapan','users.username','komentar_kegiatans.id as kid')
             ->Distinct()
             ->where('komentar_kegiatans.idKegiatan','=',$id)
+            ->orderBy('komentar_kegiatans.created_at','DESC')
             ->get();
 
         $detil=DB::table('kegiatans')
@@ -149,5 +160,11 @@ class KomentarKegiatanController extends Controller
         return view('post.postpubdiscuss',compact('diskusis','pesertas','guides','lokasis','detil','logedin'));
 
         return view('post.postdiscuss',compact('diskusis','pesertas','guides','lokasis','detil'));
+    }
+
+    public function deletedis($iddis){
+        $delete = komentarKegiatan::where('id','=',$iddis)->delete();
+
+        return redirect()->back();
     }
 }

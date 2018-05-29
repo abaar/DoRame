@@ -87,21 +87,20 @@ class PesertaKegiatanController extends Controller
 
     public function showpeserta($id){
         $users=DB::table('peserta_kegiatans')
-         ->join('users','users.email','=','peserta_kegiatans.email_user')
+         ->join('users','users.id','=','peserta_kegiatans.idUser')
          ->select('peserta_kegiatans.*','users.namaDepan as nama')
          ->Distinct()
          ->where('peserta_kegiatans.idKegiatan','=',$id)
          ->get();
         
         $detil=DB::table('kegiatans')
-            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget','kegiatans.leader','kegiatans.nama','kegiatans.public','kegiatans.doneguided')
+            ->select('kegiatans.id','kegiatans.mulai','kegiatans.selesai','kegiatans.budget','kegiatans.nama','kegiatans.foto','kegiatans.public','kegiatans.needguide','kegiatans.leader')
             ->where('kegiatans.id','=',$id)
             ->get();
-
         $pesertas = DB::table('kegiatans')
             ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
-            ->join('users','users.email','=','peserta_kegiatans.email_user')
-            ->select(DB::raw('count(peserta_kegiatans.email_user) as jumlah,kegiatans.id as id'))
+            ->join('users','users.email','=','peserta_kegiatans.idUser')
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.id','=',$id)
             ->where('peserta_kegiatans.applyAsGuide','=',0)
             ->groupBy('kegiatans.id')
@@ -109,21 +108,21 @@ class PesertaKegiatanController extends Controller
         
         $guides = DB::table('kegiatans')
             ->join('peserta_kegiatans','peserta_kegiatans.idKegiatan','=','kegiatans.id')
-            ->join('users','users.email','=','peserta_kegiatans.email_user')    
-            ->select(DB::raw('count(peserta_kegiatans.email_user) as jumlah,kegiatans.id as id'))
+            ->join('users','users.email','=','peserta_kegiatans.idUser')    
+            ->select(DB::raw('count(peserta_kegiatans.idUser) as jumlah,kegiatans.id as id'))
             ->where('kegiatans.id','=',$id)
             ->where('peserta_kegiatans.applyAsGuide','=',1)
             ->groupBy('kegiatans.id')
             ->get();
         
-        $lokasis = DB::table('bertempats')
-            ->join('lokasis','bertempats.idLokasi','=','lokasis.id')
+        $lokasis = DB::table('lokasi_kegiatans')
+            ->join('lokasis','lokasi_kegiatans.idLokasi','=','lokasis.id')
             ->select('lokasis.nama as nama','lokasis.id as id')
-            ->where('bertempats.idKegiatan','=',$id)
+            ->where('lokasi_kegiatans.idKegiatan','=',$id)
             ->get();
 
         $pesertas2=DB::table('peserta_kegiatans')
-            ->select('email_user')
+            ->select('idUser')
             ->where('idKegiatan','=',$id)
             ->get();
 
@@ -135,7 +134,7 @@ class PesertaKegiatanController extends Controller
             else{
                 $logedin=Auth::user()->email;
                 foreach ($pesertas2 as $ygikut) {
-                    if ($ygikut->email_user == $logedin){
+                    if ($ygikut->idUser == $logedin){
                         return view('post.postpubapplicant',compact('users','detil','pesertas','guides','lokasis','logedin'));             
                     }   
                 }

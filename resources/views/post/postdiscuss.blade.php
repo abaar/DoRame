@@ -23,10 +23,10 @@
 @section('content-maincontent')
 				<div class="col-md-12 comment-section">
 					<div>
-						<form>
+						<form method="post" action="/post/{{$detil[0]->id}}/discuss/insert">
 							<div class="form-group">
 								<label class="sr-only">Komentar</label>
-								<textarea class="form-control" rows="2" id="komentar" placeholder="Komentar..." onkeyup="textAreaAdjust(this)" style="overflow:hidden"></textarea>
+								<textarea class="form-control" rows="2" id="komentar" name="komentar" placeholder="Komentar..." onkeyup="textAreaAdjust(this)" style="overflow:hidden"></textarea>
 							</div>
 							<div class="form-group">
 								<label class="sr-only">submit</label>
@@ -42,7 +42,12 @@
 					@foreach($diskusis as $diskusi)
 					<div>
 						<div class="col-md-1 img-comment-cont" style="">
-							<img src="/img/1.jpg" class="img-comment">
+							@if($diskusi->foto==null)
+							<img src="/img/defaultava.jpg" class="img-comment">
+							@else
+							<img src="/storage/img/{{$diskusi->foto?:'defaultava.jpg'}}" class="img-comment">
+							@endif
+
 						</div>
 						<div class="col-md-11 inline-block" style="">
 							<p><span class="comment-user"><a class="float-me-left" href="/user/{{$diskusi->uid}}">{{$diskusi->nama}}</a></span> {{$diskusi->kapan}}</p>
@@ -52,7 +57,9 @@
 						</div>
 						<div class="col-md-11 col-md-offset-1 inline-block comment-footer-cont" id="akbarnoto">
 							<p class="float-me-left comment-footer" id="{{$diskusi->username}}" onclick="komenme(this.id)">Reply</p>
+							@if(Auth::user()->id==$diskusi->uid)
 							<p class="float-me-left comment-footer" id="{{$diskusi->kid}}" onclick="deleteme(this.id)">Delete</p>
+							@endif
 						</div>
 					</div>					
 					@endforeach
@@ -180,7 +187,7 @@
 
 	function batalikut(id,user){
 		if(confirm("Apakah anda yakin?")){
-			location.href='/post/'+id+/batal/+user;
+			location.href='/post/'+id+'/batal/'+user;
 		}
 	}
 </script>

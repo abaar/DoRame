@@ -19,6 +19,7 @@
                 <li class="{{(\Request::is('timeline*'))?' active':''}}"><a href="/timeline">Timeline</a></li>
             </ul>
             @guest
+            
             @else
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

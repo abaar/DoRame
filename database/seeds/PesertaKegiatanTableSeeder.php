@@ -11,7 +11,7 @@ class PesertaKegiatanTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\PesertaKegiatan::class,1000)->create();
+    	factory(App\PesertaKegiatan::class,100)->create();
         //
     }
 }

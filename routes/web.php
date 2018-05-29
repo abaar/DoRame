@@ -101,3 +101,8 @@ Route::get('/post/{id}/regist/guide/{username}',['uses'=>'PesertaKegiatanControl
 Route::get('/post/{id}/batal/{user}',['uses'=>'PesertaKegiatanController@batalikut']);
 
 Route::get('/post/cancel/{id}',['uses'=>'KegiatanController@cancel']);
+
+Route::get('/post/discuss/delete/{iddis}',['uses'=>'KomentarKegiatanController@deletedis']);
+
+
+Route::post('/post/{id}/discuss/insert',['uses'=>'KomentarKegiatanController@store']);

@@ -26,7 +26,7 @@
 					@foreach($diskusis as $diskusi)
 					<div>
 						<div class="col-md-1 img-comment-cont" style="">
-							<img src="/img/1.jpg" class="img-comment">
+							<img src="{{$diskusi->foto}}"  class="img-comment">
 						</div>
 						<div class="col-md-11 inline-block" style="">
 							<p><span class="comment-user"><a class="float-me-left" href="/user/{{$diskusi->uid}}">{{$diskusi->nama}}</a></span> {{$diskusi->kapan}}</p>
@@ -120,35 +120,6 @@
 @section('script-post')
 <script type="text/javascript">
 
-	
-	function deleteme(me){
-		if (confirm("Apakah anda yakin?")){
-			location.href='/post/discuss/delete/'+me;
-		}
-	}
-	function komenme(me){
-		var txtarea=document.getElementById("komentar");
-		$("")
-		var start=txtarea.selectionStart;
-		var end = txtarea.selectionEnd;
-		var sel = txtarea.value.substring(start,end);
-		var idlength = me.length;
-		var id='';
-		for (var i =0; i < idlength-4; i++) {
-			id=id+me[i];
-		}
-		id=id+' ';
-		
-		var finText = '@'+id;
-		 txtarea.value = finText;
-  		txtarea.focus();
-  		txtarea.selectionEnd= end + idlength+1;
-	}
-	function textAreaAdjust(o) {
-	  o.style.height = "1px";
-	  o.style.height = (25+o.scrollHeight)+"px";
-	}
-
 	function info(id){
 		location.href='/post/'+id;
 	}
@@ -159,6 +130,26 @@
 
 	function user(id){
 		location.href="/post/user/"+id;
+	}
+
+	function daftart(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/turis/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+
+	}
+
+	function daftarg(oleh,ke){
+		if (oleh!='no'){
+		location.href='/post/'+ke+'/regist/guide/'+oleh;
+		}
+		else{
+			location.href='/home';
+		}
+		
 	}
 
 </script>
