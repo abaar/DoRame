@@ -20,4 +20,8 @@ class dokumentasiKegiatan extends Model
 		return $this->hasMany('App\komentarDokumentasiKegiatan', 'idDokumentasi');
 	}
 
+    public function fotoDokumentasi(){
+        return $this->hasMany('App\fotoDokumentasi', 'idDokumentasi');
+    }
+
 }

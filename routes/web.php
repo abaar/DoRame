@@ -58,7 +58,7 @@ Route::get('/post/user/{id}',['uses'=>'PesertaKegiatanController@showpeserta']);
 Route::post('/regist/insert','UserController@store');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user/{user}', 'UserController@show');
 
@@ -66,7 +66,7 @@ Route::get('/user/{user}', 'UserController@show');
 Route::get('/journey/create', function(){
     return view('dokumentasi.create');
 });
-Route::post('/journey/create', 'DokumentasiKegiatanController@dummy');
+Route::post('/journey/create/{kegiatan}', 'DokumentasiKegiatanController@store');
 
 Route::get('/journey', 'DokumentasiKegiatanController@index');
 
