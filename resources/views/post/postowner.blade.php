@@ -29,6 +29,11 @@
           					<span class="glyphicon glyphicon-cog"></span>
         					</a>
         				</span>
+        				<span>
+        					<a href="/journey/create">
+        						<span class="glyphicon glyphicon-book"></span>
+        					</a>
+        				</span>
         				@endif
         			</h4>
 					<p class="what-main"><span class="glyphicon glyphicon-briefcase"></span> Live Competent Guide</p>
