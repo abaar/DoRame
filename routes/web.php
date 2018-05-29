@@ -45,9 +45,7 @@ Route::get('/post/create',function(){
 
 
 
-Route::get('/location',function(){
-	return view('lokasi.location');
-});
+Route::get('/lokasi/{id}',['uses'=>'LokasiController@showlokasikomen']);
 
 Route::get('/post/{id}',['uses'=>'KegiatanController@showpost']);
 
@@ -88,3 +86,7 @@ Route::post('/post/{id}/discuss/insert',['uses'=>'KomentarKegiatanController@sto
 Route::post('/post/create/insert','KegiatanController@store');
 
 Route::post('/post/edit/insert/{id}',['uses'=>'KegiatanController@update']);
+
+Route::post('/lokasi/discuss/{id}',['uses'=>'KomentarLokasiController@store']);
+
+Route::get('/lokasi/discuss/delete/{id}',['uses'=>'KomentarLokasiController@deletekomentar']);

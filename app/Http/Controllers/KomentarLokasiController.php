@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\komentarlokasi;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class KomentarLokasiController extends Controller
 {
     /**
@@ -33,9 +33,15 @@ class KomentarLokasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        //
+        $data = new komentarLokasi();
+        $data->komentar=$request->komentar;
+        $data->idLokasi=$id;
+        $data->idUser=Auth::user()->id;
+        $data->save();
+
+        return redirect('/lokasi/'.$id);
     }
 
     /**
@@ -81,5 +87,10 @@ class KomentarLokasiController extends Controller
     public function destroy(komentar_lokasi $komentar_lokasi)
     {
         //
+    }
+
+    public function deletekomentar($id){
+        komentarLokasi::where('id','=',$id)->delete();
+        return redirect()->back();
     }
 }

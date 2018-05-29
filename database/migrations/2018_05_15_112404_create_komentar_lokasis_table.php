@@ -14,6 +14,7 @@ class CreateKomentarLokasisTable extends Migration
     public function up()
     {
         Schema::create('komentar_lokasis', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('idLokasi')->unsigned();
             $table->integer('idUser')->unsigned();
             $table->string('komentar');

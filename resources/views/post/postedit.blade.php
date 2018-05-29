@@ -36,6 +36,7 @@
 				            @endif
 				        </ul>
 				    </div>
+				<!-- kalau ada eror biar return oldnya -->
 				<form enctype="multipart/form-data" action="{{url('/post/edit/insert',$detil_kegiatans[0]->id)}}" method="post">
 					<div class="form-group row">
 						<div class="col-md-2 col-md-offset-1">
@@ -91,6 +92,15 @@
 				  		</div>
 				  	</div>
 				  	<div class="form-group row">
+				  		<div class="col-md-2 col-md-offset-1">
+					  		<label class="">Foto</label>		
+				  		</div>
+				  		<div class="col-md-7 col-md-offset-1 input-container">
+				  			<input type="file" name="foto" value="{{$detil_kegiatans[0]->foto}}">				  			
+				  		</div>
+				  		
+				  	</div>
+				  	<div class="form-group row">
 				  		<div id="lokasi-container">
 					  		<div class="col-md-2 col-md-offset-1">
 					  			<label>Lokasi</label>
@@ -142,6 +152,27 @@
 					</div>
 
 				</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<!-- Kalau gak ada eror -->
 				 @else
 				<form enctype="multipart/form-data" action="{{url('/post/edit/insert',$detil_kegiatans[0]->id)}}" method="post">
 					<div class="form-group row">
@@ -243,17 +274,26 @@
 							</label>
 						</div>				  		
 				  	</div>
-					<div class="form-group col-md-2 col-md-offset-5">
+					<div class="form-group col-md-2 col-md-offset-4">
 						<label class="sr-only">Simpan</label>
 						<input type="submit" name="kirim" value="Simpan" class="btn btn-success form-control">
 					</div>
 				</form>
+
 				@endif
+					<div class="form-group col-md-2">
+						<label class="sr-only">Batal</label>
+						<input type="submit" name="kirim" value="Batal" class="btn btn-danger form-control" onclick="back({{$detil_kegiatans[0]->id}})">
+					</div>
 			</div>
 		</div>
 	</div>
 @endsection
 <script type="text/javascript">
+
+	function back(id){
+		location.href='/post/'+id;
+	}
 	var first=1;
 	var counter=1;
 	var last=1;

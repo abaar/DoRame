@@ -232,7 +232,7 @@ class KegiatanController extends Controller
             'selesai'=> $request->enddate,
             'documbyguide'=>$docum,
             'negoable'=>$nego
-        );
+        ]);
 
         return redirect('/post/'.$id);
     }

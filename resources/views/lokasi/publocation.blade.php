@@ -32,14 +32,14 @@
 				</div>
 				<div class="col-md-12 comment-section">
 					<div>
-						<form method="post" action="{{url('/lokasi/discuss',$data[0]->id)}}">
+						<form>
 							<div class="form-group">
 								<label class="sr-only">Komentar</label>
-								<textarea class="form-control" rows="3" id="komentar" placeholder="Komentar..." name="komentar"></textarea>
+								<textarea class="form-control" rows="3" id="komentar" placeholder="Komentar..." disabled="">Login untuk berkomentar</textarea>
 							</div>
 							<div class="form-group">
 								<label class="sr-only">submit</label>
-								<input type="submit" name="submit" class="form-control">
+								<input type="submit" name="submit" class="form-control" disabled="">
 							</div>
 						</form>
 					</div>
@@ -51,11 +51,7 @@
 					@foreach($komentar as $k)
 					<div>
 						<div class="col-md-1 img-comment-cont" style="">
-							@if($k->foto==null)
-							<img src="/img/defaultava.jpg" class="img-comment">
-							@else
-							<img src="/storage/img/{{$k->foto?:'defaultava.jpg'}}" class="img-comment">
-							@endif
+							<img src="/img/1.jpg" class="img-comment">
 						</div>
 						<div class="col-md-11 inline-block" style="">
 							<p><span class="comment-user"><a class="float-me-left" href="#">{{$k->namaDepan}}</a></span> {{$k->created_at}}</p>
@@ -64,10 +60,8 @@
 							<p>{{$k->komentar}}</p>
 						</div>
 						<div class="col-md-11 col-md-offset-1 inline-block comment-footer-cont" id="akbarnoto">
-							<p class="float-me-left comment-footer" id="{{$k->username}}" onclick="komenme(this.id)">Reply</p>
-							@if(Auth::user()->id==$k->uid)
-							<p class="float-me-left comment-footer" id="{{$k->kid}}" onclick="deleteme(this.id)">Delete</p>
-							@endif
+							<p class="float-me-left comment-footer" id="akbarnoto_rep" onclick="komenme(this.id)">Reply</p>
+							<p class="float-me-left comment-footer" id="akbarnoto_del">Delete</p>
 						</div>
 					</div>
 					@endforeach
@@ -119,11 +113,6 @@
 		 txtarea.value = finText;
   		txtarea.focus();
   		txtarea.selectionEnd= end + idlength+1;
-	}
-	function deleteme(me){
-		if (confirm("Apakah anda yakin?")){
-			location.href='/lokasi/discuss/delete/'+me;
-		}
 	}
 </script>
 
