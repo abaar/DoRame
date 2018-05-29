@@ -92,7 +92,8 @@ class DokumentasiKegiatanController extends Controller
      */
     public function show(dokumentasiKegiatan $dokumentasiKegiatan)
     {
-        return view('dokumentasi.show', compact('dokumentasiKegiatan'));
+        $post = $dokumentasiKegiatan;
+        return view('dokumentasi.show', compact('post'));
     }
 
     /**

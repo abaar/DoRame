@@ -70,6 +70,8 @@ Route::post('/journey/create/{kegiatan}', 'DokumentasiKegiatanController@store')
 
 Route::get('/journey', 'DokumentasiKegiatanController@index');
 
+Route::get('/journey/{id}', 'DokumentasiKegiatanController@show');
+
 Route::get('/post/{id}/regist/turis/{username}',['uses'=>'PesertaKegiatanController@daftarturis'])->middleware('auth');
 
 Route::get('/post/{id}/regist/guide/{username}',['uses'=>'PesertaKegiatanController@daftarguide'])->middleware('auth');
