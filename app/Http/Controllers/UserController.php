@@ -78,7 +78,7 @@ class UserController extends Controller
 
             try {
               $data->save();
-              return "Daftar sukses";
+              return view('profile.index');
             } catch (\Illuminate\Database\QueryException $e) {
                 $msg = "Username / Email sudah terdaftar!";
                 return view('regist',compact('msg'));
@@ -175,7 +175,7 @@ class UserController extends Controller
 //        $idUser = Auth::user()->id;
         $trips = DB::table('peserta_kegiatans')
 //            ->select('peserta_kegiatans.*')
-            ->where('peserta_kegiatans.idUser', '=', 10)
+            ->where('peserta_kegiatans.idUser', '=', Auth::id())
             ->where('peserta_kegiatans.isVerified', '=', '1')
             ->join('kegiatans', 'kegiatans.id', '=', 'peserta_kegiatans.idKegiatan')
             ->join('users as lead', 'lead.id', '=', 'kegiatans.leader')

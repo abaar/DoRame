@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\dokumentasiKegiatan;
+use App\fotoDokumentasi;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class DokumentasiKegiatanController extends Controller
 {
     /**
@@ -14,7 +15,8 @@ class DokumentasiKegiatanController extends Controller
      */
     public function index()
     {
-        //
+        $trips = dokumentasiKegiatan::all();
+        return view('dokumentasi.index', compact('trips'));
     }
 
     /**
@@ -35,16 +37,55 @@ class DokumentasiKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules=array(
+            'title' => 'required',
+            'story' =>'required',
+            'kegiatan' => 'required',
+            'foto' => 'image|nullable|max:1999');
+        $messages =array(
+            'required' =>'Kolom :attribute wajib diisi!',
+            'max' => 'Size foto melebihi batas 2MB'
+        );
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator);
+        }
+        $data = new dokumentasiKegiatan();
+        $data->idKegiatan = $request->kegiatan;
+        $data->idUser = Auth::id();
+        $data->judul = $request->story;
+        $data->save();
+
+        $kegiatan = DB::table('dokumentasi_kegiatans')->where('idKegiatan', '=', $request->kegiatan)->first();
+        $files = $request->file('foto');
+        $count = 1;
+        foreach ($files as $file){
+            $gambar = new fotoDokumentasi();
+            $gambar->idDokumentasi = $kegiatan->id;
+            $extension = $file->getClientOriginalExtension();
+            $fileNametoStore = 'journey'.$kegiatan->id.'.'.$count.'.'.$extension;
+            $path = $file->storeAs('public/img',$fileNametoStore);
+            $count++;
+            $gambar->foto = $fileNametoStore;
+            $gambar->save();
+        }
+        return redirect('/journey');
     }
 
+    public function dummy(Request $request)
+    {
+        $story = $request;
+        return view('dokumentasi.dummy', compact('story'));
+    }
     /**
      * Display the specified resource.
      *
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function show(dokumentasi_kegiatan $dokumentasi_kegiatan)
+    public function show(dokumentasiKegiatan $dokumentasiKegiatan)
     {
         //
     }
@@ -55,7 +96,7 @@ class DokumentasiKegiatanController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(dokumentasi_kegiatan $dokumentasi_kegiatan)
+    public function edit(dokumentasiKegiatan $dokumentasiKegiatan)
     {
         //
     }
@@ -67,7 +108,7 @@ class DokumentasiKegiatanController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, dokumentasi_kegiatan $dokumentasi_kegiatan)
+    public function update(Request $request, dokumentasiKegiatan $dokumentasiKegiatan)
     {
         //
     }
@@ -78,7 +119,7 @@ class DokumentasiKegiatanController extends Controller
      * @param  \App\dokumentasi_kegiatan  $dokumentasi_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dokumentasi_kegiatan $dokumentasi_kegiatan)
+    public function destroy(dokumentasiKegiatan $dokumentasiKegiatan)
     {
         //
     }

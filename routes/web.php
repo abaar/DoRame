@@ -11,17 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    });
+
+    Route::get('/index',function(){
+        return view('index');
+    });
+
+    Route::get('/regist',function(){
+        return view('regist');
+    });
 });
 
-Route::get('/index',function(){
-	return view('index');
-});
-
-Route::get('/regist',function(){
-	return view('regist');
-});
 
 Route::get('/search','KegiatanController@search');
 
@@ -93,3 +96,6 @@ Route::get('/user/{user}', 'UserController@show');
 Route::get('/journey/create', function(){
     return view('dokumentasi.create');
 });
+Route::post('/journey/create', 'DokumentasiKegiatanController@dummy');
+
+Route::get('/journey', 'DokumentasiKegiatanController@index');
