@@ -99,3 +99,5 @@ Route::get('/journey/create', function(){
 Route::post('/journey/create/{kegiatan}', 'DokumentasiKegiatanController@store');
 
 Route::get('/journey', 'DokumentasiKegiatanController@index');
+
+Route::get('/journey/{id}', 'DokumentasiKegiatanController@show');
