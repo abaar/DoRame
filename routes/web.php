@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/index',function(){
@@ -88,6 +88,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user/{user}', 'UserController@show');
+
+
+Route::get('/journey/create', function(){
+    return view('dokumentasi.create');
+});
 
 Route::get('/post/{id}/regist/turis/{username}',['uses'=>'PesertaKegiatanController@daftarturis'])->middleware('auth');
 
